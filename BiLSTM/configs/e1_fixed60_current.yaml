@@ -1,0 +1,16 @@
+# E1 ablation: fixed-60 data with the original E0 model.
+base_config: baseline.yaml
+
+experiment:
+  name: E1_fixed60_current_architecture
+
+sequence:
+  mode: fixed_60
+  length: 60
+  sampling: uniform  # implementation choice; paper does not specify resampling.
+
+outputs:
+  artifacts_dir: ./artifacts/E1_fixed60_current_architecture
+  split_dir: ./artifacts/splits/E1_fixed60_current_architecture
+  checkpoints_dir: ./checkpoints/E1_fixed60_current_architecture
+  runs_dir: ./runs/E1_fixed60_current_architecture

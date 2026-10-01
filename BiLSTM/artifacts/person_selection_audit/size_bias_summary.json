@@ -1,0 +1,40 @@
+{
+  "multi_candidate_frames": 254585,
+  "selected_is_smallest_count": 119054,
+  "selected_is_smallest_pct": 46.76394917218218,
+  "selected_to_runner_up_ratio_quantiles": {
+    "0": 0.027568821889021343,
+    "0.05": 0.5118277892730277,
+    "0.25": 0.6751169536206528,
+    "0.5": 0.7805022966241916,
+    "0.75": 0.9338762322849175,
+    "0.95": 1.4844823809553178,
+    "1": 30.946732708246373
+  },
+  "selected_to_smallest_ratio_quantiles": {
+    "0": 1.0,
+    "0.05": 1.0,
+    "0.25": 1.0,
+    "0.5": 1.0434088654636118,
+    "0.75": 1.6420143617684606,
+    "0.95": 3.8842116426830464,
+    "1": 308.8527526855469
+  },
+  "multi_candidate_initial_acquisitions": 1374,
+  "initial_selected_is_smallest_pct": 53.275109170305676,
+  "initial_size_prior_changed_quality_only_choice_count": 499,
+  "initial_size_prior_changed_quality_only_choice_pct": 36.317321688500726,
+  "initial_selected_valid_count_quantiles": {
+    "0": 2.0,
+    "0.05": 13.0,
+    "0.25": 20.0,
+    "0.5": 23.0,
+    "0.75": 24.0,
+    "0.95": 25.0,
+    "1": 25.0
+  },
+  "initial_selected_under_5_valid_joints_count": 20,
+  "initial_selected_under_10_valid_joints_count": 35,
+  "initial_selected_diagonal_under_50px_count": 31,
+  "definition": "diagonal of axis-aligned bbox over finite, nonzero joints with confidence >=0.1; runner-up is the best unselected candidate under the active objective"
+}

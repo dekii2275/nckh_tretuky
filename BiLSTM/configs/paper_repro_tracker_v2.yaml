@@ -1,0 +1,43 @@
+base_config: paper_repro.yaml
+
+# Geometry thresholds were chosen from the person-selection audit and a
+# class-stratified 100-clip candidate-survival check, never validation accuracy.
+tracking:
+  mode: tracklet_v2
+
+  candidate_filter:
+    min_valid_joints: 10
+    min_torso_anchors: 4
+    min_diagonal_px: 50.0
+
+  matching:
+    weights:
+      center: 0.40
+      pose: 0.35
+      scale: 0.20
+      confidence: 0.05
+
+  gating:
+    max_normalized_centroid_distance: 0.50
+    max_scale_ratio: 1.80
+    max_pose_distance: 0.35
+    min_shared_joints: 6
+
+  tracks:
+    max_lost_frames: 3
+
+  target_selection:
+    coverage_weight: 0.45
+    valid_joints_weight: 0.20
+    confidence_weight: 0.15
+    continuity_weight: 0.10
+    scale_stability_weight: 0.05
+    low_fragmentation_weight: 0.05
+    use_size_prior: false
+    size_prior_weight: 0.02
+
+outputs:
+  artifacts_dir: ./artifacts/paper_repro
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/tracker_v2_controlled
+  runs_dir: ./runs/tracker_v2_controlled

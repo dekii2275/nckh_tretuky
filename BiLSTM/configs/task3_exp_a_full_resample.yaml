@@ -1,0 +1,13 @@
+base_config: paper_repro_tracker_v2.yaml
+experiment: TASK3_EXP_A_full_clip_resample
+sequence:
+  mode: full_clip_resample
+  length: 60
+  short_clip_policy: interpolate
+training:
+  sampler: all_sequences
+outputs:
+  artifacts_dir: ./artifacts/sequence_task3/exp_a_full_resample
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/sequence_task3/exp_a_full_resample
+  runs_dir: ./runs/sequence_task3/exp_a_full_resample

@@ -1,0 +1,17 @@
+{
+  "confidence_threshold": 0.1,
+  "unambiguous_transition_count": 75,
+  "stable_index_reference_transition_count": 211597,
+  "baseline_definition": "primary=max(Q99.5 of raw-index-stable transitions, Q99.5 of both-adjacent-one-candidate transitions); neither establishes identity",
+  "quantile": 0.995,
+  "centroid_normalized_threshold": 0.16369050592184026,
+  "scale_abs_log_ratio_threshold": 0.34386551654901326,
+  "scale_ratio_equivalent": 1.4103889487800358,
+  "confidence_abs_jump_threshold": 0.12854418396949713,
+  "identity_switch_proxy": "adjacent to >=2 valid candidates and at least two of: centroid threshold exceeded, scale threshold exceeded, raw selected index changed",
+  "risk_rule": {
+    "HIGH": "identity_switch_proxy_count>0 OR no_person_ratio>=5%",
+    "MEDIUM": "not HIGH and any centroid/scale anomaly, missing selection, or raw-index change in a multi-person clip",
+    "LOW": "none of the preceding evidence"
+  }
+}

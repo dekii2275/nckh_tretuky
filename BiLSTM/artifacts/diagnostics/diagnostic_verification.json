@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "protected_experiment_config_source_files": 88,
+  "review_pages": 120,
+  "human_labels": 0,
+  "all_automatic_artifacts_consistent": true,
+  "training_performed": false,
+  "checks": [
+    "frozen runs/splits/source hashes",
+    "human labels remain blank; rates and subgroup metrics unavailable",
+    "10-class recall table and 80 top confusion rows",
+    "1374 preprocessing clips and pooled frame/joint denominators",
+    "283 validation rows with 275 predictions and 8 short-clip exclusions",
+    "120 preserved full-frame payloads and new labeling controls",
+    "external inventory consistency"
+  ],
+  "tests": "6 diagnostic tests passed; browser CSV roundtrip passed; clip and index render inspected in headless Chrome"
+}

@@ -1,0 +1,103 @@
+{
+  "experiments": [
+    {
+      "experiment": "S1_window60_stride60",
+      "status": "pass",
+      "device": "cuda",
+      "input_shape": [
+        22,
+        60,
+        25,
+        2
+      ],
+      "flattened_shape": [
+        22,
+        60,
+        50
+      ],
+      "logits_shape": [
+        22,
+        10
+      ],
+      "loss": 2.3054990768432617,
+      "parameter_breakdown": {
+        "BiLSTM": 579584,
+        "MHA": 263168,
+        "LayerNorm": 512,
+        "Projection": 16448,
+        "Classifier": 650,
+        "Total": 860362
+      },
+      "metadata_and_consecutive_frames": "pass",
+      "backward_and_optimizer_step": "pass",
+      "finite_gradients_parameters": "pass",
+      "leakage": "pass"
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "status": "pass",
+      "device": "cuda",
+      "input_shape": [
+        22,
+        60,
+        25,
+        2
+      ],
+      "flattened_shape": [
+        22,
+        60,
+        50
+      ],
+      "logits_shape": [
+        22,
+        10
+      ],
+      "loss": 2.306427001953125,
+      "parameter_breakdown": {
+        "BiLSTM": 579584,
+        "MHA": 263168,
+        "LayerNorm": 512,
+        "Projection": 16448,
+        "Classifier": 650,
+        "Total": 860362
+      },
+      "metadata_and_consecutive_frames": "pass",
+      "backward_and_optimizer_step": "pass",
+      "finite_gradients_parameters": "pass",
+      "leakage": "pass"
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "status": "pass",
+      "device": "cuda",
+      "input_shape": [
+        22,
+        60,
+        25,
+        2
+      ],
+      "flattened_shape": [
+        22,
+        60,
+        50
+      ],
+      "logits_shape": [
+        22,
+        10
+      ],
+      "loss": 2.3069918155670166,
+      "parameter_breakdown": {
+        "BiLSTM": 579584,
+        "MHA": 263168,
+        "LayerNorm": 512,
+        "Projection": 16448,
+        "Classifier": 650,
+        "Total": 860362
+      },
+      "metadata_and_consecutive_frames": "pass",
+      "backward_and_optimizer_step": "pass",
+      "finite_gradients_parameters": "pass",
+      "leakage": "pass"
+    }
+  ]
+}

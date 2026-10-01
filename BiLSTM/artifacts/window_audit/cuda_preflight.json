@@ -1,0 +1,7 @@
+{
+  "python": "3.11.16",
+  "pytorch": "2.14.0+cu130",
+  "torch_version_cuda": "13.0",
+  "cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+}

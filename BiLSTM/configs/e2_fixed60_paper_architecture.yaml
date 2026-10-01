@@ -1,0 +1,41 @@
+# E2 ablation: fixed-60 data with the paper architecture, using E0 split/training defaults.
+base_config: baseline.yaml
+
+experiment:
+  name: E2_fixed60_paper_architecture
+
+sequence:
+  mode: fixed_60
+  length: 60
+  sampling: uniform  # implementation choice; paper does not specify resampling.
+
+model:
+  type: paper_bilstm_attention
+  bilstm:
+    input_size: 50
+    hidden_size: 128
+    num_layers: 2
+    bidirectional: true
+  attention:
+    embed_dim: 256
+    num_heads: 4
+    dropout: 0.0  # implementation choice; paper does not specify attention dropout.
+  residual: true
+  layer_norm: true
+  pooling:
+    type: temporal_mean
+  projection:
+    in_features: 256
+    out_features: 64
+    activation: relu
+  dropout: 0.3
+  lstm_internal_dropout: 0.0  # implementation choice; paper does not specify it.
+  classifier:
+    in_features: 64
+    num_classes: 10
+
+outputs:
+  artifacts_dir: ./artifacts/E2_fixed60_paper_architecture
+  split_dir: ./artifacts/splits/E2_fixed60_paper_architecture
+  checkpoints_dir: ./checkpoints/E2_fixed60_paper_architecture
+  runs_dir: ./runs/E2_fixed60_paper_architecture

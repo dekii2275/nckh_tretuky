@@ -1,0 +1,24 @@
+{
+  "clips": 1374,
+  "frames": 254674,
+  "raw_multi_person_frames": 254585,
+  "raw_multi_person_pct": 99.96505336233773,
+  "valid_multi_candidate_frames": 254585,
+  "valid_multi_candidate_pct": 99.96505336233773,
+  "clips_with_identity_switch_proxy": 253,
+  "clips_with_identity_switch_proxy_pct": 18.41339155749636,
+  "risk_counts": {
+    "MEDIUM": 1043,
+    "HIGH": 253,
+    "LOW": 78
+  },
+  "risk_percentages": {
+    "MEDIUM": 75.90975254730714,
+    "HIGH": 18.41339155749636,
+    "LOW": 5.676855895196507
+  },
+  "selected_is_smallest_pct_multi_candidate_frames": 46.76394917218218,
+  "rgb_overlay_used": false,
+  "training_performed": false,
+  "source_config_data_modified": false
+}

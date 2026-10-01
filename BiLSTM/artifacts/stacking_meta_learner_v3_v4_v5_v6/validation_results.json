@@ -1,0 +1,29 @@
+{
+  "experiment": "stacking_meta_learner_v3_v4_v5_v6",
+  "method": "4-Fold Stratified Cross-Validated Logistic Regression Stacking Meta-Learner",
+  "regularization_C": 0.2,
+  "input_models": [
+    "improved_v3_stride30",
+    "improved_v4_kinematics",
+    "improved_v5_kinematics",
+    "improved_v6_kinematics_stride15"
+  ],
+  "clip_accuracy": 0.8904593639575972,
+  "clip_macro_precision": 0.896000281346567,
+  "clip_macro_recall": 0.8835613643156337,
+  "clip_macro_f1": 0.8889940644053362,
+  "total_correct": 252,
+  "total_clips": 283,
+  "class_names": [
+    "arm_swing_as",
+    "body_swing_bs",
+    "chest_expansion_ce",
+    "drumming_dr",
+    "maracas_forward_shaking_mfs",
+    "maracas_shaking_ms",
+    "sing_and_clap_sac",
+    "squat_sq",
+    "tree_pose_tr",
+    "twist_pose_tw"
+  ]
+}

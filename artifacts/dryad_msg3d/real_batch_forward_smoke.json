@@ -1,0 +1,51 @@
+{
+  "batch_data_shape": [
+    4,
+    3,
+    60,
+    25,
+    2
+  ],
+  "batch_label_shape": [
+    4
+  ],
+  "batch_labels": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "batch_source_paths": [
+    "Autism/children with ASD/2/video/8.xlsx",
+    "Autism/children with ASD/2/augmentation/1/1.xlsx",
+    "Autism/children with ASD/2/augmentation/2/2.xlsx",
+    "Autism/children with ASD/2/augmentation/3/3.xlsx"
+  ],
+  "checkpoint_load": {
+    "checkpoint_keys": 810,
+    "ignored_keys": [
+      "fc.bias",
+      "fc.weight"
+    ],
+    "missing_keys": [
+      "fc.weight",
+      "fc.bias"
+    ],
+    "unexpected_keys": []
+  },
+  "feature_finite": true,
+  "feature_shape": [
+    4,
+    384
+  ],
+  "fold": 0,
+  "logits_finite": true,
+  "logits_shape": [
+    4,
+    2
+  ],
+  "optimizer_step_performed": false,
+  "person1_absmax": 0.0,
+  "protocol": "random_reproduction_like",
+  "training_performed": false
+}

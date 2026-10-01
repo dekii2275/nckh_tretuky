@@ -1,0 +1,38 @@
+{
+  "full_clip_resample": {
+    "clip_id_overlap": 0,
+    "window_origin_clip_overlap": 0,
+    "subject_session_overlap": 0,
+    "canonical_source_path_overlap": 0,
+    "exact_frame_reuse_overlap": 0,
+    "exact_frame_reuse_proof": "frame identity=(canonical source path, source-frame index); disjoint canonical paths imply empty intersection",
+    "split_before_sequence_expansion": true
+  },
+  "single_window": {
+    "clip_id_overlap": 0,
+    "window_origin_clip_overlap": 0,
+    "subject_session_overlap": 0,
+    "canonical_source_path_overlap": 0,
+    "exact_frame_reuse_overlap": 0,
+    "exact_frame_reuse_proof": "frame identity=(canonical source path, source-frame index); disjoint canonical paths imply empty intersection",
+    "split_before_sequence_expansion": true
+  },
+  "window_60_stride_60": {
+    "clip_id_overlap": 0,
+    "window_origin_clip_overlap": 0,
+    "subject_session_overlap": 0,
+    "canonical_source_path_overlap": 0,
+    "exact_frame_reuse_overlap": 0,
+    "exact_frame_reuse_proof": "frame identity=(canonical source path, source-frame index); disjoint canonical paths imply empty intersection",
+    "split_before_sequence_expansion": true
+  },
+  "window_60_stride_30": {
+    "clip_id_overlap": 0,
+    "window_origin_clip_overlap": 0,
+    "subject_session_overlap": 0,
+    "canonical_source_path_overlap": 0,
+    "exact_frame_reuse_overlap": 0,
+    "exact_frame_reuse_proof": "frame identity=(canonical source path, source-frame index); disjoint canonical paths imply empty intersection",
+    "split_before_sequence_expansion": true
+  }
+}

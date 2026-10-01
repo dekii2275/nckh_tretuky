@@ -1,0 +1,42 @@
+{
+  "labels": {
+    "A": "clearly tracks child correctly",
+    "B": "clearly tracks therapist/wrong person",
+    "C": "starts correctly but switches identity",
+    "D": "uncertain/impossible to determine"
+  },
+  "blank": "not reviewed (not D)",
+  "flags": "blank=not assessed; 1=yes; 0=no",
+  "fields": [
+    "clip_id",
+    "subject_id",
+    "session_id",
+    "activity",
+    "num_frames",
+    "max_people",
+    "review_label",
+    "multiple_people",
+    "partial_occlusion",
+    "identity_switch_visible",
+    "notes",
+    "child_leaves_frame",
+    "therapist_crosses_child",
+    "severe_keypoint_failure",
+    "tiny_skeleton",
+    "large_camera_motion"
+  ],
+  "pair_fields": [
+    "clip_id",
+    "frame_index",
+    "child_person_index",
+    "therapist_person_index",
+    "roles_confident",
+    "both_visible",
+    "notes"
+  ],
+  "frame_indices": "zero based, raw OpenPose array index in this exact frame; indices may reorder",
+  "pair_annotation": "Human explicitly identifies child and therapist at the same frame; no role inferred from size or ASD_Label",
+  "workflow": "Open index in browser. Labels are saved locally where available. Export all CSVs from index; copy downloaded manual_labels.csv and manual_person_pairs.csv into this folder, then run analyze_tracking_labels.py and analyze_child_size.py. Browser storage alone does not modify files.",
+  "legacy_reviews": "Prior browser review namespace is preserved and not automatically mapped into A/B/C/D.",
+  "oracle": "Frame pairs support size auditing only; they do not define a complete oracle child track. No oracle inference/training is performed."
+}

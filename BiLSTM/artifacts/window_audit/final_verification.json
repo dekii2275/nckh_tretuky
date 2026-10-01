@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "experiments": [
+    {
+      "experiment": "S1_window60_stride60",
+      "status": "pass",
+      "train_windows": 2970,
+      "val_windows": 779,
+      "val_clips": 275,
+      "best_epoch": 49
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "status": "pass",
+      "train_windows": 5395,
+      "val_windows": 1412,
+      "val_clips": 275,
+      "best_epoch": 28
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "status": "pass",
+      "train_windows": 9942,
+      "val_windows": 2634,
+      "val_clips": 275,
+      "best_epoch": 18
+    }
+  ],
+  "protected_files_unchanged": 28,
+  "checks": [
+    "frozen config and split",
+    "no leakage before windows",
+    "complete metadata and coverage",
+    "saved logits and argmax",
+    "mean-logit aggregation",
+    "both metric levels and matrices",
+    "loss diagnostics",
+    "strict accuracy-based selection and patience",
+    "checkpoint/source provenance"
+  ]
+}

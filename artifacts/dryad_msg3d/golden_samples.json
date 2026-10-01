@@ -1,0 +1,289 @@
+[
+  {
+    "T_raw": 34,
+    "augmentation_id": "",
+    "class_name": "ASD",
+    "final_shape": [
+      3,
+      60,
+      25,
+      2
+    ],
+    "golden_category": "ASD original without sentinel",
+    "mapped_shape": [
+      34,
+      25,
+      3
+    ],
+    "max_abs_error_vs_float32_raw": 0.0,
+    "max_abs_error_vs_float64_raw": 0.0,
+    "mean_abs_error_vs_float32_raw": 0.0,
+    "mean_abs_error_vs_float64_raw": 0.0,
+    "padded_region_nonzero_count": 0,
+    "padded_shape": [
+      60,
+      25,
+      3
+    ],
+    "person0_nonzero_count": 2550,
+    "person1_nonzero_count": 0,
+    "raw_frame_count": 34,
+    "raw_sentinel_count": 0,
+    "raw_shape": [
+      34,
+      25,
+      3
+    ],
+    "sample_id": "ASD_001_original",
+    "sentinel_count": 0,
+    "source_path": "Autism/children with ASD/1/video/8.xlsx",
+    "subject_id": "ASD_001",
+    "valid_region_max_abs_diff": 0.0
+  },
+  {
+    "T_raw": 39,
+    "augmentation_id": "",
+    "class_name": "ASD",
+    "final_shape": [
+      3,
+      60,
+      25,
+      2
+    ],
+    "golden_category": "ASD original with sentinel",
+    "mapped_shape": [
+      39,
+      25,
+      3
+    ],
+    "max_abs_error_vs_float32_raw": 0.0,
+    "max_abs_error_vs_float64_raw": 0.0,
+    "mean_abs_error_vs_float32_raw": 0.0,
+    "mean_abs_error_vs_float64_raw": 0.0,
+    "padded_region_nonzero_count": 0,
+    "padded_shape": [
+      60,
+      25,
+      3
+    ],
+    "person0_nonzero_count": 2925,
+    "person1_nonzero_count": 0,
+    "raw_frame_count": 39,
+    "raw_sentinel_count": 14,
+    "raw_shape": [
+      39,
+      25,
+      3
+    ],
+    "sample_id": "ASD_004_original",
+    "sentinel_count": 14,
+    "source_path": "Autism/children with ASD/4/video/8.xlsx",
+    "subject_id": "ASD_004",
+    "valid_region_max_abs_diff": 0.0
+  },
+  {
+    "T_raw": 34,
+    "augmentation_id": "",
+    "class_name": "TD",
+    "final_shape": [
+      3,
+      60,
+      25,
+      2
+    ],
+    "golden_category": "TD original",
+    "mapped_shape": [
+      34,
+      25,
+      3
+    ],
+    "max_abs_error_vs_float32_raw": 0.0,
+    "max_abs_error_vs_float64_raw": 0.0,
+    "mean_abs_error_vs_float32_raw": 0.0,
+    "mean_abs_error_vs_float64_raw": 0.0,
+    "padded_region_nonzero_count": 0,
+    "padded_shape": [
+      60,
+      25,
+      3
+    ],
+    "person0_nonzero_count": 2550,
+    "person1_nonzero_count": 0,
+    "raw_frame_count": 34,
+    "raw_sentinel_count": 0,
+    "raw_shape": [
+      34,
+      25,
+      3
+    ],
+    "sample_id": "TD_001_original",
+    "sentinel_count": 0,
+    "source_path": "Typical/1/video/8.xlsx",
+    "subject_id": "TD_001",
+    "valid_region_max_abs_diff": 0.0
+  },
+  {
+    "T_raw": 39,
+    "augmentation_id": "01",
+    "class_name": "ASD",
+    "final_shape": [
+      3,
+      60,
+      25,
+      2
+    ],
+    "golden_category": "ASD augmentation",
+    "mapped_shape": [
+      39,
+      25,
+      3
+    ],
+    "max_abs_error_vs_float32_raw": 0.0,
+    "max_abs_error_vs_float64_raw": 2.970208856645229e-08,
+    "mean_abs_error_vs_float32_raw": 0.0,
+    "mean_abs_error_vs_float64_raw": 2.4981378516449797e-09,
+    "padded_region_nonzero_count": 0,
+    "padded_shape": [
+      60,
+      25,
+      3
+    ],
+    "person0_nonzero_count": 2925,
+    "person1_nonzero_count": 0,
+    "raw_frame_count": 39,
+    "raw_sentinel_count": 0,
+    "raw_shape": [
+      39,
+      25,
+      3
+    ],
+    "sample_id": "ASD_001_aug_01",
+    "sentinel_count": 0,
+    "source_path": "Autism/children with ASD/1/augmentation/1/1.xlsx",
+    "subject_id": "ASD_001",
+    "valid_region_max_abs_diff": 0.0
+  },
+  {
+    "T_raw": 34,
+    "augmentation_id": "01",
+    "class_name": "TD",
+    "final_shape": [
+      3,
+      60,
+      25,
+      2
+    ],
+    "golden_category": "TD augmentation",
+    "mapped_shape": [
+      34,
+      25,
+      3
+    ],
+    "max_abs_error_vs_float32_raw": 0.0,
+    "max_abs_error_vs_float64_raw": 2.5186322694104035e-08,
+    "mean_abs_error_vs_float32_raw": 0.0,
+    "mean_abs_error_vs_float64_raw": 1.6041496866482461e-09,
+    "padded_region_nonzero_count": 0,
+    "padded_shape": [
+      60,
+      25,
+      3
+    ],
+    "person0_nonzero_count": 2550,
+    "person1_nonzero_count": 0,
+    "raw_frame_count": 34,
+    "raw_sentinel_count": 0,
+    "raw_shape": [
+      34,
+      25,
+      3
+    ],
+    "sample_id": "TD_001_aug_01",
+    "sentinel_count": 0,
+    "source_path": "Typical/1/augmentation/1/1.xlsx",
+    "subject_id": "TD_001",
+    "valid_region_max_abs_diff": 0.0
+  },
+  {
+    "T_raw": 21,
+    "augmentation_id": "",
+    "class_name": "TD",
+    "final_shape": [
+      3,
+      60,
+      25,
+      2
+    ],
+    "golden_category": "shortest-T sample",
+    "mapped_shape": [
+      21,
+      25,
+      3
+    ],
+    "max_abs_error_vs_float32_raw": 0.0,
+    "max_abs_error_vs_float64_raw": 0.0,
+    "mean_abs_error_vs_float32_raw": 0.0,
+    "mean_abs_error_vs_float64_raw": 0.0,
+    "padded_region_nonzero_count": 0,
+    "padded_shape": [
+      60,
+      25,
+      3
+    ],
+    "person0_nonzero_count": 1575,
+    "person1_nonzero_count": 0,
+    "raw_frame_count": 21,
+    "raw_sentinel_count": 0,
+    "raw_shape": [
+      21,
+      25,
+      3
+    ],
+    "sample_id": "TD_004_original",
+    "sentinel_count": 0,
+    "source_path": "Typical/4/video/8.xlsx",
+    "subject_id": "TD_004",
+    "valid_region_max_abs_diff": 0.0
+  },
+  {
+    "T_raw": 60,
+    "augmentation_id": "",
+    "class_name": "ASD",
+    "final_shape": [
+      3,
+      60,
+      25,
+      2
+    ],
+    "golden_category": "longest-T sample",
+    "mapped_shape": [
+      60,
+      25,
+      3
+    ],
+    "max_abs_error_vs_float32_raw": 0.0,
+    "max_abs_error_vs_float64_raw": 0.0,
+    "mean_abs_error_vs_float32_raw": 0.0,
+    "mean_abs_error_vs_float64_raw": 0.0,
+    "padded_region_nonzero_count": 0,
+    "padded_shape": [
+      60,
+      25,
+      3
+    ],
+    "person0_nonzero_count": 4500,
+    "person1_nonzero_count": 0,
+    "raw_frame_count": 60,
+    "raw_sentinel_count": 0,
+    "raw_shape": [
+      60,
+      25,
+      3
+    ],
+    "sample_id": "ASD_033_original",
+    "sentinel_count": 0,
+    "source_path": "Autism/children with ASD/33/video/8.xlsx",
+    "subject_id": "ASD_033",
+    "valid_region_max_abs_diff": 0.0
+  }
+]

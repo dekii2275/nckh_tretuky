@@ -1,0 +1,51 @@
+{
+  "comparison": "controlled V2 - V1; only tracking.mode/config differs",
+  "seed": 42,
+  "evaluation_split": "val",
+  "evaluation_size": 283,
+  "control_verification": {
+    "non_tracking_non_output_settings_identical": true,
+    "shared_artifacts_dir": true,
+    "shared_split_dir": true,
+    "manifest_sha256": {
+      "manifest.csv": "d317ddcd17633fba1f5186223afbc7ec8a91bbf0f894d5c9d1edf1dd11f8f65d",
+      "splits/train.csv": "81fdb486982839662e72dc85f4cf1c665b77cb4eb3c4adb3b5a514ecfa0449ad",
+      "splits/val.csv": "2b21991c7d0db6a076a395d664ea2b0cf8928ed517b3a941b9022c578fd2f888"
+    },
+    "separate_checkpoint_and_run_directories": true
+  },
+  "v1": {
+    "tracker": "legacy",
+    "best_epoch": 53,
+    "train_accuracy_at_best_epoch": 0.9532538955087076,
+    "train_macro_f1_at_best_epoch": 0.9389152456897305,
+    "accuracy": 0.6925795053003534,
+    "macro_precision": 0.668648572861562,
+    "macro_recall": 0.7427534988730434,
+    "macro_f1": 0.6774545196106302,
+    "loss": 1.9970821826702294,
+    "checkpoint_sha256": "531374993417e636695f8f53592813cbbd8bddb3e35bb89a8fa59fdfb7088b86"
+  },
+  "v2": {
+    "tracker": "tracklet_v2",
+    "best_epoch": 11,
+    "train_accuracy_at_best_epoch": 0.8744271310724107,
+    "train_macro_f1_at_best_epoch": 0.84099953832682,
+    "accuracy": 0.7102473498233216,
+    "macro_precision": 0.7229590375266912,
+    "macro_recall": 0.7283138082663698,
+    "macro_f1": 0.6993848248381931,
+    "loss": 1.170303222358016,
+    "checkpoint_sha256": "3f99d7a6f312e6605814a9d616d33bc6c5a7a25d3ca90e88554792f8b5d176bc"
+  },
+  "delta_v2_minus_v1": {
+    "best_epoch": -42,
+    "train_accuracy_at_best_epoch": -0.07882676443629699,
+    "train_macro_f1_at_best_epoch": -0.09791570736291055,
+    "accuracy": 0.017667844522968212,
+    "macro_precision": 0.05431046466512923,
+    "macro_recall": -0.014439690606673605,
+    "macro_f1": 0.021930305227562896,
+    "loss": -0.8267789603122133
+  }
+}

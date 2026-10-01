@@ -1,0 +1,12 @@
+base_config: paper_repro.yaml
+
+# Controlled tracking comparison: inherited data, split, sequence, model,
+# optimizer, loss, hyperparameters and seed are unchanged.
+tracking:
+  mode: legacy
+
+outputs:
+  artifacts_dir: ./artifacts/paper_repro
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/tracker_v1_controlled
+  runs_dir: ./runs/tracker_v1_controlled

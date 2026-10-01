@@ -1,0 +1,44 @@
+{
+  "strategy": "session_holdout",
+  "seed": 42,
+  "train_fraction": 0.8,
+  "val_fraction": 0.2,
+  "test_fraction": null,
+  "split_summary": {
+    "train": {
+      "clips": 1091,
+      "subjects": 32,
+      "session_groups": 55,
+      "classes": {
+        "arm_swing_as": 72,
+        "body_swing_bs": 87,
+        "chest_expansion_ce": 84,
+        "drumming_dr": 281,
+        "maracas_forward_shaking_mfs": 75,
+        "maracas_shaking_ms": 90,
+        "sing_and_clap_sac": 78,
+        "squat_sq": 85,
+        "tree_pose_tr": 125,
+        "twist_pose_tw": 114
+      }
+    },
+    "val": {
+      "clips": 283,
+      "subjects": 13,
+      "session_groups": 17,
+      "classes": {
+        "arm_swing_as": 33,
+        "body_swing_bs": 30,
+        "chest_expansion_ce": 30,
+        "drumming_dr": 62,
+        "maracas_forward_shaking_mfs": 26,
+        "maracas_shaking_ms": 40,
+        "sing_and_clap_sac": 35,
+        "squat_sq": 17,
+        "tree_pose_tr": 4,
+        "twist_pose_tw": 6
+      }
+    }
+  },
+  "leakage_validation": "passed by split_records/split_train_val_records"
+}

@@ -1,0 +1,13 @@
+base_config: paper_repro_tracker_v2.yaml
+experiment: TASK3_EXP_B_center60
+sequence:
+  mode: single_window
+  length: 60
+  short_clip_policy: interpolate
+training:
+  sampler: all_sequences
+outputs:
+  artifacts_dir: ./artifacts/sequence_task3/exp_b_center60
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/sequence_task3/exp_b_center60
+  runs_dir: ./runs/sequence_task3/exp_b_center60

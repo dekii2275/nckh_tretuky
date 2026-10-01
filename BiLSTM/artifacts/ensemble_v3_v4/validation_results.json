@@ -1,0 +1,20 @@
+{
+  "clip_accuracy": 0.8621908127208481,
+  "clip_macro_f1": 0.860360714894715,
+  "clip_macro_precision": 0.8609118678857769,
+  "clip_macro_recall": 0.869675555311229,
+  "ensemble_description": "Weighted soft-voting between improved_v3 (Position BiLSTM, weight 0.65) and improved_v4 (Kinematic Position+Velocity+Bones BiLSTM, weight 0.35)",
+  "evaluation_size": 283,
+  "class_names": [
+    "arm_swing_as",
+    "body_swing_bs",
+    "chest_expansion_ce",
+    "drumming_dr",
+    "maracas_forward_shaking_mfs",
+    "maracas_shaking_ms",
+    "sing_and_clap_sac",
+    "squat_sq",
+    "tree_pose_tr",
+    "twist_pose_tw"
+  ]
+}

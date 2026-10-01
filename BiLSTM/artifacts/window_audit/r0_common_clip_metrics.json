@@ -1,0 +1,9 @@
+{
+  "experiment": "R0_clip_uniform60",
+  "evaluation_size": 275,
+  "population": "same 275 clips retained by every window protocol",
+  "accuracy": 0.6727272727272727,
+  "macro_precision": 0.6529103550639158,
+  "macro_recall": 0.6825014962262748,
+  "macro_f1": 0.6561810760059766
+}

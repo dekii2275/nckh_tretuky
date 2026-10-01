@@ -1,0 +1,13 @@
+{
+  "automatic_diagnostics": "complete",
+  "human_review": "awaiting_human_review",
+  "child_size": "awaiting_human_role_pairs",
+  "primary_next_step": "1. improve child selection",
+  "rationale": "Complete the prepared human child/person identity audit first; only then decide whether the tracker needs correction. Zero human labels cannot establish that tracking is good or bad. Do not modify the tracker yet.",
+  "protected_files_unchanged": 88,
+  "training_performed": false,
+  "model_parameters": 860362,
+  "tracker_modified": false,
+  "split_candidates_generated": false,
+  "remaining_gap_cause_established": false
+}

@@ -1,0 +1,1 @@
+clip_id,subject_id,session_id,activity,frame_index,child_person_index,therapist_person_index,review_label,status,child_bbox_area,therapist_bbox_area,child_skeleton_height,therapist_skeleton_height,area_ratio,height_ratio,area_comparison,height_comparison,notes

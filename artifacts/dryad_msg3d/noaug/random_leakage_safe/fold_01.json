@@ -1,0 +1,42 @@
+{
+  "fold_id": 1,
+  "noaug_indices": [
+    0,
+    176,
+    256,
+    264,
+    384,
+    432,
+    464,
+    560,
+    640,
+    664
+  ],
+  "noaug_sample_ids": [
+    "ASD_001_original",
+    "ASD_023_original",
+    "ASD_033_original",
+    "ASD_034_original",
+    "ASD_049_original",
+    "TD_005_original",
+    "TD_009_original",
+    "TD_021_original",
+    "TD_031_original",
+    "TD_034_original"
+  ],
+  "protocol": "random_leakage_safe",
+  "selection_rule": "original samples belonging to test subjects only",
+  "test_original_only": true,
+  "test_subject_ids": [
+    "ASD_001",
+    "ASD_023",
+    "ASD_033",
+    "ASD_034",
+    "ASD_049",
+    "TD_005",
+    "TD_009",
+    "TD_021",
+    "TD_031",
+    "TD_034"
+  ]
+}

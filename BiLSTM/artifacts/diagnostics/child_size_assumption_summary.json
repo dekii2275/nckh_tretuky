@@ -1,0 +1,38 @@
+{
+  "status": "awaiting_human_role_pairs",
+  "annotated_frame_pairs": 0,
+  "reviewed_clips_with_pairs": 0,
+  "confident_measured_pairs": 0,
+  "results": {
+    "area": {
+      "clip_counts": {
+        "child_smaller": 0,
+        "child_larger": 0,
+        "ambiguous": 0
+      },
+      "clip_percentages": {
+        "child_smaller": null,
+        "child_larger": null,
+        "ambiguous": null
+      }
+    },
+    "height": {
+      "clip_counts": {
+        "child_smaller": 0,
+        "child_larger": 0,
+        "ambiguous": 0
+      },
+      "clip_percentages": {
+        "child_smaller": null,
+        "child_larger": null,
+        "ambiguous": null
+      }
+    }
+  },
+  "primary_unit": "one reviewed clip: median available confirmed frame-pair ratio; no available measurement counts as ambiguous",
+  "size_definition": "bbox area and vertical extent of original OpenPose joints with confidence>=0.1 and nonzero finite coordinates",
+  "ambiguity_rule": "predeclared +/-5% ratio band, invalid bbox/height, or human role not confirmed; no human pairs means percentages unavailable, not zero",
+  "limitations": "Frame/clip selection is manual and nonrandom; occlusion distorts bbox size. Existing initial score uses confidence*log1p(valid_count)/sqrt(diagonal), so bbox area/height audit tests the size-prior assumption, not the entire selection score.",
+  "tracker_changed": false,
+  "oracle_test_performed": false
+}

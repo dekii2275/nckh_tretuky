@@ -1,0 +1,22 @@
+experiment,level,pair,count,row_support,percentage,paper_reference_percentage
+R0_clip_uniform60,clip,BS -> CE,5,30,16.666666666666668,5.36
+R0_clip_uniform60,clip,MS -> MFS,15,40,37.5,9.42
+R0_clip_uniform60,clip,SAC -> DR,8,35,22.857142857142858,20.39
+S1_window60_stride60,window,BS -> CE,12,95,12.631578947368421,5.36
+S1_window60_stride60,window,MS -> MFS,3,107,2.803738317757009,9.42
+S1_window60_stride60,window,SAC -> DR,20,128,15.625,20.39
+S1_window60_stride60,clip,BS -> CE,3,30,10.0,5.36
+S1_window60_stride60,clip,MS -> MFS,0,38,0.0,9.42
+S1_window60_stride60,clip,SAC -> DR,6,33,18.181818181818183,20.39
+S2_window60_stride30,window,BS -> CE,25,177,14.124293785310735,5.36
+S2_window60_stride30,window,MS -> MFS,9,198,4.545454545454546,9.42
+S2_window60_stride30,window,SAC -> DR,52,233,22.317596566523605,20.39
+S2_window60_stride30,clip,BS -> CE,3,30,10.0,5.36
+S2_window60_stride30,clip,MS -> MFS,2,38,5.2631578947368425,9.42
+S2_window60_stride30,clip,SAC -> DR,6,33,18.181818181818183,20.39
+S3_window60_stride15,window,BS -> CE,29,335,8.656716417910447,5.36
+S3_window60_stride15,window,MS -> MFS,24,363,6.6115702479338845,9.42
+S3_window60_stride15,window,SAC -> DR,78,439,17.767653758542142,20.39
+S3_window60_stride15,clip,BS -> CE,2,30,6.666666666666667,5.36
+S3_window60_stride15,clip,MS -> MFS,3,38,7.894736842105263,9.42
+S3_window60_stride15,clip,SAC -> DR,6,33,18.181818181818183,20.39

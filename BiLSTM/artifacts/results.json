@@ -1,0 +1,22 @@
+{
+  "accuracy": 0.6360424028268551,
+  "macro_precision": 0.6071119129097852,
+  "macro_recall": 0.6366277239522021,
+  "macro_f1": 0.6007960832513783,
+  "loss": 2.200410695315334,
+  "checkpoint": "/home/dekii2275/nckh_tretuky/BiLSTM/checkpoints/best.pt",
+  "test_size": 283,
+  "class_names": [
+    "arm_swing_as",
+    "body_swing_bs",
+    "chest_expansion_ce",
+    "drumming_dr",
+    "maracas_forward_shaking_mfs",
+    "maracas_shaking_ms",
+    "sing_and_clap_sac",
+    "squat_sq",
+    "tree_pose_tr",
+    "twist_pose_tw"
+  ],
+  "reference_target_note": "Paper-reported Accuracy ~94.84% and Macro-F1 ~0.94 are reference targets, not guaranteed results."
+}

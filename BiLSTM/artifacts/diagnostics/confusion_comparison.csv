@@ -1,0 +1,4 @@
+class_true,class_pred,paper_percent,r0_percent,s1_window_percent,s1_clip_percent,s3_window_percent,s3_clip_percent
+body_swing_bs,chest_expansion_ce,5.36,16.666666666666668,12.631578947368421,10.0,8.656716417910447,6.666666666666667
+maracas_shaking_ms,maracas_forward_shaking_mfs,9.42,37.5,2.803738317757009,0.0,6.6115702479338845,7.894736842105263
+sing_and_clap_sac,drumming_dr,20.39,22.857142857142858,15.625,18.181818181818183,17.767653758542142,18.181818181818183

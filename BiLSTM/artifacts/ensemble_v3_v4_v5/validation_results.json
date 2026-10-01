@@ -1,0 +1,26 @@
+{
+  "experiment": "ensemble_v3_v4_v5",
+  "weights": {
+    "improved_v3_stride30": 0.45,
+    "improved_v4_kinematics": 0.4,
+    "improved_v5_kinematics": 0.15
+  },
+  "clip_accuracy": 0.8692579505300353,
+  "clip_macro_precision": 0.8662657688867366,
+  "clip_macro_recall": 0.8765520121876857,
+  "clip_macro_f1": 0.8667623808840579,
+  "total_correct": 246,
+  "total_clips": 283,
+  "class_names": [
+    "arm_swing_as",
+    "body_swing_bs",
+    "chest_expansion_ce",
+    "drumming_dr",
+    "maracas_forward_shaking_mfs",
+    "maracas_shaking_ms",
+    "sing_and_clap_sac",
+    "squat_sq",
+    "tree_pose_tr",
+    "twist_pose_tw"
+  ]
+}

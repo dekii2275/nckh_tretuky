@@ -1,0 +1,96 @@
+# Paper-protocol-compatible reproduction. This is separate from baseline.yaml
+# (E0_initial_variable_length) and never writes to E0's output directories.
+seed: 42  # implementation choice; the paper does not report a random seed.
+
+data:
+  root: ../data_MMASD
+  skeleton_dir: 2D_skeleton/2D_openpose/output
+  modality: 2D OpenPose BODY_25
+  num_joints: 25
+  coordinates: 2
+  input_size: 50
+  cache_in_memory: true  # implementation choice; avoids reparsing clips every epoch.
+  tracking_strategy: temporal_nearest  # implementation choice; paper unspecified.
+  prefer_smaller_person: true  # implementation choice; paper unspecified.
+  preprocessing:
+    confidence_threshold: 0.1  # implementation choice; paper unspecified.
+    missing_joint_strategy: interpolate  # implementation choice; paper unspecified.
+    interpolation:
+      max_gap: null  # implementation choice; interpolate all bounded gaps.
+    shoulder_scale:
+      min_width_px: 5.0  # implementation choice; paper specifies the formula only.
+      fallback: torso  # implementation choice; paper unspecified.
+    smoothing: false  # implementation choice; paper unspecified.
+
+classes:
+  # The local Frog Pose directories contain no usable OpenPose JSON. The paper
+  # reports a 10-class classifier but does not explicitly explain this exclusion.
+  exclude:
+    - frog_pose_fg
+
+sequence:
+  mode: fixed_60
+  length: 60
+  sampling: uniform  # implementation choice; the paper does not specify conversion to 60 frames.
+
+split:
+  strategy: session_holdout
+  train_fraction: 0.8
+  val_fraction: 0.2
+  # Exact sessions, seed and author split are not reported by the paper.
+
+model:
+  type: paper_bilstm_attention
+  bilstm:
+    input_size: 50
+    hidden_size: 128
+    num_layers: 2
+    bidirectional: true
+  attention:
+    embed_dim: 256
+    num_heads: 4
+    dropout: 0.0  # implementation choice; paper does not specify attention dropout.
+  residual: true
+  layer_norm: true
+  pooling:
+    type: temporal_mean
+  projection:
+    in_features: 256
+    out_features: 64
+    activation: relu
+  dropout: 0.3
+  lstm_internal_dropout: 0.0  # implementation choice; paper does not specify it.
+  classifier:
+    in_features: 64
+    num_classes: 10
+
+training:
+  epochs: 100
+  batch_size: 32
+  optimizer:
+    type: Adam
+    learning_rate: 0.001
+    weight_decay: 0.0  # implementation choice; paper does not specify weight decay.
+  loss:
+    type: CrossEntropyLoss
+  scheduler: null  # implementation choice; paper does not specify a scheduler.
+  class_weighting: none
+  gradient_clipping: null  # implementation choice; paper does not specify clipping.
+  amp: false  # implementation choice; disabled to keep reproduction numerically simple.
+  num_workers: 0
+
+early_stopping:
+  enabled: true
+  patience: 10
+  monitor: val_accuracy  # inferred from the reported accuracy curve/stopping behavior.
+  mode: max
+
+evaluation:
+  batch_size: 32
+  split: val
+
+outputs:
+  artifacts_dir: ./artifacts/paper_repro
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/paper_repro
+  runs_dir: ./runs/paper_repro

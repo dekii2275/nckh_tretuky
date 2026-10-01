@@ -216,3 +216,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local datasets
+/data_MMASD/
+/data_MMASD_plus/
+/Data_DRYAD/
+/data_Dream/
+/autism/.git.backup/
+
+# Baseline-generated local artifacts
+/artifacts/debug/
+/checkpoints/
+/runs/
+/BiLSTM/artifacts/debug/
+/BiLSTM/checkpoints/
+/BiLSTM/runs/
+/artifacts/dryad_msg3d/preprocessed/
+/artifacts/dryad_msg3d/loader/
+/artifacts/dryad_msg3d/experiments/
+*.pt
+*.pth

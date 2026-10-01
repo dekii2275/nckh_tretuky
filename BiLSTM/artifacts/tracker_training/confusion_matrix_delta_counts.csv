@@ -1,0 +1,11 @@
+true\pred,arm_swing_as,body_swing_bs,chest_expansion_ce,drumming_dr,maracas_forward_shaking_mfs,maracas_shaking_ms,sing_and_clap_sac,squat_sq,tree_pose_tr,twist_pose_tw
+arm_swing_as,-1,-1,3,-1,-1,0,0,3,-2,0
+body_swing_bs,-7,9,2,0,-1,-1,0,0,0,-2
+chest_expansion_ce,-2,-3,8,-1,0,0,0,0,0,-2
+drumming_dr,0,0,0,-2,-2,0,3,2,-1,0
+maracas_forward_shaking_mfs,3,1,0,0,-7,4,-2,-1,2,0
+maracas_shaking_ms,6,1,0,-2,-4,-2,2,-1,0,0
+sing_and_clap_sac,0,0,-1,0,0,0,1,0,0,0
+squat_sq,2,0,-1,0,-1,0,0,1,-1,0
+tree_pose_tr,0,0,1,0,0,0,0,0,-1,0
+twist_pose_tw,0,0,0,0,0,0,0,1,0,-1

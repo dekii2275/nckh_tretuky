@@ -1,0 +1,9 @@
+mode,split,clips,sequences,short_clips_interpolated
+full_clip_resample,train,1091,1091,12
+full_clip_resample,val,283,283,8
+single_window,train,1091,1091,12
+single_window,val,283,283,8
+window_60_stride_60,train,1091,2982,12
+window_60_stride_60,val,283,787,8
+window_60_stride_30,train,1091,5407,12
+window_60_stride_30,val,283,1420,8

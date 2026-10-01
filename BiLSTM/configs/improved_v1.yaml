@@ -1,0 +1,106 @@
+# Improved pipeline: ROMP-guided tracking + augmentation + balanced loss
+# Expected to significantly outperform paper_repro.yaml (67.84% -> target ~85%+)
+seed: 42
+
+data:
+  root: ../data_MMASD
+  skeleton_dir: 2D_skeleton/2D_openpose/output
+  modality: 2D OpenPose BODY_25
+  num_joints: 25
+  coordinates: 2
+  input_size: 50
+  cache_in_memory: true  # base sequences cached; augmentation applied on the fly
+  prefer_smaller_person: true
+  preprocessing:
+    confidence_threshold: 0.1
+    missing_joint_strategy: interpolate
+    interpolation:
+      max_gap: null
+    shoulder_scale:
+      min_width_px: 5.0
+      fallback: torso
+    smoothing: false
+
+# ROMP-guided tracking: uses ROMP 2D bounding boxes to select the child
+tracking:
+  mode: romp_guided
+  max_match_distance: 0.5
+
+classes:
+  exclude:
+    - frog_pose_fg
+
+sequence:
+  mode: fixed_60
+  length: 60
+  sampling: uniform
+
+split:
+  strategy: session_holdout
+  train_fraction: 0.8
+  val_fraction: 0.2
+
+model:
+  type: paper_bilstm_attention
+  bilstm:
+    input_size: 50
+    hidden_size: 128
+    num_layers: 2
+    bidirectional: true
+  attention:
+    embed_dim: 256
+    num_heads: 4
+    dropout: 0.0
+  residual: true
+  layer_norm: true
+  pooling:
+    type: temporal_mean
+  projection:
+    in_features: 256
+    out_features: 64
+    activation: relu
+  dropout: 0.3
+  lstm_internal_dropout: 0.0
+  classifier:
+    in_features: 64
+    num_classes: 10
+
+training:
+  epochs: 100
+  batch_size: 32
+  optimizer:
+    type: Adam
+    learning_rate: 0.001
+    weight_decay: 0.0
+  loss:
+    type: CrossEntropyLoss
+  class_weighting: balanced  # handle imbalanced classes (drumming has 2x more)
+  gradient_clipping: 1.0  # stabilize training
+  amp: false
+  num_workers: 0
+
+# Skeleton augmentation (train only)
+augmentation:
+  enabled: true
+  flip_prob: 0.5
+  noise_std: 0.02
+  rotation_range_deg: 10.0
+  joint_dropout_prob: 0.1
+  max_dropout_joints: 3
+  random_shift_frames: 3
+
+early_stopping:
+  enabled: true
+  patience: 15  # slightly more patient
+  monitor: val_accuracy
+  mode: max
+
+evaluation:
+  batch_size: 32
+  split: val
+
+outputs:
+  artifacts_dir: ./artifacts/improved_v1
+  split_dir: ./artifacts/splits/paper_repro  # reuse same split
+  checkpoints_dir: ./checkpoints/improved_v1
+  runs_dir: ./runs/improved_v1

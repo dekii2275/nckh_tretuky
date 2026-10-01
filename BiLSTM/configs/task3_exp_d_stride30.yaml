@@ -1,0 +1,15 @@
+base_config: paper_repro_tracker_v2.yaml
+experiment: TASK3_EXP_D_window60_stride30
+sequence:
+  mode: window_60_stride_30
+  length: 60
+  stride: 30
+  short_clip_policy: interpolate
+  tail_policy: drop
+training:
+  sampler: all_sequences
+outputs:
+  artifacts_dir: ./artifacts/sequence_task3/exp_d_stride30
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/sequence_task3/exp_d_stride30
+  runs_dir: ./runs/sequence_task3/exp_d_stride30

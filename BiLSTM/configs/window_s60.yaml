@@ -1,0 +1,14 @@
+# S1: predeclared protocol sensitivity experiment; no author-stride claim.
+base_config: paper_repro.yaml
+experiment: S1_window60_stride60
+sequence:
+  mode: sliding_window
+  window_length: 60
+  stride: 60
+  short_clip_policy: drop
+  tail_policy: drop
+outputs:
+  artifacts_dir: ./artifacts/window_s60
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/window_s60
+  runs_dir: ./runs/window_s60

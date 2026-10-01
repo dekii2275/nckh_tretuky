@@ -1,0 +1,149 @@
+{
+  "class_mapping_version": "CLASS_TD0_ASD1_V1",
+  "contract_version": "DATA_CONTRACT_v1",
+  "dataset_root": "/home/dekii2275/nckh_tretuky/Data_DRYAD/doi_10_5061_dryad_s7h44j150__v20200911/Dataset-2/Dataset",
+  "fold_protocols": [
+    "random_leakage_safe",
+    "random_reproduction_like"
+  ],
+  "git_commit": "d2defae719cbc3f3a723cd771ab0ffc015fd4ea0",
+  "git_dirty": true,
+  "manifest_rows": 800,
+  "numpy": "2.4.3",
+  "official_folds_created": false,
+  "optimizer_step_performed": false,
+  "output_root": "/home/dekii2275/nckh_tretuky/artifacts/dryad_msg3d",
+  "python": "3.13.11",
+  "pytorch": "2.5.1+cu121",
+  "real_batch_forward_smoke": {
+    "batch_data_shape": [
+      4,
+      3,
+      60,
+      25,
+      2
+    ],
+    "batch_label_shape": [
+      4
+    ],
+    "batch_labels": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "batch_source_paths": [
+      "Autism/children with ASD/2/video/8.xlsx",
+      "Autism/children with ASD/2/augmentation/1/1.xlsx",
+      "Autism/children with ASD/2/augmentation/2/2.xlsx",
+      "Autism/children with ASD/2/augmentation/3/3.xlsx"
+    ],
+    "checkpoint_load": {
+      "checkpoint_keys": 810,
+      "ignored_keys": [
+        "fc.bias",
+        "fc.weight"
+      ],
+      "missing_keys": [
+        "fc.weight",
+        "fc.bias"
+      ],
+      "unexpected_keys": []
+    },
+    "feature_finite": true,
+    "feature_shape": [
+      4,
+      384
+    ],
+    "fold": 0,
+    "logits_finite": true,
+    "logits_shape": [
+      4,
+      2
+    ],
+    "optimizer_step_performed": false,
+    "person1_absmax": 0.0,
+    "protocol": "random_reproduction_like",
+    "training_performed": false
+  },
+  "seeds": {
+    "random_leakage_safe": 2026091702,
+    "random_reproduction_like": 2026091701
+  },
+  "tensor_stats": {
+    "coordinate_statistics_including_sentinel": {
+      "x": {
+        "max": 100.0,
+        "mean": -0.03429008476079803,
+        "min": -1.3953277355262017,
+        "std": 1.1906285016042475
+      },
+      "y": {
+        "max": 100.0,
+        "mean": -0.47566360617323705,
+        "min": -1.4150984086112377,
+        "std": 0.5279954797950043
+      },
+      "z": {
+        "max": 4.405574915551267,
+        "mean": 3.022590013159277,
+        "min": 1.0374493191871828,
+        "std": 0.5253526241554689
+      }
+    },
+    "dtype": "float32",
+    "inf_count": 0,
+    "nan_count": 0,
+    "padded_frame_percentage": 0.41583333333333333,
+    "raw_frame_distribution": {
+      "21": 4,
+      "23": 21,
+      "24": 2,
+      "25": 3,
+      "26": 10,
+      "27": 30,
+      "28": 37,
+      "29": 38,
+      "30": 33,
+      "31": 50,
+      "32": 67,
+      "33": 67,
+      "34": 66,
+      "35": 68,
+      "36": 16,
+      "37": 40,
+      "38": 64,
+      "39": 45,
+      "40": 21,
+      "41": 23,
+      "42": 21,
+      "43": 7,
+      "44": 7,
+      "45": 15,
+      "46": 1,
+      "50": 1,
+      "53": 14,
+      "54": 14,
+      "55": 7,
+      "56": 7,
+      "60": 1
+    },
+    "raw_t_max": 60,
+    "raw_t_min": 21,
+    "roundtrip_element_count": 2103000,
+    "roundtrip_max_abs_error_vs_float32_raw": 0.0,
+    "roundtrip_mean_abs_error_vs_float32_raw": 0.0,
+    "sentinel_occurrences_valid_data": 101,
+    "sentinel_sample_count": 3,
+    "serialization_exact_equality": true,
+    "tensor_shape": [
+      800,
+      3,
+      60,
+      25,
+      2
+    ],
+    "total_padded_frames": 19960
+  },
+  "training_performed": false
+}

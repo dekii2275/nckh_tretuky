@@ -1,0 +1,95 @@
+{
+  "status": {
+    "S1_window60_stride60": "complete",
+    "S2_window60_stride30": "complete",
+    "S3_window60_stride15": "complete"
+  },
+  "complete": true,
+  "metrics": [
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "accuracy": 0.7432605905006419,
+      "macro_precision": 0.7017992082746705,
+      "macro_recall": 0.7377130767716505,
+      "macro_f1": 0.710411166914788,
+      "evaluation_size": 779
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "accuracy": 0.7418181818181818,
+      "macro_precision": 0.7143436062790902,
+      "macro_recall": 0.7462181999346512,
+      "macro_f1": 0.7182183497410801,
+      "evaluation_size": 275
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "accuracy": 0.7124645892351275,
+      "macro_precision": 0.6623555442546868,
+      "macro_recall": 0.7193844753437674,
+      "macro_f1": 0.6767680379102622,
+      "evaluation_size": 1412
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "accuracy": 0.7418181818181818,
+      "macro_precision": 0.7026580065221039,
+      "macro_recall": 0.7469966646285638,
+      "macro_f1": 0.7128417576690079,
+      "evaluation_size": 275
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "accuracy": 0.7270311313591495,
+      "macro_precision": 0.6917034304309316,
+      "macro_recall": 0.7149425496996515,
+      "macro_f1": 0.6984463704621119,
+      "evaluation_size": 2634
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "accuracy": 0.7345454545454545,
+      "macro_precision": 0.7177193970286075,
+      "macro_recall": 0.7479521628152994,
+      "macro_f1": 0.7279348076315727,
+      "evaluation_size": 275
+    }
+  ],
+  "interpretation": "Sequence construction is a major sensitivity factor (>5 percentage points in clip accuracy). This does not establish the author's method or exact reproduction. S1_window60_stride60: clip accuracy change +6.34 pp versus full R0, +6.91 pp versus R0 on the same retained clips; remaining gap to 94.84% = 20.66 pp. S2_window60_stride30: clip accuracy change +6.34 pp versus full R0, +6.91 pp versus R0 on the same retained clips; remaining gap to 94.84% = 20.66 pp. S3_window60_stride15: clip accuracy change +5.61 pp versus full R0, +6.18 pp versus R0 on the same retained clips; remaining gap to 94.84% = 21.39 pp. All clip results remain below 80%; sequence construction does not explain the full paper gap. Proceed to manual child/person identity review, retaining the architecture and tracker until review evidence is available.",
+  "assumptions": [
+    "The conversion from variable clip length to 60 frames, stride, short-clip policy and tail policy are unreported; S1/S2/S3 are predeclared sensitivity choices.",
+    "R0 uses rounded uniform source indices for long clips and linear temporal interpolation for short clips. Windows use original frame positions; full-clip missing-joint interpolation remains unchanged.",
+    "Frame indices refer to the ordered OpenPose JSON files, zero based and end inclusive; no invented frames are inserted for missing JSON files.",
+    "Child selection uses temporal_nearest and prefers smaller candidates on initialization; it is not manually verified child identity.",
+    "Confidence threshold 0.1, unlimited missing-joint interpolation including edge filling, zero fill before normalization for never-observed joints, no smoothing, shoulder threshold 5 px and torso fallback are implementation choices.",
+    "MidHip centering and shoulder normalization follow the published formulas; behavior when joints/scale are invalid is implementation-specific.",
+    "Frog Pose is excluded because local directories have no usable OpenPose JSON; the paper does not explicitly explain its 10-class exclusion.",
+    "The exact author session split and random seed are unreported. This study reuses the existing 1091/283 subject-session split and seed 42; subjects may occur in both sets at different sessions.",
+    "Attention dropout and internal LSTM dropout are zero; Adam uses existing PyTorch defaults and zero weight decay; no scheduler, augmentation, class weighting, clipping or AMP is added.",
+    "Validation accuracy is the existing early-stopping monitor with strict improvement, patience 10 and a maximum of 100 epochs. Window runs monitor window accuracy; clip aggregation is predeclared mean logits at the selected checkpoint.",
+    "Window samples weight longer clips more heavily; overlapping windows are correlated. Clip evaluation excludes clips shorter than 60 frames, so coverage must accompany comparisons with R0.",
+    "Epoch loss mean is sample-weighted CrossEntropyLoss; batch loss sum is the unweighted sum of batch means. R0 did not log batch sums, which cannot be reconstructed exactly from its weighted epoch mean.",
+    "The paper's loss reduction and confusion-matrix normalization/evaluation unit are unreported. Reference figures here are supplied by the user, not independently verified against the paper.",
+    "R0 is a legacy checkpoint without original training manifest hashes. Its current evaluation and current split are verified, but this cannot prove its historical training inputs; raw JSON contents are not hashed.",
+    "Deterministic seeding retains the existing warn_only behavior and runtime defaults; bitwise reproducibility across hardware/software is not claimed."
+  ],
+  "r0_batch_loss_sum": "unavailable_not_logged",
+  "r0_common_clip_metrics": {
+    "accuracy": 0.6727272727272727,
+    "macro_precision": 0.6529103550639158,
+    "macro_recall": 0.6825014962262748,
+    "macro_f1": 0.6561810760059766
+  },
+  "paper_reference": {
+    "accuracy": 0.9484,
+    "macro_precision": 0.94,
+    "macro_recall": 0.94,
+    "macro_f1": 0.94
+  }
+}

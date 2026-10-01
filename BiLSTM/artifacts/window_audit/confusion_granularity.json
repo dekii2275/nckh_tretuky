@@ -1,0 +1,609 @@
+{
+  "matrices": [
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "status": "complete",
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6129032258064515
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "status": "complete",
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.6369426751592356
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "status": "complete",
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6666666666666667
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "status": "complete",
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.3546099290780142
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "status": "complete",
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6666666666666667
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "status": "complete",
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.19011406844106463
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "status": "complete",
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6666666666666667
+    }
+  ],
+  "rows": [
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "arm_swing_as",
+      "row_sample_count": 33,
+      "smallest_possible_nonzero_percentage_step": 3.0303030303030303,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.0303030303030303
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "body_swing_bs",
+      "row_sample_count": 30,
+      "smallest_possible_nonzero_percentage_step": 3.3333333333333335,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.3333333333333335
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "chest_expansion_ce",
+      "row_sample_count": 30,
+      "smallest_possible_nonzero_percentage_step": 3.3333333333333335,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.3333333333333335
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "drumming_dr",
+      "row_sample_count": 62,
+      "smallest_possible_nonzero_percentage_step": 1.6129032258064515,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6129032258064515
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "maracas_forward_shaking_mfs",
+      "row_sample_count": 26,
+      "smallest_possible_nonzero_percentage_step": 3.8461538461538463,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.8461538461538463
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "maracas_shaking_ms",
+      "row_sample_count": 40,
+      "smallest_possible_nonzero_percentage_step": 2.5,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.5
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "sing_and_clap_sac",
+      "row_sample_count": 35,
+      "smallest_possible_nonzero_percentage_step": 2.857142857142857,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.857142857142857
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "squat_sq",
+      "row_sample_count": 17,
+      "smallest_possible_nonzero_percentage_step": 5.882352941176471,
+      "smallest_observed_nonzero_off_diagonal_percentage": 5.882352941176471
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "tree_pose_tr",
+      "row_sample_count": 4,
+      "smallest_possible_nonzero_percentage_step": 25.0,
+      "smallest_observed_nonzero_off_diagonal_percentage": 25.0
+    },
+    {
+      "experiment": "R0_clip_uniform60",
+      "level": "clip",
+      "activity": "twist_pose_tw",
+      "row_sample_count": 6,
+      "smallest_possible_nonzero_percentage_step": 16.666666666666668,
+      "smallest_observed_nonzero_off_diagonal_percentage": 16.666666666666668
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "arm_swing_as",
+      "row_sample_count": 71,
+      "smallest_possible_nonzero_percentage_step": 1.408450704225352,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.816901408450704
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "body_swing_bs",
+      "row_sample_count": 95,
+      "smallest_possible_nonzero_percentage_step": 1.0526315789473684,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.0526315789473684
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "chest_expansion_ce",
+      "row_sample_count": 80,
+      "smallest_possible_nonzero_percentage_step": 1.25,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.25
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "drumming_dr",
+      "row_sample_count": 157,
+      "smallest_possible_nonzero_percentage_step": 0.6369426751592356,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.6369426751592356
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "maracas_forward_shaking_mfs",
+      "row_sample_count": 73,
+      "smallest_possible_nonzero_percentage_step": 1.36986301369863,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.36986301369863
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "maracas_shaking_ms",
+      "row_sample_count": 107,
+      "smallest_possible_nonzero_percentage_step": 0.9345794392523364,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.9345794392523364
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "sing_and_clap_sac",
+      "row_sample_count": 128,
+      "smallest_possible_nonzero_percentage_step": 0.78125,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.78125
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "squat_sq",
+      "row_sample_count": 47,
+      "smallest_possible_nonzero_percentage_step": 2.127659574468085,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.127659574468085
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "tree_pose_tr",
+      "row_sample_count": 9,
+      "smallest_possible_nonzero_percentage_step": 11.11111111111111,
+      "smallest_observed_nonzero_off_diagonal_percentage": 11.11111111111111
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "window",
+      "activity": "twist_pose_tw",
+      "row_sample_count": 12,
+      "smallest_possible_nonzero_percentage_step": 8.333333333333334,
+      "smallest_observed_nonzero_off_diagonal_percentage": 8.333333333333334
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "arm_swing_as",
+      "row_sample_count": 33,
+      "smallest_possible_nonzero_percentage_step": 3.0303030303030303,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.0303030303030303
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "body_swing_bs",
+      "row_sample_count": 30,
+      "smallest_possible_nonzero_percentage_step": 3.3333333333333335,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.3333333333333335
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "chest_expansion_ce",
+      "row_sample_count": 29,
+      "smallest_possible_nonzero_percentage_step": 3.4482758620689653,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.4482758620689653
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "drumming_dr",
+      "row_sample_count": 60,
+      "smallest_possible_nonzero_percentage_step": 1.6666666666666667,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6666666666666667
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "maracas_forward_shaking_mfs",
+      "row_sample_count": 25,
+      "smallest_possible_nonzero_percentage_step": 4.0,
+      "smallest_observed_nonzero_off_diagonal_percentage": 4.0
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "maracas_shaking_ms",
+      "row_sample_count": 38,
+      "smallest_possible_nonzero_percentage_step": 2.6315789473684212,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.6315789473684212
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "sing_and_clap_sac",
+      "row_sample_count": 33,
+      "smallest_possible_nonzero_percentage_step": 3.0303030303030303,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.0303030303030303
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "squat_sq",
+      "row_sample_count": 17,
+      "smallest_possible_nonzero_percentage_step": 5.882352941176471,
+      "smallest_observed_nonzero_off_diagonal_percentage": 5.882352941176471
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "tree_pose_tr",
+      "row_sample_count": 4,
+      "smallest_possible_nonzero_percentage_step": 25.0,
+      "smallest_observed_nonzero_off_diagonal_percentage": 25.0
+    },
+    {
+      "experiment": "S1_window60_stride60",
+      "level": "clip",
+      "activity": "twist_pose_tw",
+      "row_sample_count": 6,
+      "smallest_possible_nonzero_percentage_step": 16.666666666666668,
+      "smallest_observed_nonzero_off_diagonal_percentage": 16.666666666666668
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "arm_swing_as",
+      "row_sample_count": 123,
+      "smallest_possible_nonzero_percentage_step": 0.8130081300813008,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.8130081300813008
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "body_swing_bs",
+      "row_sample_count": 177,
+      "smallest_possible_nonzero_percentage_step": 0.5649717514124294,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.2598870056497176
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "chest_expansion_ce",
+      "row_sample_count": 143,
+      "smallest_possible_nonzero_percentage_step": 0.6993006993006993,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.097902097902098
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "drumming_dr",
+      "row_sample_count": 282,
+      "smallest_possible_nonzero_percentage_step": 0.3546099290780142,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.3546099290780142
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "maracas_forward_shaking_mfs",
+      "row_sample_count": 135,
+      "smallest_possible_nonzero_percentage_step": 0.7407407407407407,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.7407407407407407
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "maracas_shaking_ms",
+      "row_sample_count": 198,
+      "smallest_possible_nonzero_percentage_step": 0.5050505050505051,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.0101010101010102
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "sing_and_clap_sac",
+      "row_sample_count": 233,
+      "smallest_possible_nonzero_percentage_step": 0.4291845493562232,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.4291845493562232
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "squat_sq",
+      "row_sample_count": 83,
+      "smallest_possible_nonzero_percentage_step": 1.2048192771084338,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.2048192771084338
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "tree_pose_tr",
+      "row_sample_count": 16,
+      "smallest_possible_nonzero_percentage_step": 6.25,
+      "smallest_observed_nonzero_off_diagonal_percentage": 6.25
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "window",
+      "activity": "twist_pose_tw",
+      "row_sample_count": 22,
+      "smallest_possible_nonzero_percentage_step": 4.545454545454546,
+      "smallest_observed_nonzero_off_diagonal_percentage": 4.545454545454546
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "arm_swing_as",
+      "row_sample_count": 33,
+      "smallest_possible_nonzero_percentage_step": 3.0303030303030303,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.0303030303030303
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "body_swing_bs",
+      "row_sample_count": 30,
+      "smallest_possible_nonzero_percentage_step": 3.3333333333333335,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.3333333333333335
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "chest_expansion_ce",
+      "row_sample_count": 29,
+      "smallest_possible_nonzero_percentage_step": 3.4482758620689653,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.4482758620689653
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "drumming_dr",
+      "row_sample_count": 60,
+      "smallest_possible_nonzero_percentage_step": 1.6666666666666667,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6666666666666667
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "maracas_forward_shaking_mfs",
+      "row_sample_count": 25,
+      "smallest_possible_nonzero_percentage_step": 4.0,
+      "smallest_observed_nonzero_off_diagonal_percentage": 4.0
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "maracas_shaking_ms",
+      "row_sample_count": 38,
+      "smallest_possible_nonzero_percentage_step": 2.6315789473684212,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.6315789473684212
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "sing_and_clap_sac",
+      "row_sample_count": 33,
+      "smallest_possible_nonzero_percentage_step": 3.0303030303030303,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.0303030303030303
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "squat_sq",
+      "row_sample_count": 17,
+      "smallest_possible_nonzero_percentage_step": 5.882352941176471,
+      "smallest_observed_nonzero_off_diagonal_percentage": 5.882352941176471
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "tree_pose_tr",
+      "row_sample_count": 4,
+      "smallest_possible_nonzero_percentage_step": 25.0,
+      "smallest_observed_nonzero_off_diagonal_percentage": 25.0
+    },
+    {
+      "experiment": "S2_window60_stride30",
+      "level": "clip",
+      "activity": "twist_pose_tw",
+      "row_sample_count": 6,
+      "smallest_possible_nonzero_percentage_step": 16.666666666666668,
+      "smallest_observed_nonzero_off_diagonal_percentage": 16.666666666666668
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "arm_swing_as",
+      "row_sample_count": 226,
+      "smallest_possible_nonzero_percentage_step": 0.4424778761061947,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.3274336283185841
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "body_swing_bs",
+      "row_sample_count": 335,
+      "smallest_possible_nonzero_percentage_step": 0.29850746268656714,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.29850746268656714
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "chest_expansion_ce",
+      "row_sample_count": 270,
+      "smallest_possible_nonzero_percentage_step": 0.37037037037037035,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.37037037037037035
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "drumming_dr",
+      "row_sample_count": 526,
+      "smallest_possible_nonzero_percentage_step": 0.19011406844106463,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.19011406844106463
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "maracas_forward_shaking_mfs",
+      "row_sample_count": 251,
+      "smallest_possible_nonzero_percentage_step": 0.398406374501992,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.1952191235059761
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "maracas_shaking_ms",
+      "row_sample_count": 363,
+      "smallest_possible_nonzero_percentage_step": 0.27548209366391185,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.8264462809917356
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "sing_and_clap_sac",
+      "row_sample_count": 439,
+      "smallest_possible_nonzero_percentage_step": 0.22779043280182232,
+      "smallest_observed_nonzero_off_diagonal_percentage": 0.45558086560364464
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "squat_sq",
+      "row_sample_count": 154,
+      "smallest_possible_nonzero_percentage_step": 0.6493506493506493,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.2987012987012987
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "tree_pose_tr",
+      "row_sample_count": 30,
+      "smallest_possible_nonzero_percentage_step": 3.3333333333333335,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.3333333333333335
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "window",
+      "activity": "twist_pose_tw",
+      "row_sample_count": 40,
+      "smallest_possible_nonzero_percentage_step": 2.5,
+      "smallest_observed_nonzero_off_diagonal_percentage": 5.0
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "arm_swing_as",
+      "row_sample_count": 33,
+      "smallest_possible_nonzero_percentage_step": 3.0303030303030303,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.0303030303030303
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "body_swing_bs",
+      "row_sample_count": 30,
+      "smallest_possible_nonzero_percentage_step": 3.3333333333333335,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.3333333333333335
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "chest_expansion_ce",
+      "row_sample_count": 29,
+      "smallest_possible_nonzero_percentage_step": 3.4482758620689653,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.4482758620689653
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "drumming_dr",
+      "row_sample_count": 60,
+      "smallest_possible_nonzero_percentage_step": 1.6666666666666667,
+      "smallest_observed_nonzero_off_diagonal_percentage": 1.6666666666666667
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "maracas_forward_shaking_mfs",
+      "row_sample_count": 25,
+      "smallest_possible_nonzero_percentage_step": 4.0,
+      "smallest_observed_nonzero_off_diagonal_percentage": 4.0
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "maracas_shaking_ms",
+      "row_sample_count": 38,
+      "smallest_possible_nonzero_percentage_step": 2.6315789473684212,
+      "smallest_observed_nonzero_off_diagonal_percentage": 2.6315789473684212
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "sing_and_clap_sac",
+      "row_sample_count": 33,
+      "smallest_possible_nonzero_percentage_step": 3.0303030303030303,
+      "smallest_observed_nonzero_off_diagonal_percentage": 3.0303030303030303
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "squat_sq",
+      "row_sample_count": 17,
+      "smallest_possible_nonzero_percentage_step": 5.882352941176471,
+      "smallest_observed_nonzero_off_diagonal_percentage": 5.882352941176471
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "tree_pose_tr",
+      "row_sample_count": 4,
+      "smallest_possible_nonzero_percentage_step": 25.0,
+      "smallest_observed_nonzero_off_diagonal_percentage": 25.0
+    },
+    {
+      "experiment": "S3_window60_stride15",
+      "level": "clip",
+      "activity": "twist_pose_tw",
+      "row_sample_count": 6,
+      "smallest_possible_nonzero_percentage_step": 16.666666666666668,
+      "smallest_observed_nonzero_off_diagonal_percentage": 16.666666666666668
+    }
+  ],
+  "interpretation": "Diagnostic percentage resolution only; not proof that the paper used windows."
+}

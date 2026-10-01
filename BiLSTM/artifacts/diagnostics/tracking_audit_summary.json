@@ -1,0 +1,34 @@
+{
+  "status": "awaiting_human_review",
+  "overall": {
+    "clips": 120,
+    "reviewed": 0,
+    "unreviewed": 120,
+    "A_count": 0,
+    "B_count": 0,
+    "C_count": 0,
+    "D_count": 0,
+    "correct_child_rate": null,
+    "wrong_person_rate": null,
+    "identity_switch_rate": null,
+    "uncertain_rate": null
+  },
+  "A_minus_BC_accuracy": null,
+  "interpretation": "manual_review_required",
+  "diagnostic_threshold": "descriptive large difference: >=10 percentage points, with at least 10 S1 validation clips in A and B+C; no causal claim",
+  "person_count_category": "maximum raw detected candidates in clip (1/2/3+), not mean persons or verified identities",
+  "macro_f1_definition": "macro over the same fixed 10 classes; subgroup represented-class count included",
+  "population_limitation": "120 stratified/high-reordering review clips; rates do not estimate whole-dataset prevalence without a sampling design",
+  "split_sensitivity_gate_passed": false,
+  "split_sensitivity_gate": "all 120 reviewed, correct>=95%, wrong<=3%, switches<=3%; threshold is preparation-only, not a training authorization",
+  "future_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "candidate_tracking_strategies_prepared": false,
+  "oracle_run": "not run; no confident per-frame child track annotations",
+  "training_performed": false
+}

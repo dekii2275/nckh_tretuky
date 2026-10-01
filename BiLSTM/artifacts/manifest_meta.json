@@ -1,0 +1,105 @@
+{
+  "dataset_root": "/home/dekii2275/nckh_tretuky/data_MMASD",
+  "skeleton_root": "/home/dekii2275/nckh_tretuky/data_MMASD/2D_skeleton/2D_openpose/output",
+  "excluded_classes": [
+    "frog_pose_fg"
+  ],
+  "all_discovered_classes": [
+    "arm_swing_as",
+    "body_swing_bs",
+    "chest_expansion_ce",
+    "drumming_dr",
+    "frog_pose_fg",
+    "maracas_forward_shaking_mfs",
+    "maracas_shaking_ms",
+    "sing_and_clap_sac",
+    "squat_sq",
+    "tree_pose_tr",
+    "twist_pose_tw"
+  ],
+  "included_classes": [
+    "arm_swing_as",
+    "body_swing_bs",
+    "chest_expansion_ce",
+    "drumming_dr",
+    "maracas_forward_shaking_mfs",
+    "maracas_shaking_ms",
+    "sing_and_clap_sac",
+    "squat_sq",
+    "tree_pose_tr",
+    "twist_pose_tw"
+  ],
+  "class_to_id": {
+    "arm_swing_as": 0,
+    "body_swing_bs": 1,
+    "chest_expansion_ce": 2,
+    "drumming_dr": 3,
+    "maracas_forward_shaking_mfs": 4,
+    "maracas_shaking_ms": 5,
+    "sing_and_clap_sac": 6,
+    "squat_sq": 7,
+    "tree_pose_tr": 8,
+    "twist_pose_tw": 9
+  },
+  "empty_clip_count_excluded_from_manifest": 206,
+  "manifest_clip_count": 1374,
+  "split": {
+    "strategy": "session_holdout",
+    "seed": 42,
+    "val_fraction": 0.1,
+    "test_fraction": 0.2
+  },
+  "split_summary": {
+    "train": {
+      "clips": 950,
+      "subjects": 28,
+      "session_groups": 47,
+      "classes": {
+        "arm_swing_as": 65,
+        "body_swing_bs": 78,
+        "chest_expansion_ce": 78,
+        "drumming_dr": 248,
+        "maracas_forward_shaking_mfs": 65,
+        "maracas_shaking_ms": 77,
+        "sing_and_clap_sac": 66,
+        "squat_sq": 81,
+        "tree_pose_tr": 98,
+        "twist_pose_tw": 94
+      }
+    },
+    "val": {
+      "clips": 141,
+      "subjects": 8,
+      "session_groups": 8,
+      "classes": {
+        "arm_swing_as": 7,
+        "body_swing_bs": 9,
+        "chest_expansion_ce": 6,
+        "drumming_dr": 33,
+        "maracas_forward_shaking_mfs": 10,
+        "maracas_shaking_ms": 13,
+        "sing_and_clap_sac": 12,
+        "squat_sq": 4,
+        "tree_pose_tr": 27,
+        "twist_pose_tw": 20
+      }
+    },
+    "test": {
+      "clips": 283,
+      "subjects": 13,
+      "session_groups": 17,
+      "classes": {
+        "arm_swing_as": 33,
+        "body_swing_bs": 30,
+        "chest_expansion_ce": 30,
+        "drumming_dr": 62,
+        "maracas_forward_shaking_mfs": 26,
+        "maracas_shaking_ms": 40,
+        "sing_and_clap_sac": 35,
+        "squat_sq": 17,
+        "tree_pose_tr": 4,
+        "twist_pose_tw": 6
+      }
+    }
+  }
+}

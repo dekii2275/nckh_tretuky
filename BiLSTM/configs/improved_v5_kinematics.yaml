@@ -1,0 +1,66 @@
+base_config: paper_repro_tracker_v2.yaml
+experiment: improved_v5_kinematics
+
+data:
+  cache_in_memory: true
+
+# Sliding window 60 frames with stride 30 generates ~5,407 training sequences
+sequence:
+  mode: sliding_window
+  length: 60
+  stride: 30
+  short_clip_policy: interpolate
+
+# Skeleton data augmentation per window (train only)
+augmentation:
+  enabled: true
+  flip_prob: 0.5
+  noise_std: 0.01
+  rotation_range_deg: 5.0
+  joint_dropout_prob: 0.05
+  max_dropout_joints: 1
+  random_shift_frames: 2
+
+# Direction 1: Kinematic feature enrichment v5 (125 dims: pos + vel + 10 distances + decomposed wrist dx/dy + rel wrist vel + dot product + speeds + wrist acc & mag spikes + elbow angles)
+model:
+  type: kinematic_bilstm_attention
+  raw_feature_dim: 125
+  bilstm:
+    hidden_size: 128
+    num_layers: 2
+    bidirectional: true
+  attention:
+    embed_dim: 256
+    num_heads: 4
+    dropout: 0.0
+  residual: true
+  layer_norm: true
+  projection:
+    out_features: 64
+  dropout: 0.3
+
+training:
+  epochs: 100
+  batch_size: 64
+  optimizer:
+    type: Adam
+    learning_rate: 0.001
+    weight_decay: 0.0
+  scheduler: none
+  label_smoothing: 0.0
+  loss:
+    type: CrossEntropyLoss
+  class_weighting: none
+  gradient_clipping: 1.0
+
+early_stopping:
+  enabled: true
+  patience: 25
+  monitor: val_accuracy  # evaluates and stops at the clip-level
+  mode: max
+
+outputs:
+  artifacts_dir: ./artifacts/improved_v5_kinematics
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/improved_v5_kinematics
+  runs_dir: ./runs/improved_v5_kinematics

@@ -1,0 +1,11 @@
+fold,protocol,train_subject_count,test_subject_count,train_ASD,train_TD,test_ASD,test_TD,train_samples,test_samples,train_original,test_original,train_augmented,test_augmented,train_components,test_components,duplicate_leakage_count
+0,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,82,6,0
+1,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,79,9,0
+2,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,80,8,0
+3,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,79,9,0
+4,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,78,10,0
+5,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,79,9,0
+6,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,78,10,0
+7,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,78,10,0
+8,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,80,8,0
+9,random_leakage_safe,90,10,360,360,40,40,720,80,90,10,630,70,79,9,0

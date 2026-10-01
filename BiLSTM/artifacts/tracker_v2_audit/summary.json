@@ -1,0 +1,194 @@
+{
+  "status": "PASS",
+  "clips": 1374,
+  "frames": 254674,
+  "same_manifest": true,
+  "same_proxy_thresholds": true,
+  "centroid_threshold": 0.16369050592184026,
+  "scale_log_threshold": 0.34386551654901326,
+  "fragment_definition": "selected detection fails V2 quality rule: valid_joints>=10, torso_anchors>=4, diagonal>=50.0px",
+  "v1": {
+    "fragment_selection_frames": 4551,
+    "fragment_selection_rate": 0.017869904269772335,
+    "high_risk_clips": 253,
+    "centroid_jump_events": 1489,
+    "centroid_jump_rate": 0.005878405053296487,
+    "scale_jump_events": 1521,
+    "scale_jump_rate": 0.006004737465455981,
+    "continuity_proxy_events": 1390,
+    "continuity_proxy_rate": 0.00548756415317805,
+    "clips_with_continuity_proxy": 253,
+    "missing_target_frames": 0,
+    "missing_target_rate": 0.0,
+    "mean_selected_confidence": 0.6941731103322756
+  },
+  "v2": {
+    "fragment_selection_frames": 0,
+    "fragment_selection_rate": 0.0,
+    "high_risk_clips": 76,
+    "centroid_jump_events": 381,
+    "centroid_jump_rate": 0.0015077882606217945,
+    "scale_jump_events": 378,
+    "scale_jump_rate": 0.0014959159121129613,
+    "continuity_proxy_events": 320,
+    "continuity_proxy_rate": 0.0012663838409421896,
+    "clips_with_continuity_proxy": 71,
+    "missing_target_frames": 557,
+    "missing_target_rate": 0.0021871097952676755,
+    "mean_selected_confidence": 0.7071344372491034
+  },
+  "relative_reductions": {
+    "fragment_selection_rate": 1.0,
+    "high_risk_clips": 0.6996047430830039,
+    "centroid_jump_rate": 0.743503850627602,
+    "scale_jump_rate": 0.7508773829466054,
+    "continuity_proxy_rate": 0.7692265993448513
+  },
+  "pass_gates": {
+    "fragment_reduction_at_least_80pct": true,
+    "high_risk_clip_reduction_at_least_30pct": true,
+    "centroid_jump_rate_reduction_at_least_30pct": true,
+    "scale_jump_rate_reduction_at_least_30pct": true,
+    "missing_target_rate_at_most_5pct": true
+  },
+  "training_performed": false,
+  "config": {
+    "seed": 42,
+    "data": {
+      "root": "../data_MMASD",
+      "skeleton_dir": "2D_skeleton/2D_openpose/output",
+      "modality": "2D OpenPose BODY_25",
+      "num_joints": 25,
+      "coordinates": 2,
+      "input_size": 50,
+      "cache_in_memory": true,
+      "tracking_strategy": "temporal_nearest",
+      "prefer_smaller_person": true,
+      "preprocessing": {
+        "confidence_threshold": 0.1,
+        "missing_joint_strategy": "interpolate",
+        "interpolation": {
+          "max_gap": null
+        },
+        "shoulder_scale": {
+          "min_width_px": 5.0,
+          "fallback": "torso"
+        },
+        "smoothing": false
+      }
+    },
+    "classes": {
+      "exclude": [
+        "frog_pose_fg"
+      ]
+    },
+    "sequence": {
+      "mode": "fixed_60",
+      "length": 60,
+      "sampling": "uniform"
+    },
+    "split": {
+      "strategy": "session_holdout",
+      "train_fraction": 0.8,
+      "val_fraction": 0.2
+    },
+    "model": {
+      "type": "paper_bilstm_attention",
+      "bilstm": {
+        "input_size": 50,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "bidirectional": true
+      },
+      "attention": {
+        "embed_dim": 256,
+        "num_heads": 4,
+        "dropout": 0.0
+      },
+      "residual": true,
+      "layer_norm": true,
+      "pooling": {
+        "type": "temporal_mean"
+      },
+      "projection": {
+        "in_features": 256,
+        "out_features": 64,
+        "activation": "relu"
+      },
+      "dropout": 0.3,
+      "lstm_internal_dropout": 0.0,
+      "classifier": {
+        "in_features": 64,
+        "num_classes": 10
+      }
+    },
+    "training": {
+      "epochs": 100,
+      "batch_size": 32,
+      "optimizer": {
+        "type": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0
+      },
+      "loss": {
+        "type": "CrossEntropyLoss"
+      },
+      "scheduler": null,
+      "class_weighting": "none",
+      "gradient_clipping": null,
+      "amp": false,
+      "num_workers": 0
+    },
+    "early_stopping": {
+      "enabled": true,
+      "patience": 10,
+      "monitor": "val_accuracy",
+      "mode": "max"
+    },
+    "evaluation": {
+      "batch_size": 32,
+      "split": "val"
+    },
+    "outputs": {
+      "artifacts_dir": "./artifacts/paper_repro",
+      "split_dir": "./artifacts/splits/paper_repro",
+      "checkpoints_dir": "./checkpoints/tracker_v2_controlled",
+      "runs_dir": "./runs/tracker_v2_controlled"
+    },
+    "tracking": {
+      "mode": "tracklet_v2",
+      "candidate_filter": {
+        "min_valid_joints": 10,
+        "min_torso_anchors": 4,
+        "min_diagonal_px": 50.0
+      },
+      "matching": {
+        "weights": {
+          "center": 0.4,
+          "pose": 0.35,
+          "scale": 0.2,
+          "confidence": 0.05
+        }
+      },
+      "gating": {
+        "max_normalized_centroid_distance": 0.5,
+        "max_scale_ratio": 1.8,
+        "max_pose_distance": 0.35,
+        "min_shared_joints": 6
+      },
+      "tracks": {
+        "max_lost_frames": 3
+      },
+      "target_selection": {
+        "coverage_weight": 0.45,
+        "valid_joints_weight": 0.2,
+        "confidence_weight": 0.15,
+        "continuity_weight": 0.1,
+        "scale_stability_weight": 0.05,
+        "low_fragmentation_weight": 0.05,
+        "use_size_prior": false,
+        "size_prior_weight": 0.02
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# S3: predeclared protocol sensitivity experiment; no author-stride claim.
+base_config: paper_repro.yaml
+experiment: S3_window60_stride15
+sequence:
+  mode: sliding_window
+  window_length: 60
+  stride: 15
+  short_clip_policy: drop
+  tail_policy: drop
+outputs:
+  artifacts_dir: ./artifacts/window_s15
+  split_dir: ./artifacts/splits/paper_repro
+  checkpoints_dir: ./checkpoints/window_s15
+  runs_dir: ./runs/window_s15

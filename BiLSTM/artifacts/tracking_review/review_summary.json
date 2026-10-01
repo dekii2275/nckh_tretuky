@@ -1,0 +1,33 @@
+{
+  "review_clips": 120,
+  "per_class": {
+    "arm_swing_as": 12,
+    "body_swing_bs": 12,
+    "chest_expansion_ce": 12,
+    "drumming_dr": 12,
+    "maracas_forward_shaking_mfs": 12,
+    "maracas_shaking_ms": 12,
+    "sing_and_clap_sac": 12,
+    "squat_sq": 12,
+    "tree_pose_tr": 12,
+    "twist_pose_tw": 12
+  },
+  "per_day": {
+    "D1": 47,
+    "D8": 43,
+    "D16": 30
+  },
+  "subjects": 32,
+  "single_person_only_clips": 0,
+  "clips_with_one_person_frames": 3,
+  "clips_with_multiple_people": 120,
+  "clips_with_reordering_proxy": 120,
+  "max_reordering_proxy_rate": 0.718978102189781,
+  "selection": "Deterministic class/day/people strata, high reordering proxies, then subject diversity. No accuracy-based selection.",
+  "reordering_definition": "Mutual nearest torso matches with changed raw index; equal counts >=2; normalized distance <0.25. Diagnostic proxy only.",
+  "review_status": "unreviewed; no child identity ground truth asserted",
+  "tracker_changed": false,
+  "population_clips": 1374,
+  "population_single_person_only_clips": 0,
+  "population_clips_with_one_person_frames": 5
+}

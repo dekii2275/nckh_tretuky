@@ -1,0 +1,230 @@
+{
+  "accuracy": 0.6784452296819788,
+  "macro_precision": 0.6520947353300295,
+  "macro_recall": 0.6886549092905828,
+  "macro_f1": 0.657509132355943,
+  "loss": 1.671170840625628,
+  "checkpoint": "/home/dekii2275/nckh_tretuky/BiLSTM/checkpoints/paper_repro/best.pt",
+  "split": "val",
+  "evaluation_size": 283,
+  "test_size": null,
+  "evaluation_unit": "clip",
+  "checkpoint_epoch": 32,
+  "checkpoint_sha256": "9cf03687e6c7a7a987c9c1264c31dc1fb711d0c4a3878bb0f76fb6e4870711aa",
+  "checkpoint_verification": {
+    "status": "recorded_manifests_verified",
+    "config_matches": true,
+    "source_matches": true,
+    "raw_skeleton_contents_verified": false
+  },
+  "provenance": {
+    "schema_version": 1,
+    "manifest_sha256": {
+      "manifest.csv": "d317ddcd17633fba1f5186223afbc7ec8a91bbf0f894d5c9d1edf1dd11f8f65d",
+      "splits/train.csv": "81fdb486982839662e72dc85f4cf1c665b77cb4eb3c4adb3b5a514ecfa0449ad",
+      "splits/val.csv": "2b21991c7d0db6a076a395d664ea2b0cf8928ed517b3a941b9022c578fd2f888"
+    },
+    "source_sha256": {
+      "__init__.py": "54e63a1f8059fe8f55a6072be3ce40bd0f7bf168d3c868aeb785d389a6dc5390",
+      "data/__init__.py": "f9739b81c65c4d3632b77bccbb36a06be03009fdb89e53b944d46ba0d8c57cdb",
+      "data/child_tracking.py": "1fd056a9ae919861b0793573164f9413176cd3b35488d5155e86e5831333c7a2",
+      "data/collate.py": "fabb682f54272e5763b1aff966fe88870fad4de0b5787ad008120f329acf13da",
+      "data/dataset.py": "5bc82bad2cc568934eb7b91c03a6862f3fba2889746ad6436d7f05e932d6ec8e",
+      "data/discover.py": "9a337fe7d6a4ec870b138072125e295fda185fbe98fad743d776cb0603227999",
+      "data/openpose_parser.py": "4559fc2c180facfe0ff7a7aac82cbb2fe1751193bb82cbdddad01e0333192364",
+      "data/preprocessing.py": "4a3b1158584b4a64978427ea10349f8d5e0d64da81e1ea127a8c14a60d189fe1",
+      "data/splits.py": "812df3e9c242b9fc475fa6739c9cd23b32c153f0b396cdb21eec908d959a0cdd",
+      "engine.py": "35ff944802dcca96c46626ec62b71f0f830aad828f64a904db5c316fb4d3695b",
+      "evaluate.py": "945d372afcc9da12d038a3f5e8cb6efcc1fb4133d722711dcc5743c6138e9bf4",
+      "metrics.py": "8f03e0df62766f58eb0e085a4885da2572bd4a8a13168f3dd3f0aabf9ee9197e",
+      "models/__init__.py": "6b06ea5b46da83ee166950dec21c7a5974495186b611d393f933614a3d6e67c2",
+      "models/bilstm_attention.py": "2349359a27053f813472683a89b0ae5f84dab4c0ab893d9d643abe86a312f70a",
+      "reproducibility.py": "d552091720f35a52740e8d1782dcea0989180613c4b3624adab1707207212e35",
+      "seed.py": "1d76cd774eb0dfe2fc711aed0d3890298b659089aed96aa47bd18f8d10cda22a",
+      "train.py": "c17bc2f48212495b18c369241c69caafc6d9f07a967080e10637c0a155148071",
+      "utils.py": "2d374b79c1c5c9b534b4461b10ccecb33578e1659bdadacaa0dfd9079a7b1c92"
+    },
+    "raw_skeleton_contents_hashed": false,
+    "inference_settings": {
+      "data": {
+        "root": "../data_MMASD",
+        "skeleton_dir": "2D_skeleton/2D_openpose/output",
+        "modality": "2D OpenPose BODY_25",
+        "num_joints": 25,
+        "coordinates": 2,
+        "input_size": 50,
+        "tracking_strategy": "temporal_nearest",
+        "prefer_smaller_person": true,
+        "preprocessing": {
+          "confidence_threshold": 0.1,
+          "missing_joint_strategy": "interpolate",
+          "interpolation": {
+            "max_gap": null
+          },
+          "shoulder_scale": {
+            "min_width_px": 5.0,
+            "fallback": "torso"
+          },
+          "smoothing": false
+        }
+      },
+      "sequence": {
+        "mode": "fixed_60",
+        "length": 60,
+        "sampling": "uniform"
+      },
+      "model": {
+        "type": "paper_bilstm_attention",
+        "bilstm": {
+          "input_size": 50,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "bidirectional": true
+        },
+        "attention": {
+          "embed_dim": 256,
+          "num_heads": 4,
+          "dropout": 0.0
+        },
+        "residual": true,
+        "layer_norm": true,
+        "pooling": {
+          "type": "temporal_mean"
+        },
+        "projection": {
+          "in_features": 256,
+          "out_features": 64,
+          "activation": "relu"
+        },
+        "dropout": 0.3,
+        "lstm_internal_dropout": 0.0,
+        "classifier": {
+          "in_features": 64,
+          "num_classes": 10
+        }
+      },
+      "classes": {
+        "exclude": [
+          "frog_pose_fg"
+        ]
+      }
+    },
+    "resolved_config": {
+      "seed": 42,
+      "data": {
+        "root": "../data_MMASD",
+        "skeleton_dir": "2D_skeleton/2D_openpose/output",
+        "modality": "2D OpenPose BODY_25",
+        "num_joints": 25,
+        "coordinates": 2,
+        "input_size": 50,
+        "cache_in_memory": true,
+        "tracking_strategy": "temporal_nearest",
+        "prefer_smaller_person": true,
+        "preprocessing": {
+          "confidence_threshold": 0.1,
+          "missing_joint_strategy": "interpolate",
+          "interpolation": {
+            "max_gap": null
+          },
+          "shoulder_scale": {
+            "min_width_px": 5.0,
+            "fallback": "torso"
+          },
+          "smoothing": false
+        }
+      },
+      "classes": {
+        "exclude": [
+          "frog_pose_fg"
+        ]
+      },
+      "sequence": {
+        "mode": "fixed_60",
+        "length": 60,
+        "sampling": "uniform"
+      },
+      "split": {
+        "strategy": "session_holdout",
+        "train_fraction": 0.8,
+        "val_fraction": 0.2
+      },
+      "model": {
+        "type": "paper_bilstm_attention",
+        "bilstm": {
+          "input_size": 50,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "bidirectional": true
+        },
+        "attention": {
+          "embed_dim": 256,
+          "num_heads": 4,
+          "dropout": 0.0
+        },
+        "residual": true,
+        "layer_norm": true,
+        "pooling": {
+          "type": "temporal_mean"
+        },
+        "projection": {
+          "in_features": 256,
+          "out_features": 64,
+          "activation": "relu"
+        },
+        "dropout": 0.3,
+        "lstm_internal_dropout": 0.0,
+        "classifier": {
+          "in_features": 64,
+          "num_classes": 10
+        }
+      },
+      "training": {
+        "epochs": 100,
+        "batch_size": 32,
+        "optimizer": {
+          "type": "Adam",
+          "learning_rate": 0.001,
+          "weight_decay": 0.0
+        },
+        "loss": {
+          "type": "CrossEntropyLoss"
+        },
+        "scheduler": null,
+        "class_weighting": "none",
+        "gradient_clipping": null,
+        "amp": false,
+        "num_workers": 0
+      },
+      "early_stopping": {
+        "enabled": true,
+        "patience": 10,
+        "monitor": "val_accuracy",
+        "mode": "max"
+      },
+      "evaluation": {
+        "batch_size": 32,
+        "split": "val"
+      },
+      "outputs": {
+        "artifacts_dir": "./artifacts/paper_repro",
+        "split_dir": "./artifacts/splits/paper_repro",
+        "checkpoints_dir": "./checkpoints/paper_repro",
+        "runs_dir": "./runs/paper_repro"
+      }
+    }
+  },
+  "class_names": [
+    "arm_swing_as",
+    "body_swing_bs",
+    "chest_expansion_ce",
+    "drumming_dr",
+    "maracas_forward_shaking_mfs",
+    "maracas_shaking_ms",
+    "sing_and_clap_sac",
+    "squat_sq",
+    "tree_pose_tr",
+    "twist_pose_tw"
+  ],
+  "reference_target_note": "Paper-reported validation Accuracy ~94.84% and Macro-F1 ~0.94 are reference targets, not guaranteed results."
+}

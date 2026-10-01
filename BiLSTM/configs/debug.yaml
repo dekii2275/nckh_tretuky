@@ -1,0 +1,60 @@
+seed: 42
+
+data:
+  # The dataset stays next to this baseline directory.
+  root: ../data_MMASD
+  skeleton_dir: 2D_skeleton/2D_openpose/output
+  confidence_threshold: 0.1
+  missing_joint_strategy: interpolate
+  tracking_strategy: temporal_nearest
+  prefer_smaller_person: true
+  smoothing: false
+  scale_epsilon: 0.000001
+  min_shoulder_width: 5.0
+
+classes:
+  exclude:
+    - frog_pose_fg
+
+sequence:
+  mode: uniform_sample
+  max_frames: 32
+  target_frames: 32
+
+split:
+  strategy: session_holdout
+  val_fraction: 0.10
+  test_fraction: 0.20
+
+model:
+  input_size: 50
+  hidden_size: 16
+  num_layers: 1
+  bidirectional: true
+  attention_heads: 4
+  dropout: 0.1
+  pooling: mean
+
+training:
+  epochs: 1
+  batch_size: 2
+  optimizer: adam
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  class_weighting: none
+  gradient_clip_norm: 1.0
+  amp: false
+  num_workers: 0
+  max_train_samples: 8
+  max_val_samples: 4
+
+early_stopping:
+  enabled: false
+  metric: val_macro_f1
+  mode: max
+  patience: 1
+
+outputs:
+  artifacts_dir: ./artifacts
+  checkpoints_dir: ./checkpoints
+  runs_dir: ./runs

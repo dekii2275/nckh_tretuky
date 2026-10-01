@@ -1,0 +1,66 @@
+seed: 42
+
+data:
+  # The dataset stays next to this baseline directory.
+  root: ../data_MMASD
+  skeleton_dir: 2D_skeleton/2D_openpose/output
+  confidence_threshold: 0.1
+  missing_joint_strategy: interpolate
+  tracking_strategy: temporal_nearest
+  prefer_smaller_person: true
+  smoothing: false
+  smoothing_window: 3
+  scale_epsilon: 0.000001
+  # Avoid exploding features when OpenPose predicts coincident shoulders.
+  min_shoulder_width: 5.0
+
+classes:
+  # Confirmed from the local directory name; all 113 Frog Pose directories
+  # currently contain no OpenPose JSON and are excluded from this 10-class run.
+  exclude:
+    - frog_pose_fg
+
+sequence:
+  mode: full_clip
+  max_frames: null
+  target_frames: null
+
+split:
+  strategy: session_holdout
+  val_fraction: 0.10
+  test_fraction: 0.20
+
+model:
+  input_size: 50
+  hidden_size: 128
+  num_layers: 2
+  bidirectional: true
+  attention_heads: 4
+  dropout: 0.3
+  pooling: mean
+
+training:
+  epochs: 100
+  batch_size: 32
+  optimizer: adam
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  class_weighting: none
+  gradient_clip_norm: 1.0
+  amp: true
+  num_workers: 0
+
+early_stopping:
+  enabled: true
+  metric: val_macro_f1
+  mode: max
+  patience: 15
+
+evaluation:
+  # Full-clip self-attention has quadratic memory in sequence length.
+  batch_size: 1
+
+outputs:
+  artifacts_dir: ./artifacts
+  checkpoints_dir: ./checkpoints
+  runs_dir: ./runs

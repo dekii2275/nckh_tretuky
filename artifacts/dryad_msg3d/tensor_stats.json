@@ -1,0 +1,75 @@
+{
+  "coordinate_statistics_including_sentinel": {
+    "x": {
+      "max": 100.0,
+      "mean": -0.03429008476079803,
+      "min": -1.3953277355262017,
+      "std": 1.1906285016042475
+    },
+    "y": {
+      "max": 100.0,
+      "mean": -0.47566360617323705,
+      "min": -1.4150984086112377,
+      "std": 0.5279954797950043
+    },
+    "z": {
+      "max": 4.405574915551267,
+      "mean": 3.022590013159277,
+      "min": 1.0374493191871828,
+      "std": 0.5253526241554689
+    }
+  },
+  "dtype": "float32",
+  "inf_count": 0,
+  "nan_count": 0,
+  "padded_frame_percentage": 0.41583333333333333,
+  "raw_frame_distribution": {
+    "21": 4,
+    "23": 21,
+    "24": 2,
+    "25": 3,
+    "26": 10,
+    "27": 30,
+    "28": 37,
+    "29": 38,
+    "30": 33,
+    "31": 50,
+    "32": 67,
+    "33": 67,
+    "34": 66,
+    "35": 68,
+    "36": 16,
+    "37": 40,
+    "38": 64,
+    "39": 45,
+    "40": 21,
+    "41": 23,
+    "42": 21,
+    "43": 7,
+    "44": 7,
+    "45": 15,
+    "46": 1,
+    "50": 1,
+    "53": 14,
+    "54": 14,
+    "55": 7,
+    "56": 7,
+    "60": 1
+  },
+  "raw_t_max": 60,
+  "raw_t_min": 21,
+  "roundtrip_element_count": 2103000,
+  "roundtrip_max_abs_error_vs_float32_raw": 0.0,
+  "roundtrip_mean_abs_error_vs_float32_raw": 0.0,
+  "sentinel_occurrences_valid_data": 101,
+  "sentinel_sample_count": 3,
+  "serialization_exact_equality": true,
+  "tensor_shape": [
+    800,
+    3,
+    60,
+    25,
+    2
+  ],
+  "total_padded_frames": 19960
+}

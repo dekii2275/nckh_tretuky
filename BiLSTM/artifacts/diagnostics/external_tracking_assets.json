@@ -1,0 +1,991 @@
+{
+  "mediapipe_csv_files": 3276,
+  "optical_flow_mp4_files": 3267,
+  "romp_track_directories": 3251,
+  "romp_npz_frames": 642636,
+  "ASD_Label_file_counts": {
+    "0": 1315,
+    "1": 1258,
+    "6": 1,
+    "2": 697,
+    "3": 5
+  },
+  "csv_data_row_count_distribution": {
+    "179": 3276
+  },
+  "ASD_Label_nonbinary_values": [
+    "2",
+    "3",
+    "6"
+  ],
+  "csv_schemas": [
+    {
+      "columns": [
+        "nose_x",
+        "nose_y",
+        "nose_z",
+        "left_eye_x",
+        "left_eye_y",
+        "left_eye_z",
+        "right_eye_x",
+        "right_eye_y",
+        "right_eye_z",
+        "left_ear_x",
+        "left_ear_y",
+        "left_ear_z",
+        "right_ear_x",
+        "right_ear_y",
+        "right_ear_z",
+        "left_shoulder_x",
+        "left_shoulder_y",
+        "left_shoulder_z",
+        "right_shoulder_x",
+        "right_shoulder_y",
+        "right_shoulder_z",
+        "left_elbow_x",
+        "left_elbow_y",
+        "left_elbow_z",
+        "right_elbow_x",
+        "right_elbow_y",
+        "right_elbow_z",
+        "left_wrist_x",
+        "left_wrist_y",
+        "left_wrist_z",
+        "right_wrist_x",
+        "right_wrist_y",
+        "right_wrist_z",
+        "left_pinky_x",
+        "left_pinky_y",
+        "left_pinky_z",
+        "right_pinky_x",
+        "right_pinky_y",
+        "right_pinky_z",
+        "left_index_x",
+        "left_index_y",
+        "left_index_z",
+        "right_index_x",
+        "right_index_y",
+        "right_index_z",
+        "Left_hip_x",
+        "Left_hip_y",
+        "Left_hip_z",
+        "Right_hip_x",
+        "Right_hip_y",
+        "Right_hip_z",
+        "Left_knee_x",
+        "Left_knee_y",
+        "Left_knee_z",
+        "Right_knee_x",
+        "Right_knee_y",
+        "Right_knee_z",
+        "Left_ankle_x",
+        "Left_ankle_y",
+        "Left_ankle_z",
+        "Right_ankle_x",
+        "Right_ankle_y",
+        "Right_ankle_z",
+        "Left_heel_x",
+        "Left_heel_y",
+        "Left_heel_z",
+        "Right_heel_x",
+        "Right_heel_y",
+        "Right_heel_z",
+        "Left_foot_x",
+        "Left_foot_y",
+        "Left_foot_z",
+        "Right_foot_x",
+        "Right_foot_y",
+        "Right_foot_z",
+        "Action_Label",
+        "ASD_Label"
+      ],
+      "files": 3276
+    }
+  ],
+  "frozen_clips_with_filename_match": 1069,
+  "frozen_clips_total": 1374,
+  "matched_csv_files": 2753,
+  "matched_csv_files_with_equal_frame_count": 0,
+  "romp_examples": [
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Arm_Swing/processed_Arm_swingas_20583_D16_000_i_4_0/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Body_Swing/processed_bs_20583_D16_000_i_4_0/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Chest_Expansion/processed_ce_20583_D16_000_n_4_0/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Drumming/processed_dr_20564_D1_002_y_7_1/frame_105.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Frog_Pose/processed_fg_41004_D1_000_y_1_1/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Marcas_Forward/processed_mfs_20564_D16_001_n_1_0/frame_187.npz",
+      "fields": {
+        "arr_0": {
+          "note": "object array not deserialized"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Marcas_Shaking/processed_ms_20564_D1_000_n_4_0/frame_187.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Sing_Clap/processed_sac_20564_D1_000_y_3_2/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Squat_Pose/processed_sq_20583_D16_000_y_3_0/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Tree_Pose/processed_tr_41004_D1_000_y_1_2/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/data_MMASD_plus/romp_unified/Twist_Pose/processed_tw_41004_D1_001_y_3_0/frame_72.npz",
+      "fields": {
+        "cam": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "global_orient": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "body_pose": {
+          "shape": [
+            1,
+            69
+          ],
+          "dtype": "float32"
+        },
+        "smpl_betas": {
+          "shape": [
+            1,
+            10
+          ],
+          "dtype": "float32"
+        },
+        "smpl_thetas": {
+          "shape": [
+            1,
+            72
+          ],
+          "dtype": "float32"
+        },
+        "center_preds": {
+          "shape": [
+            1,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "center_confs": {
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float32"
+        },
+        "cam_trans": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "verts": {
+          "shape": [
+            1,
+            6890,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "joints": {
+          "shape": [
+            1,
+            71,
+            3
+          ],
+          "dtype": "float32"
+        },
+        "pj2d_org": {
+          "shape": [
+            1,
+            71,
+            2
+          ],
+          "dtype": "float32"
+        }
+      }
+    }
+  ],
+  "archives": [
+    {
+      "path": "/home/dekii2275/nckh_tretuky/enhanced-mmasd/Sample_Data/Optical_Flow.zip",
+      "members": 66,
+      "extensions": {
+        "": 11,
+        ".mp4": 55
+      }
+    },
+    {
+      "path": "/home/dekii2275/nckh_tretuky/enhanced-mmasd/Sample_Data/3D-Skeleton-Data.zip",
+      "members": 66,
+      "extensions": {
+        "": 11,
+        ".csv": 55
+      }
+    }
+  ],
+  "explicit_binary_label_present": true,
+  "child_therapist_label_semantics_verified": false,
+  "original_frame_bbox_track_mapping_found": false,
+  "candidate_status": "potentially useful external role/track metadata, not yet aligned or validated child identity"
+}

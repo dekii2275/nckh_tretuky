@@ -1,0 +1,11 @@
+{
+  "artifacts/paper_repro/manifest.csv": "d317ddcd17633fba1f5186223afbc7ec8a91bbf0f894d5c9d1edf1dd11f8f65d",
+  "artifacts/splits/paper_repro/train.csv": "81fdb486982839662e72dc85f4cf1c665b77cb4eb3c4adb3b5a514ecfa0449ad",
+  "artifacts/splits/paper_repro/val.csv": "2b21991c7d0db6a076a395d664ea2b0cf8928ed517b3a941b9022c578fd2f888",
+  "configs/paper_repro_tracker_v2.yaml": "192024b7fa22134fa845e950afa26ab752856116305b0e48705fff620a2d2210",
+  "src/data/tracking.py": "c8a97f75cffb8724a84a47b366aa1eee3fcb56ab119dc87210d160168a4d5654",
+  "src/data/tracklet_tracking.py": "bed6817f1d7a1137e96bc51dfc293533c65353532e30251ae422256da120374d",
+  "src/data/preprocessing.py": "4a3b1158584b4a64978427ea10349f8d5e0d64da81e1ea127a8c14a60d189fe1",
+  "src/models/bilstm_attention.py": "2349359a27053f813472683a89b0ae5f84dab4c0ab893d9d643abe86a312f70a",
+  "checkpoints/tracker_v2_controlled/best.pt": "3f99d7a6f312e6605814a9d616d33bc6c5a7a25d3ca90e88554792f8b5d176bc"
+}

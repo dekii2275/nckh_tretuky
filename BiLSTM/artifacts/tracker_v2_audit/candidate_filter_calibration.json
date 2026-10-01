@@ -1,0 +1,52 @@
+{
+  "purpose": "candidate-geometry calibration only; no labels or validation accuracy used",
+  "sampling": "10 manifest-order-spaced clips per activity, 10 activities",
+  "clips": 100,
+  "frames": 17870,
+  "legacy_valid_candidates": 65143,
+  "v2_accepted_candidates": 57771,
+  "candidate_retention_rate": 0.8868335815053037,
+  "frames_with_no_v2_candidate": 0,
+  "frames_with_no_v2_candidate_rate": 0.0,
+  "selected_thresholds": {
+    "confidence_threshold": 0.1,
+    "min_valid_joints": 10,
+    "min_torso_anchors": 4,
+    "min_diagonal_px": 50.0
+  },
+  "observed_candidate_quantiles": {
+    "valid_joints": {
+      "p01": 3.0,
+      "p05": 7.0,
+      "p10": 9.0,
+      "p25": 14.0,
+      "p50": 21.0,
+      "p75": 23.0,
+      "p90": 24.0,
+      "p95": 25.0,
+      "p99": 25.0
+    },
+    "torso_anchors": {
+      "p01": 1.0,
+      "p05": 3.0,
+      "p10": 4.0,
+      "p25": 6.0,
+      "p50": 6.0,
+      "p75": 6.0,
+      "p90": 6.0,
+      "p95": 6.0,
+      "p99": 6.0
+    },
+    "diagonal_px": {
+      "p01": 30.70411018371582,
+      "p05": 87.08259963989258,
+      "p10": 112.94817352294922,
+      "p25": 156.184814453125,
+      "p50": 202.97250366210938,
+      "p75": 266.96934509277344,
+      "p90": 338.4779846191406,
+      "p95": 370.621255493164,
+      "p99": 495.11994812011784
+    }
+  }
+}

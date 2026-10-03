@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only syntax and local documentation-link check for this repository."""
+"""Check Python syntax and documentation links in a fresh checkout."""
 
 from __future__ import annotations
 
@@ -18,6 +18,13 @@ CODE_DIRS = (
     "tests",
     "autism",
 )
+# These locations may be absent from a fresh clone: local inputs/checkpoints
+# are ignored, and the MMASD submodule is optional until initialized.
+LOCAL_ONLY_DIRS = tuple(Path(name) for name in (
+    "data_MMASD", "Data_DRYAD", "data_Dream",
+    "checkpoints", "runs", "BiLSTM/checkpoints", "BiLSTM/runs",
+    "MMASD-A-Multimodal-Dataset-for-Autism-Intervention-Analysis",
+))
 LINK = re.compile(r"\]\(([^)]+)\)")
 
 
@@ -42,7 +49,15 @@ def main() -> None:
             target = unquote(match.group(1).split("#", 1)[0].strip("<> "))
             if not target or "://" in target or target.startswith("mailto:"):
                 continue
-            if not (path.parent / target).exists():
+            resolved = (path.parent / target).resolve()
+            try:
+                relative = resolved.relative_to(ROOT)
+            except ValueError:
+                errors.append(f"Link ngoài repo: {path.relative_to(ROOT)} -> {target}")
+                continue
+            if any(relative == local or local in relative.parents for local in LOCAL_ONLY_DIRS):
+                continue
+            if not resolved.exists():
                 errors.append(f"Link hỏng: {path.relative_to(ROOT)} -> {target}")
 
     if errors:

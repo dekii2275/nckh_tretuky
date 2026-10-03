@@ -234,5 +234,6 @@ __marimo__/
 /artifacts/dryad_msg3d/preprocessed/
 /artifacts/dryad_msg3d/loader/
 /artifacts/dryad_msg3d/experiments/
+/artifacts/visualizations/
 *.pt
 *.pth

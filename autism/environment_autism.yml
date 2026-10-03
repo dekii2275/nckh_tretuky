@@ -324,4 +324,3 @@ dependencies:
       - tqdm==4.64.1
       - werkzeug==2.2.2
       - wheel==0.37.1
-prefix: /home/uniwa/students3/students/22905553/linux/anaconda3/envs/autism

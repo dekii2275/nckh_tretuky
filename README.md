@@ -36,6 +36,20 @@ Các thư mục dữ liệu cục bộ, checkpoint và những output lớn đã
 
 Repo mẫu MMASD được khai báo là Git submodule; khi clone mới, dùng `git clone --recurse-submodules <repo-url>` hoặc chạy `git submodule update --init` sau khi clone. Thư mục `autism/` được đưa vào repo chính từ [saniazahan/autism](https://github.com/saniazahan/autism), commit `15048b39`, cùng các chỉnh sửa MSG3D cục bộ. Metadata Git cũ của nó được giữ tại `autism/.git.backup/` trên máy này và không đưa vào commit. File checkpoint `.pt` là tài nguyên cục bộ bị loại khỏi Git.
 
+## Chuẩn bị sau khi clone
+
+```bash
+git clone --recurse-submodules <repo-url>
+cd nckh_tretuky
+make check
+```
+
+`make check` kiểm tra cú pháp Python và các liên kết tài liệu thuộc repo bằng Python standard library; không cần tải dữ liệu. Nếu muốn chạy kiểm thử, cài dependencies của pipeline tương ứng và `pytest`, sau đó dùng `make test-bilstm` hoặc `make test-dryad`. Dữ liệu MMASD, DRYAD, DREAM và checkpoint cần được lấy riêng theo nguồn và quyền sử dụng của từng bộ dữ liệu, rồi đặt vào các thư mục cục bộ ghi trong bảng cấu trúc. Chúng không đi kèm bản clone. Một số báo cáo có liên kết tới đường dẫn dữ liệu/checkpoint cục bộ và chỉ mở được khi đã chuẩn bị các file đó.
+
+## Chuẩn bị đưa lên GitHub
+
+Chạy `make check` và `git status --short` trước khi commit. `.gitignore` loại dữ liệu thô, checkpoint, môi trường Python và các hình/HTML sinh tại `artifacts/visualizations/`; các script trong `tools/` và tài liệu nguồn vẫn cần được commit nếu muốn người khác tái tạo hình. Kiểm tra riêng các artifact đã được Git theo dõi trong `BiLSTM/artifacts/` trước khi công khai, vì `.gitignore` không loại những file đã được theo dõi từ trước. Repo dùng giấy phép [MIT](LICENSE) cho phần mã nguồn của dự án; dữ liệu và mã nguồn bên thứ ba có điều khoản riêng tại nguồn tương ứng.
+
 ## Lệnh chung
 
 Chạy từ thư mục gốc repo:
@@ -48,7 +62,7 @@ make test-dryad           # kiểm thử DRYAD; cần môi trường DRYAD, dữ
 make test                 # chạy cả hai nhóm kiểm thử
 ```
 
-Đổi Python interpreter bằng `make PYTHON=/duong/dan/toi/python check` nếu dùng virtual environment hoặc conda. Dependencies MMASD nằm trong [BiLSTM/requirements.txt](BiLSTM/requirements.txt); nhánh DRYAD/MSG3D có môi trường riêng tại [autism/environment_autism.yml](autism/environment_autism.yml). `make check` chỉ dùng Python standard library.
+Đổi Python interpreter bằng `make PYTHON=/duong/dan/toi/python check` nếu dùng virtual environment hoặc conda. Dependencies MMASD nằm trong [BiLSTM/requirements.txt](BiLSTM/requirements.txt); nhánh DRYAD/MSG3D có môi trường riêng tại [autism/environment_autism.yml](autism/environment_autism.yml). File Conda này là bản export Linux/CUDA có nhiều phiên bản và build cố định, nên có thể cần điều chỉnh trên hệ điều hành hoặc GPU khác. `make check` chỉ dùng Python standard library.
 
 Ví dụ lệnh riêng theo pipeline:
 
@@ -58,3 +72,19 @@ python3 tools/read_dryad_data.py
 ```
 
 Lệnh audit MMASD đọc manifest/split hiện có và ghi `BiLSTM/artifacts/paper_repro/protocol_audit.json`. Script DRYAD đọc workbook cục bộ và ghi hình vào `dryad_visualizations/`. Xem README của từng nhánh trước khi chạy training hoặc tái tạo artifact.
+
+### Xem dữ liệu DREAM
+
+```bash
+python3 tools/visualize_dream.py
+```
+
+Lệnh này tạo `artifacts/visualizations/dream_viewer.html` từ một record JA mẫu. Mở file HTML bằng trình duyệt để phát lại skeleton thân trên ở hai góc nhìn, kéo đến từng frame, lọc khớp theo confidence và xem các thành phần `rx/ry/rz` của eye/head gaze. Trang HTML tự chứa dữ liệu của record được chọn, không cần máy chủ hay thư viện Python ngoài standard library.
+
+Để xem một record khác hoặc một đoạn ngắn:
+
+```bash
+python3 tools/visualize_dream.py "data_Dream/DREAMdataset/User 33/User 33_10_intervention 1_20170623_090815.158000.json" --start-frame 500 --frames 1000 --output artifacts/visualizations/dream_imitation.html
+```
+
+Mỗi JSON là một đoạn dữ liệu, không phải một trial đã gán nhãn đúng/sai. Mũi tên gaze chỉ hướng vector; không suy ra vật thể được nhìn vì bản public thiếu tọa độ target và mốc stimulus. Một số record có metadata thời gian sai, nên viewer dùng độ dài mảng tín hiệu và `frame_rate` để xác định thời gian hiển thị.

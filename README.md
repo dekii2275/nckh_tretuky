@@ -62,7 +62,7 @@ make test-dryad           # kiểm thử DRYAD; cần môi trường DRYAD, dữ
 make test                 # chạy cả hai nhóm kiểm thử
 ```
 
-Đổi Python interpreter bằng `make PYTHON=/duong/dan/toi/python check` nếu dùng virtual environment hoặc conda. Dependencies MMASD nằm trong [BiLSTM/requirements.txt](BiLSTM/requirements.txt); nhánh DRYAD/MSG3D có môi trường riêng tại [autism/environment_autism.yml](autism/environment_autism.yml). File Conda này là bản export Linux/CUDA có nhiều phiên bản và build cố định, nên có thể cần điều chỉnh trên hệ điều hành hoặc GPU khác. `make check` chỉ dùng Python standard library.
+Đổi Python interpreter bằng `make PYTHON=/duong/dan/toi/python check` nếu dùng virtual environment hoặc conda. Dependencies chung của dự án được khai báo tại [requirements.txt](requirements.txt) và [pyproject.toml](pyproject.toml); riêng MMASD có [BiLSTM/requirements.txt](BiLSTM/requirements.txt); nhánh DRYAD/MSG3D có môi trường Conda tại [autism/environment_autism.yml](autism/environment_autism.yml). `make check` chỉ dùng Python standard library.
 
 Ví dụ lệnh riêng theo pipeline:
 

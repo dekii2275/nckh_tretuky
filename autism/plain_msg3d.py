@@ -40,7 +40,7 @@ def build_plain_msg3d(
 def load_ntu120_backbone(model, checkpoint_path, map_location="cpu"):
     """Load NTU120 weights while explicitly excluding the 120-class head."""
 
-    checkpoint = torch.load(Path(checkpoint_path), map_location=map_location)
+    checkpoint = torch.load(Path(checkpoint_path), map_location=map_location, weights_only=True)
     if not isinstance(checkpoint, dict):
         raise TypeError("Expected a state-dict-like checkpoint")
 

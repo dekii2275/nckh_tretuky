@@ -77,6 +77,17 @@ class SkeletonClipDataset(Dataset[dict[str, object]]):
     def _resolve_path(self, path: str) -> Path:
         value = Path(path)
         if value.is_absolute():
+            if value.exists():
+                return value
+            # Fallback for portability if dataset path recorded on another machine
+            parts = value.parts
+            if "data_MMASD" in parts:
+                candidate = Path(*parts[parts.index("data_MMASD"):])
+                root = Path(self.data_config.get("project_root", Path.cwd()))
+                if (root / candidate).exists():
+                    return (root / candidate).resolve()
+                if (root.parent / candidate).exists():
+                    return (root.parent / candidate).resolve()
             return value
         root = Path(self.data_config.get("project_root", Path.cwd()))
         return (root / value).resolve()

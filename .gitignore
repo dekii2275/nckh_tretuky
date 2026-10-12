@@ -235,5 +235,6 @@ __marimo__/
 /artifacts/dryad_msg3d/loader/
 /artifacts/dryad_msg3d/experiments/
 /artifacts/visualizations/
+/BiLSTM/artifacts/tracking_review_3d/
 *.pt
 *.pth

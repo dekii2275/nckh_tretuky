@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+from collections import Counter
 from pathlib import Path
 import sys
 
@@ -17,8 +18,9 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.data.openpose_parser import parse_clip
-from src.data.child_tracking import select_child_track
+from src.data.tracking import select_person_track
 from src.utils import ensure_dir, load_config
+from romp_review_data import frame_id, read_romp_frames, match_selected_person
 
 SMPL_24_BONES = [
     [0, 1], [0, 2], [0, 3],
@@ -32,7 +34,7 @@ SMPL_24_BONES = [
 SMPL_JOINT_NAMES = [
     "Pelvis", "L_Hip", "R_Hip", "Spine1", "L_Knee", "R_Knee",
     "Spine2", "L_Ankle", "R_Ankle", "Spine3", "L_Foot", "R_Foot",
-    "Neck", "L_Collar", "R_Collar", "Head", "L_Shoulder", "R_Shoulder",
+    "Neck", "L_Collar", "R_Collar", "Jaw", "L_Shoulder", "R_Shoulder",
     "L_Elbow", "R_Elbow", "L_Wrist", "R_Wrist", "L_Hand", "R_Hand"
 ]
 
@@ -45,27 +47,16 @@ OPENPOSE_25_EDGES = [
 
 
 def load_romp_3d_clip(romp_dir: Path) -> list[list[list[float]]]:
-    """Load per-frame ROMP 3D coordinates from npz files."""
-    files = sorted(romp_dir.glob("*.npz"))
-    frames_3d = []
-    for f in files:
-        try:
-            data = np.load(f)
-            coords = data["coordinates"]  # [N_persons, 24, 3]
-            frame_persons = []
-            for person in coords:
-                valid = np.isfinite(person).all() and (person != 0).any()
-                if valid:
-                    frame_persons.append(np.round(person.astype(float), 2).tolist())
-            frames_3d.append(frame_persons)
-        except Exception:
-            frames_3d.append([])
-    return frames_3d
+    """Compatibility wrapper; source person indices are preserved."""
+    frames, _ = read_romp_frames(romp_dir)
+    return [frames[index] for index in sorted(frames)]
 
 
 def generate_multimodal_html(payload: dict) -> str:
     """Generate self-contained HTML page with synchronized 2D OpenPose and 3D Skeleton Viewer."""
     data_json = json.dumps(payload, separators=(",", ":"), ensure_ascii=False).replace("<", "\\u003c")
+    renderer_js = "\n".join(Path(__file__).with_name(name).read_text(encoding="utf-8")
+                            for name in ("tracking_review_3d_webgl.js", "tracking_review_3d_renderer.js"))
     
     html = f"""<!doctype html>
 <html lang="vi">
@@ -293,7 +284,7 @@ def generate_multimodal_html(payload: dict) -> str:
     <!-- 3D ROMP Viewer -->
     <div class="card">
       <div class="card-header">
-        <span>Mô hình người 3D (ROMP 24 khớp) — Kéo chuột để xoay 360°, cuộn để phóng to/thu nhỏ</span>
+        <span>Cơ thể 3D · ROMP / SMPL 24 — Kéo để xoay, cuộn để phóng to</span>
         <div class="legend-box">
           <button id="btnViewFront" style="padding: 2px 8px; font-size: 11px;">Mặt trước</button>
           <button id="btnViewSide" style="padding: 2px 8px; font-size: 11px;">Mặt bên</button>
@@ -301,7 +292,23 @@ def generate_multimodal_html(payload: dict) -> str:
           <button id="btnViewReset" style="padding: 2px 8px; font-size: 11px;">Mặc định</button>
         </div>
       </div>
-      <canvas id="canvas3d" width="600" height="480"></canvas>
+      <div id="stage3d" style="position:relative;height:560px;border-radius:10px;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#26384b 0%,#111d2c 55%,#090f18 100%);">
+        <canvas id="canvas3d" width="600" height="560" style="position:absolute;inset:0;width:100%;height:100%;background:transparent;border:0;"></canvas>
+        <canvas id="canvas3dOverlay" width="600" height="560" style="position:absolute;inset:0;width:100%;height:100%;background:transparent;border:0;pointer-events:none;"></canvas>
+        <span id="renderStatus" style="position:absolute;left:14px;top:12px;color:#96b0c4;font-size:11px;pointer-events:none;"></span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:12px;align-items:center;">
+        <label>Hiển thị <select id="bodyMode" style="width:auto;padding:4px;">
+          <option value="body">Cơ thể</option><option value="overlay">Cơ thể + khớp</option><option value="skeleton">Khung xương gốc</option>
+        </select></label>
+        <label>Người <select id="personFocus" style="width:auto;padding:4px;">
+          <option value="all">Tất cả ứng viên</option><option value="target">Theo dõi ứng viên được ghép</option>
+        </select></label>
+        <label><input type="checkbox" id="jointLabels"> Tên khớp</label>
+        <label><input type="checkbox" id="perspective"> Phối cảnh</label>
+        <span id="mappingStatus" style="color:#94a3b8;"></span>
+      </div>
+      <p style="font-size:12px;color:#94a3b8;margin-top:8px;">Bề mặt cơ thể minh họa bám theo khớp nguồn; chưa có mesh SMPL gốc. L/R là bên trái/phải của cơ thể. Đơn vị chiều sâu chưa được xác minh. Lưới dưới cơ thể là mặt phẳng tham chiếu.</p>
     </div>
   </div>
 
@@ -392,7 +399,8 @@ def generate_multimodal_html(payload: dict) -> str:
     const canvas2d = document.getElementById('canvas2d');
     const ctx2d = canvas2d.getContext('2d');
     const canvas3d = document.getElementById('canvas3d');
-    const ctx3d = canvas3d.getContext('2d');
+    const canvas3dOverlay = document.getElementById('canvas3dOverlay');
+    const ctx3d = canvas3dOverlay.getContext('2d');
     const slider = document.getElementById('frameSlider');
     const frameNumber = document.getElementById('frameNumber');
     const frameDetails = document.getElementById('frameDetails');
@@ -403,23 +411,14 @@ def generate_multimodal_html(payload: dict) -> str:
 
     // 3D Skeleton Bones (SMPL 24)
     const BONES_3D = {json.dumps(SMPL_24_BONES)};
-    const PALETTE_3D = ['#38bdf8', '#34d399', '#f97316', '#a855f7', '#fbbf24'];
-
-    // 3D Orbit Camera State
-    let camYaw = 0.4;     // Azimuth (rad)
-    let camPitch = 0.2;   // Elevation (rad)
-    let camDist = 600;    // Distance from target
-    let camPanX = 0;
-    let camPanY = 0;
-    let isDragging = false;
-    let dragStartX = 0, dragStartY = 0;
+    const PALETTE_3D = ['#38bdf8', '#34d399', '#60a5fa', '#a855f7', '#fbbf24'];
 
     // Bounds calculation for 2D
     let xmin2d = Infinity, xmax2d = -Infinity, ymin2d = Infinity, ymax2d = -Infinity;
     D.frames_2d.forEach(people => {{
       people.forEach(person => {{
         person.forEach(p => {{
-          if (p[2] >= 0.05 && (p[0] !== 0 || p[1] !== 0)) {{
+          if (p && p[2] >= D.threshold && (p[0] !== 0 || p[1] !== 0)) {{
             xmin2d = Math.min(xmin2d, p[0]); xmax2d = Math.max(xmax2d, p[0]);
             ymin2d = Math.min(ymin2d, p[1]); ymax2d = Math.max(ymax2d, p[1]);
           }}
@@ -433,26 +432,11 @@ def generate_multimodal_html(payload: dict) -> str:
     const toScreenX2d = x => margin2d + (x - xmin2d) * scale2d;
     const toScreenY2d = y => margin2d + (y - ymin2d) * scale2d;
 
-    // Center of 3D world
-    let center3D = [0, 0, 0];
-    let ptCount3D = 0;
-    D.frames_3d.forEach(people => {{
-      people.forEach(person => {{
-        person.forEach(p => {{
-          center3D[0] += p[0]; center3D[1] += p[1]; center3D[2] += p[2];
-          ptCount3D++;
-        }});
-      }});
-    }});
-    if (ptCount3D > 0) {{
-      center3D = [center3D[0] / ptCount3D, center3D[1] / ptCount3D, center3D[2] / ptCount3D];
-    }}
-
     // Render 2D Frame
     function render2D(frameIdx) {{
       ctx2d.clearRect(0, 0, canvas2d.width, canvas2d.height);
       const people = D.frames_2d[frameIdx] || [];
-      const selIdx = D.selected_indices ? D.selected_indices[frameIdx] : 0;
+    const selIdx = D.selected_indices ? D.selected_indices[frameIdx] : -1;
 
       people.forEach((person, pIdx) => {{
         const isSelected = (pIdx === selIdx);
@@ -461,7 +445,7 @@ def generate_multimodal_html(payload: dict) -> str:
         ctx2d.fillStyle = color;
         ctx2d.lineWidth = isSelected ? 3.5 : 1.8;
 
-        const valid = p => p && p[2] >= 0.05 && (p[0] !== 0 || p[1] !== 0);
+        const valid = p => p && p[2] >= D.threshold && (p[0] !== 0 || p[1] !== 0);
 
         // Bones
         for (const [a, b] of EDGES_2D) {{
@@ -499,105 +483,7 @@ def generate_multimodal_html(payload: dict) -> str:
       }});
     }}
 
-    // 3D Projection
-    function project3D(p) {{
-      // Coordinates: X: right, Y: down, Z: forward into room
-      // World centered:
-      const wx = p[0] - center3D[0];
-      const wy = -(p[1] - center3D[1]); // flip Y so up is positive
-      const wz = p[2] - center3D[2];
-
-      // Rotate Yaw around Y
-      const cosY = Math.cos(camYaw), sinY = Math.sin(camYaw);
-      const x1 = wx * cosY - wz * sinY;
-      const z1 = wx * sinY + wz * cosY;
-
-      // Rotate Pitch around X
-      const cosP = Math.cos(camPitch), sinP = Math.sin(camPitch);
-      const y2 = wy * cosP - z1 * sinP;
-      const z2 = wy * sinP + z1 * cosP;
-
-      const depth = z2 + camDist;
-      if (depth < 10) return null; // behind camera
-
-      const f = 450;
-      const scrX = canvas3d.width / 2 + (x1 / depth) * f + camPanX;
-      const scrY = canvas3d.height / 2 - (y2 / depth) * f + camPanY;
-      return {{ x: scrX, y: scrY, depth: depth }};
-    }}
-
-    // Render 3D Frame
-    function render3D(frameIdx) {{
-      ctx3d.clearRect(0, 0, canvas3d.width, canvas3d.height);
-
-      // Floor grid
-      ctx3d.strokeStyle = '#1e293b';
-      ctx3d.lineWidth = 1;
-      const floorY = 280 - center3D[1]; // approximate floor level
-      const gridSize = 350;
-      for (let g = -gridSize; g <= gridSize; g += 70) {{
-        const p1 = project3D([center3D[0] + g, center3D[1] - floorY, center3D[2] - gridSize]);
-        const p2 = project3D([center3D[0] + g, center3D[1] - floorY, center3D[2] + gridSize]);
-        if (p1 && p2) {{
-          ctx3d.beginPath(); ctx3d.moveTo(p1.x, p1.y); ctx3d.lineTo(p2.x, p2.y); ctx3d.stroke();
-        }}
-        const q1 = project3D([center3D[0] - gridSize, center3D[1] - floorY, center3D[2] + g]);
-        const q2 = project3D([center3D[0] + gridSize, center3D[1] - floorY, center3D[2] + g]);
-        if (q1 && q2) {{
-          ctx3d.beginPath(); ctx3d.moveTo(q1.x, q1.y); ctx3d.lineTo(q2.x, q2.y); ctx3d.stroke();
-        }}
-      }}
-
-      const people3D = D.frames_3d[frameIdx] || [];
-      const selIdx = D.selected_indices ? D.selected_indices[frameIdx] : 0;
-
-      // Sort people by camera depth
-      people3D.forEach((person, pIdx) => {{
-        const isSelected = (pIdx === selIdx);
-        const color = isSelected ? '#ea580c' : PALETTE_3D[pIdx % PALETTE_3D.length];
-
-        // Project joints
-        const projected = person.map(p => project3D(p));
-
-        // Draw bones
-        ctx3d.strokeStyle = color;
-        ctx3d.lineWidth = isSelected ? 3.5 : 2.0;
-        for (const [a, b] of BONES_3D) {{
-          const pa = projected[a], pb = projected[b];
-          if (pa && pb) {{
-            ctx3d.beginPath();
-            ctx3d.moveTo(pa.x, pa.y);
-            ctx3d.lineTo(pb.x, pb.y);
-            ctx3d.stroke();
-          }}
-        }}
-
-        // Draw joint spheres
-        ctx3d.fillStyle = color;
-        projected.forEach((p, jIdx) => {{
-          if (p) {{
-            const rad = Math.max(1.5, Math.min(6, (isSelected ? 4 : 2.5) * (400 / p.depth)));
-            ctx3d.beginPath();
-            ctx3d.arc(p.x, p.y, rad, 0, Math.PI * 2);
-            ctx3d.fill();
-          }}
-        }});
-
-        // Head label & height calculation
-        const headPt = projected[15];
-        const footPt = projected[10] || projected[11];
-        if (headPt) {{
-          ctx3d.font = '12px system-ui';
-          ctx3d.fillStyle = '#f8fafc';
-          let heightText = '';
-          if (person[15] && footPt && person[10]) {{
-            const h = Math.abs(person[10][1] - person[15][1]);
-            heightText = ' (h≈' + Math.round(h) + 'px)';
-          }}
-          ctx3d.fillText('Person ' + pIdx + (isSelected ? ' [TARGET]' : '') + heightText, headPt.x - 20, headPt.y - 12);
-        }}
-      }});
-    }}
+    {renderer_js}
 
     function renderCurrentFrame() {{
       const t = Number(slider.value);
@@ -607,8 +493,9 @@ def generate_multimodal_html(payload: dict) -> str:
 
       const p2d = D.frames_2d[t] ? D.frames_2d[t].length : 0;
       const p3d = D.frames_3d[t] ? D.frames_3d[t].length : 0;
-      const sel = D.selected_indices ? D.selected_indices[t] : 0;
-      frameDetails.textContent = 'Số người phát hiện: 2D=' + p2d + ' người, 3D=' + p3d + ' người | Đang chọn theo dõi: Person ' + sel;
+      const sel = D.selected_indices ? D.selected_indices[t] : -1;
+      const sel3d = D.selected_indices_3d[t];
+      frameDetails.textContent = 'Số người phát hiện: 2D=' + p2d + ' người, 3D=' + p3d + ' người | OpenPose ' + sel + ' → ROMP ' + (sel3d >= 0 ? sel3d : 'chưa ghép') + ' | Frame nguồn ' + D.source_frame_ids[t];
     }}
 
     // Playback loop
@@ -646,47 +533,6 @@ def generate_multimodal_html(payload: dict) -> str:
       renderCurrentFrame();
     }};
 
-    // 3D Canvas Mouse Orbit Controls
-    canvas3d.onmousedown = e => {{
-      isDragging = true;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-    }};
-    window.onmousemove = e => {{
-      if (!isDragging) return;
-      const dx = e.clientX - dragStartX;
-      const dy = e.clientY - dragStartY;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-      camYaw += dx * 0.008;
-      camPitch = Math.max(-1.4, Math.min(1.4, camPitch + dy * 0.008));
-      renderCurrentFrame();
-    }};
-    window.onmouseup = () => {{ isDragging = false; }};
-    canvas3d.onwheel = e => {{
-      e.preventDefault();
-      camDist = Math.max(150, Math.min(2500, camDist + e.deltaY * 0.8));
-      renderCurrentFrame();
-    }};
-
-    // Preset View Buttons
-    document.getElementById('btnViewFront').onclick = () => {{
-      camYaw = 0; camPitch = 0; camDist = 600; camPanX = 0; camPanY = 0;
-      renderCurrentFrame();
-    }};
-    document.getElementById('btnViewSide').onclick = () => {{
-      camYaw = Math.PI / 2; camPitch = 0; camDist = 600; camPanX = 0; camPanY = 0;
-      renderCurrentFrame();
-    }};
-    document.getElementById('btnViewTop').onclick = () => {{
-      camYaw = 0; camPitch = 1.35; camDist = 600; camPanX = 0; camPanY = 0;
-      renderCurrentFrame();
-    }};
-    document.getElementById('btnViewReset').onclick = () => {{
-      camYaw = 0.4; camPitch = 0.2; camDist = 600; camPanX = 0; camPanY = 0;
-      renderCurrentFrame();
-    }};
-
     // Persistence & Review LocalStorage
     const storageKey = 'review_3d_' + D.clip_id;
     function loadSavedReview() {{
@@ -694,6 +540,9 @@ def generate_multimodal_html(payload: dict) -> str:
         const raw = localStorage.getItem(storageKey);
         if (!raw) return;
         const obj = JSON.parse(raw);
+        if (obj.schema_version !== D.schema_version) {{
+          document.getElementById('saveStatus').textContent = 'Bản nháp từ viewer cũ — cần xem lại phép ghép người';
+        }}
         document.getElementById('review_tracking').value = obj.review_tracking || '';
         document.getElementById('review_action').value = obj.review_action || '';
         document.getElementById('review_notes').value = obj.review_notes || '';
@@ -714,7 +563,8 @@ def generate_multimodal_html(payload: dict) -> str:
         review_tracking: document.getElementById('review_tracking').value,
         review_action: document.getElementById('review_action').value,
         review_notes: document.getElementById('review_notes').value,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
+        schema_version: D.schema_version
       }};
       ['flag_multiple_people', 'flag_occlusion', 'flag_identity_switch', 'flag_child_leaves',
        'flag_cross_path', 'flag_pose_failure', 'flag_camera_motion'].forEach(f => {{
@@ -939,6 +789,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=10, help="Number of clips to export (default: 10, set 0 for all 120)")
     parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / "artifacts/tracking_review_3d")
+    parser.add_argument("--config", type=Path, default=PROJECT_ROOT / "configs/paper_repro.yaml")
     args = parser.parse_args()
 
     manifest_path = PROJECT_ROOT / "artifacts/tracking_review/review_manifest.csv"
@@ -953,12 +804,16 @@ def main():
         records = records[:args.limit]
 
     out_dir = ensure_dir(args.output_dir)
-    config = load_config(PROJECT_ROOT / "configs/paper_repro.yaml")
+    config = load_config(args.config)
     threshold = float(config.get("data", {}).get("preprocessing", {}).get("confidence_threshold", 0.1))
+    data_config = dict(config.get("data", {}))
+    if "tracking" in config:
+        data_config["tracking"] = dict(config["tracking"])
 
     print(f"Exporting {len(records)} multimodal 2D + 3D review clips to {out_dir}...")
 
     exported = []
+    audit = []
     for idx, r in enumerate(records):
         clip_id = r["clip_id"]
         activity = r["activity"]
@@ -975,20 +830,18 @@ def main():
             print(f"[{idx+1}/{len(records)}] Skipping {clip_id}: missing 3D dir {romp_dir}")
             continue
 
-        frames_2d, _ = parse_clip(openpose_dir, strict=True)
-        frames_3d = load_romp_3d_clip(romp_dir)
-
-        # Ensure frame counts align
-        num_frames = min(len(frames_2d), len(frames_3d))
-        frames_2d = frames_2d[:num_frames]
-        frames_3d = frames_3d[:num_frames]
-
-        tracking = select_child_track(
-            frames_2d,
-            confidence_threshold=threshold,
-            strategy=config.get("data", {}).get("tracking_strategy", "torso_interpolation"),
-            prefer_smaller=config.get("data", {}).get("prefer_smaller_person", True),
-        )
+        frames_2d, source_files = parse_clip(openpose_dir, strict=True)
+        romp_frames, read_errors = read_romp_frames(romp_dir)
+        source_ids = [frame_id(path) for path in source_files]
+        if len(set(source_ids)) != len(source_ids):
+            raise ValueError(f"Duplicate OpenPose frame ID in {clip_id}")
+        num_frames = len(frames_2d)
+        if not num_frames:
+            continue
+        frames_3d = [romp_frames.get(index, []) for index in source_ids]
+        tracking = select_person_track(frames_2d, threshold, data_config, clip_path=str(openpose_dir))
+        matches = [match_selected_person(person, people, threshold)
+                   for person, people in zip(tracking.selected_people, frames_3d)]
 
         payload = {
             "clip_id": clip_id,
@@ -997,16 +850,36 @@ def main():
             "session_id": r.get("session_id", ""),
             "num_frames": num_frames,
             "selected_indices": tracking.selected_indices[:num_frames],
-            "frames_2d": [[np.round(p.astype(float), 2).tolist() for p in people] for people in frames_2d],
+            "selected_indices_3d": [match["index"] for match in matches],
+            "person_matches": matches,
+            "source_frame_ids": source_ids,
+            "threshold": threshold,
+            "joint_names": SMPL_JOINT_NAMES,
+            "schema_version": "mmasd_3d_review_v3",
+            "frames_2d": [[[point.astype(float).tolist() if np.isfinite(point).all() else None
+                             for point in person] for person in people] for people in frames_2d],
             "frames_3d": frames_3d,
         }
+        audit.append({"clip_id": clip_id, "frames": num_frames,
+                      "match_status": dict(Counter(match["status"] for match in matches)),
+                      "missing_romp_frame_ids": sorted(set(source_ids) - set(romp_frames)),
+                      "extra_romp_frame_ids": sorted(set(romp_frames) - set(source_ids)),
+                      "read_errors": read_errors})
 
         page_html = generate_multimodal_html(payload)
         (out_dir / f"{clip_id}.html").write_text(page_html, encoding="utf-8")
-        exported.append(r)
+        exported.append({**r, "num_frames": num_frames})
         print(f"[{idx+1}/{len(records)}] Exported {clip_id} ({num_frames} frames, 2D + 3D)")
 
     build_index_html(exported, out_dir)
+    (out_dir / "mapping_audit.json").write_text(json.dumps({
+        "schema_version": "mmasd_3d_review_v3", "topology": "SMPL24",
+        "source_topology_status": "24/71-joint layout validated; source export provenance incomplete",
+        "topology_reference": "https://github.com/Arthur151/ROMP/blob/master/simple_romp/README.md",
+        "coordinate_units": "unverified; image XY and source Z retained",
+        "surface": "illustrative mesh, not recovered SMPL mesh",
+        "config": str(args.config.resolve()), "clips": audit,
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"\nDone! Exported {len(exported)} multimodal clips.")
     print(f"Open in browser: file://{out_dir.resolve()}/index.html")
 

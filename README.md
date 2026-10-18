@@ -10,7 +10,17 @@ Repo đã có hai nhánh thực nghiệm làm nền tảng: nhận dạng hoạt
 
 **Đã hoàn thành bước 1 — rà soát và khóa pipeline quan sát:** cố định OpenPose BODY_25 2D + Tracklet V2, đo trước tiền xử lý; kiểm tra trên 3 clip thật / 470 frame và 22 kiểm thử. Có [báo cáo pipeline và đối chiếu số liệu](docs/reports/RA_SOAT_VA_KHOA_PIPELINE_MMASD.md), cấu hình độc lập và snapshot hash. Bước tiếp theo là chọn pilot 20–50 clip; split cũ chỉ tách phiên, vẫn có 13 subject ID chung giữa train/validation.
 
-**Nhánh phát triển nghiên cứu:** `research/skeleton-reliability`. Script audit đã được chia thành các hàm đọc dữ liệu, đối chiếu thực nghiệm, smoke test và kiểm tra snapshot; mặc định dùng [cấu hình v0.2](BiLSTM/configs/skeleton_audit_v0_2.yaml). Snapshot v0.1 được giữ làm lịch sử. Xem [quy trình phát triển và kiểm tra](docs/DEVELOPMENT.md) trước khi cập nhật code/kết quả.
+**Đã chuẩn hóa code và đẩy lên GitHub:** tiếp tục nghiên cứu trên nhánh [research/skeleton-reliability](https://github.com/dekii2275/nckh_tretuky/tree/research/skeleton-reliability), commit chuẩn hóa [c2758ab](https://github.com/dekii2275/nckh_tretuky/commit/c2758ab6bfddf845fd125a9842ac950abbae6d2b). Script audit đã được chia thành các hàm đọc dữ liệu, đối chiếu thực nghiệm, smoke test và kiểm tra snapshot; mặc định dùng [cấu hình v0.2](BiLSTM/configs/skeleton_audit_v0_2.yaml). Snapshot v0.1 được giữ làm lịch sử.
+
+| Kiểm chứng bản code chuẩn hóa | Kết quả |
+|---|---|
+| Bộ kiểm thử MMASD + DRYAD trên máy | **97 kiểm thử đạt** |
+| Kiểm thử audit trên checkout sạch, không cần dữ liệu riêng | **13 kiểm thử đạt** |
+| Audit dữ liệu thật và bản khóa v0.2 | **3 clip / 470 frame; verify 545 file đạt** |
+| Lint/format và kiểm tra cú pháp/liên kết tài liệu | **Đạt** |
+| GitHub Actions của commit `c2758ab` | **[Đạt](https://github.com/dekii2275/nckh_tretuky/actions/runs/39143719340)** |
+
+**Việc tiếp theo:** chọn pilot 20–50 clip, chốt nhóm tuning/evaluation và xuất bảng chất lượng skeleton trước khi sửa. Xem [quy trình phát triển và kiểm tra](docs/DEVELOPMENT.md) để chạy lại audit hoặc tạo snapshot mới.
 
 Xem [tiến độ nghiên cứu và nhật ký cập nhật](docs/reports/TIEN_DO_NGHIEN_CUU.md) để biết những việc đã làm, bằng chứng, hạn chế và bước tiếp theo. Sau mỗi đợt công việc có thay đổi về tiến độ hoặc kết quả, cập nhật trạng thái và thêm mục nhật ký trong trang này; đồng bộ phần tóm tắt README khi có mốc mới. Chỉ ghi hoàn thành khi đã có đầu ra và kiểm chứng tương ứng.
 
@@ -74,6 +84,9 @@ make check                # kiểm tra cú pháp Python, link README/tài liệu
 make test-bilstm          # kiểm thử MMASD; cần môi trường BiLSTM và pytest
 make test-dryad           # kiểm thử DRYAD; cần môi trường DRYAD, dữ liệu/artifact cục bộ
 make test                 # chạy cả hai nhóm kiểm thử
+make test-audit           # kiểm thử raw observation và snapshot; không cần dữ liệu riêng
+make audit-pipeline       # tạo snapshot v0.2 khi output chưa tồn tại; cần dữ liệu cục bộ
+make verify-pipeline      # kiểm tra snapshot v0.2 và các input cục bộ đã khóa
 ```
 
 Đổi Python interpreter bằng `make PYTHON=/duong/dan/toi/python check` nếu dùng virtual environment hoặc conda. Dependencies chung của dự án được khai báo tại [requirements.txt](requirements.txt) và [pyproject.toml](pyproject.toml); riêng MMASD có [BiLSTM/requirements.txt](BiLSTM/requirements.txt); nhánh DRYAD/MSG3D có môi trường Conda tại [autism/environment_autism.yml](autism/environment_autism.yml). `make check` chỉ dùng Python standard library.

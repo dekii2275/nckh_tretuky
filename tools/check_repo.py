@@ -24,6 +24,7 @@ LOCAL_ONLY_DIRS = tuple(Path(name) for name in (
     "data_MMASD", "Data_DRYAD", "data_Dream",
     "checkpoints", "runs", "BiLSTM/checkpoints", "BiLSTM/runs",
     "BiLSTM/artifacts/tracking_review_3d", "artifacts/visualizations",
+    "BiLSTM/artifacts/pilot_selector",
     "artifacts/dryad_msg3d/experiments",
     "MMASD-A-Multimodal-Dataset-for-Autism-Intervention-Analysis",
 ))

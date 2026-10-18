@@ -26,5 +26,10 @@ jobs:
         run: |
           ruff check BiLSTM/scripts/audit_pipeline_lock.py BiLSTM/tests/test_pipeline_lock.py
           ruff format --check BiLSTM/scripts/audit_pipeline_lock.py BiLSTM/tests/test_pipeline_lock.py
+          ruff check BiLSTM/scripts/pilot_*.py BiLSTM/tests/test_pilot_selector.py
+          ruff format --check BiLSTM/scripts/pilot_*.py BiLSTM/tests/test_pilot_selector.py
+          node --check apps/pilot_selector/app.js
       - name: Test observation and snapshot integrity
         run: make test-audit
+      - name: Test pilot sampling and durable selection
+        run: make test-pilot

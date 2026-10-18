@@ -40,6 +40,8 @@ Snapshot v0.2 lưu hash code/input, các YAML kế thừa, raw JSON của ba cli
 
 ## Quản lý phiên bản và cập nhật tiến độ
 
+Công cụ pilot mới: xem [hướng dẫn chọn clip](reports/CONG_CU_CHON_PILOT_MMASD.md). Dùng `make pilot-catalog` để đo dữ liệu, `make pilot-selector` để mở giao diện và `make test-pilot` để kiểm tra bằng dữ liệu tổng hợp. Không sửa snapshot audit v0.2 khi chỉ bổ sung giao diện/logic chọn mẫu; catalogue ghi riêng hash của code đo và config, hồ sơ xuất ghi thêm hash công cụ chọn.
+
 - Giữ [snapshot v0.1](../BiLSTM/artifacts/pipeline_audit_v0_1/pipeline_lock.json) như bằng chứng lịch sử. Bản script ban đầu được lưu tại [audit_pipeline_lock.py.txt](../BiLSTM/artifacts/pipeline_audit_v0_1/audit_pipeline_lock.py.txt). Code hiện tại đã thay đổi nên hash script của v0.1 sẽ báo khác; không sửa hash cũ để làm verify đạt.
 - Bản chuẩn hóa dùng [snapshot v0.2](../BiLSTM/artifacts/pipeline_audit_v0_2/pipeline_lock.json). Khi đổi code/config/input ảnh hưởng pipeline, tạo snapshot phiên bản mới và ghi lý do; hash chỉ phủ các input được liệt kê, chưa phủ toàn MMASD.
 - Khi sửa code audit, chạy lint/format và `make test-audit`; khi sửa parser/tracker/preprocessing, chạy thêm các kiểm thử liên quan và kiểm tra dữ liệu thật trước khi lập snapshot mới.

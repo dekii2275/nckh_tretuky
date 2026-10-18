@@ -20,7 +20,9 @@ Repo đã có hai nhánh thực nghiệm làm nền tảng: nhận dạng hoạt
 | Lint/format và kiểm tra cú pháp/liên kết tài liệu | **Đạt** |
 | GitHub Actions của commit `c2758ab` | **[Đạt](https://github.com/dekii2275/nckh_tretuky/actions/runs/39143719340)** |
 
-**Việc tiếp theo:** chọn pilot 20–50 clip, chốt nhóm tuning/evaluation và xuất bảng chất lượng skeleton trước khi sửa. Xem [quy trình phát triển và kiểm tra](docs/DEVELOPMENT.md) để chạy lại audit hoặc tạo snapshot mới.
+**Đã có công cụ chọn pilot trực quan:** catalogue đã đo **1.374 clip / 254.674 frame**, 10 hoạt động và 32 mã trẻ với Tracklet V2 trước tiền xử lý. Đề xuất mặc định có 40 clip, chia 20 chỉnh tham số / 20 đánh giá, mỗi nhóm phủ 10 hoạt động và không trùng mã trẻ. Đây là **bản nháp, 0/40 clip được người dùng review**, chưa phải pilot đã chốt. Xem [công cụ và kết quả kiểm chứng](docs/reports/CONG_CU_CHON_PILOT_MMASD.md).
+
+**Việc tiếp theo:** mở công cụ, xem và điều chỉnh danh sách, ghi lý do chọn/loại, đánh dấu đã xem rồi chốt manifest. Sau đó xuất thống kê chi tiết theo joint/frame và đánh giá hiệu chỉnh trên pilot. Xem [quy trình phát triển và kiểm tra](docs/DEVELOPMENT.md) để chạy lại audit hoặc tạo snapshot mới.
 
 Xem [tiến độ nghiên cứu và nhật ký cập nhật](docs/reports/TIEN_DO_NGHIEN_CUU.md) để biết những việc đã làm, bằng chứng, hạn chế và bước tiếp theo. Sau mỗi đợt công việc có thay đổi về tiến độ hoặc kết quả, cập nhật trạng thái và thêm mục nhật ký trong trang này; đồng bộ phần tóm tắt README khi có mốc mới. Chỉ ghi hoàn thành khi đã có đầu ra và kiểm chứng tương ứng.
 
@@ -31,6 +33,7 @@ Xem [tiến độ nghiên cứu và nhật ký cập nhật](docs/reports/TIEN_D
 | Chỉ mục tài liệu | [docs/README.md](docs/README.md) |
 | Đã làm được gì, kết quả và việc tiếp theo | [Tiến độ nghiên cứu](docs/reports/TIEN_DO_NGHIEN_CUU.md) |
 | Nhánh nghiên cứu, chạy audit và kiểm tra | [Quy trình phát triển](docs/DEVELOPMENT.md) |
+| Chọn pilot bằng giao diện và xuất manifest | [Công cụ chọn clip MMASD](docs/reports/CONG_CU_CHON_PILOT_MMASD.md) |
 | Kế hoạch hướng nghiên cứu hiện tại | [docs/plans/](docs/plans/) |
 | Pipeline MMASD, config, kiểm thử và hướng dẫn chạy | [BiLSTM/README.md](BiLSTM/README.md) |
 | Script chuẩn bị/audit DRYAD | [tools/](tools/) |
@@ -87,7 +90,16 @@ make test                 # chạy cả hai nhóm kiểm thử
 make test-audit           # kiểm thử raw observation và snapshot; không cần dữ liệu riêng
 make audit-pipeline       # tạo snapshot v0.2 khi output chưa tồn tại; cần dữ liệu cục bộ
 make verify-pipeline      # kiểm tra snapshot v0.2 và các input cục bộ đã khóa
+make pilot-catalog        # đo sơ bộ toàn MMASD và tạo catalogue; cần dữ liệu cục bộ
+make pilot-selector       # chạy giao diện chọn pilot tại localhost:8787
+make test-pilot           # kiểm thử chọn mẫu/lưu bản nháp/xuất; không cần dataset
 ```
+
+### Chọn clip bằng giao diện
+
+Catalogue trên máy hiện tại đã được tạo. Chạy `make pilot-selector`, rồi mở `http://127.0.0.1:8787` bằng trình duyệt. Có thể lọc theo hoạt động, mã trẻ, phiên và mức thiếu khớp; xem skeleton 2D hoặc đối chiếu 2D/3D; sửa nhóm và lý do chọn/loại. Bản nháp tự lưu trên ổ đĩa. Chỉ chốt khi đủ số clip, mỗi clip có lý do/đã xem và hai nhóm không trùng mã trẻ; công cụ kiểm tra lại dữ liệu nguồn trước khi tạo manifest tổng, `tuning.csv`, `evaluation.csv` và hồ sơ JSON.
+
+Sau khi clone hoặc cập nhật dữ liệu/code khảo sát, chạy `make pilot-catalog` trước. Catalogue, bản nháp, review và file xuất nằm trong `BiLSTM/artifacts/pilot_selector/`, được giữ cục bộ. Các chỉ số chỉ hỗ trợ chọn mẫu; không xem confidence, missingness hay bước tọa độ lớn là nhãn pose đúng/sai.
 
 Đổi Python interpreter bằng `make PYTHON=/duong/dan/toi/python check` nếu dùng virtual environment hoặc conda. Dependencies chung của dự án được khai báo tại [requirements.txt](requirements.txt) và [pyproject.toml](pyproject.toml); riêng MMASD có [BiLSTM/requirements.txt](BiLSTM/requirements.txt); nhánh DRYAD/MSG3D có môi trường Conda tại [autism/environment_autism.yml](autism/environment_autism.yml). `make check` chỉ dùng Python standard library.
 

@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chọn clip nghiên cứu · MMASD</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <div>
+          <p class="eyebrow">SKELETON RESEARCH / MMASD</p>
+          <h1>Chọn clip nghiên cứu</h1>
+        </div>
+        <span class="draft-badge">BẢN NHÁP</span>
+      </div>
+      <div class="header-actions">
+        <button id="helpButton" class="quiet">Cách chọn</button
+        ><button id="importButton" class="quiet">Nhập bản nháp</button
+        ><button id="downloadDraft" class="quiet">Xuất bản nháp</button
+        ><button id="finalizeButton" class="primary" disabled>
+          Chốt & xuất manifest
+        </button>
+      </div>
+    </header>
+    <main>
+      <div id="fatal" class="fatal" role="alert" hidden></div>
+      <section class="intro">
+        <div>
+          <h2>Một tập nhỏ, đủ khác biệt để nghiên cứu.</h2>
+          <p>
+            Phủ hoạt động và mức thiếu khớp, tách mã trẻ giữa hai nhóm. Xem từng
+            clip trước khi chốt.
+          </p>
+        </div>
+        <span id="catalogInfo" class="catalog-info">Đang đọc catalogue…</span>
+      </section>
+      <section class="stats" aria-label="Thống kê lựa chọn">
+        <article>
+          <span>Clip đã chọn</span><strong id="selectedStat">—</strong
+          ><small id="targetStat">mục tiêu 40 clip</small>
+          <div class="progress"><i id="selectedProgress"></i></div>
+        </article>
+        <article>
+          <span>Chỉnh tham số / Đánh giá</span><strong id="groupsStat">—</strong
+          ><small id="subjectsStat">tách theo mã trẻ trong metadata</small>
+        </article>
+        <article>
+          <span>Phủ hoạt động</span><strong id="coverageStat">—</strong
+          ><small id="bandsStat">cân bằng các tầng thiếu khớp</small>
+        </article>
+        <article>
+          <span>Đã xem trực quan</span><strong id="reviewedStat">—</strong
+          ><small id="saveStatus" aria-live="polite">Đang tải bản nháp…</small>
+          <div class="progress green"><i id="reviewedProgress"></i></div>
+        </article>
+      </section>
+      <section class="proposal-bar" aria-label="Đề xuất mẫu">
+        <div>
+          <strong>Đề xuất có thể tái tạo</strong
+          ><span
+            >Chia mã trẻ trước → phủ hoạt động → đa dạng mức thiếu khớp.</span
+          >
+        </div>
+        <label
+          >Số clip
+          <input id="target" type="number" min="20" max="50" value="40"
+        /></label>
+        <label
+          >Seed
+          <input id="seed" type="number" min="0" max="2147483647" value="42"
+        /></label>
+        <button id="proposeButton" class="secondary">Đề xuất danh sách</button>
+      </section>
+      <div class="workspace">
+        <aside class="filters panel">
+          <h3>Lọc ứng viên</h3>
+          <label
+            >Tìm clip / mã trẻ<input
+              id="search"
+              type="search"
+              placeholder="Ví dụ: squat, 20583…"
+          /></label>
+          <label
+            >Hoạt động<select id="activityFilter">
+              <option value="">Tất cả hoạt động</option>
+            </select></label
+          >
+          <label
+            >Mã trẻ<select id="subjectFilter">
+              <option value="">Tất cả mã trẻ</option>
+            </select></label
+          >
+          <label
+            >Phiên<select id="sessionFilter">
+              <option value="">Tất cả phiên</option>
+            </select></label
+          >
+          <label
+            >Tầng thiếu khớp<select id="bandFilter">
+              <option value="">Tất cả mức</option>
+              <option value="low_missing">Ít thiếu · ≤ 5%</option>
+              <option value="medium_missing">Vừa · 5–20%</option>
+              <option value="high_missing">Nhiều · &gt; 20%</option>
+            </select></label
+          >
+          <label
+            >Nhóm nghiên cứu<select id="groupFilter">
+              <option value="">Cả hai nhóm</option>
+              <option value="tuning">Chỉnh tham số</option>
+              <option value="evaluation">Đánh giá</option>
+            </select></label
+          >
+          <button id="resetFilters" class="quiet full">Xóa bộ lọc</button>
+          <div class="filter-note">
+            <strong>Tầng thiếu khớp ≠ pose đúng/sai</strong>
+            <p>
+              Confidence và bước tọa độ lớn là chỉ báo. Skeleton đơn thuần chưa
+              xác nhận được đúng người hay tư thế.
+            </p>
+          </div>
+          <details class="coverage-details" open>
+            <summary>Phân bố hoạt động</summary>
+            <div id="activityCoverage"></div>
+          </details>
+        </aside>
+        <section class="candidate-panel panel">
+          <div class="list-heading">
+            <div>
+              <h3>Danh sách clip</h3>
+              <p id="listCount">Đang tải…</p>
+            </div>
+            <label class="sort-label"
+              >Sắp xếp<select id="sort">
+                <option value="activity">Hoạt động</option>
+                <option value="missing_desc">Thiếu khớp nhiều trước</option>
+                <option value="missing_asc">Thiếu khớp ít trước</option>
+                <option value="gap">Khoảng thiếu dài trước</option>
+              </select></label
+            >
+          </div>
+          <nav class="tabs" aria-label="Phạm vi danh sách">
+            <button data-scope="selected" class="active">
+              Đã chọn <span id="selectedCount">0</span></button
+            ><button data-scope="all">Tất cả</button
+            ><button data-scope="unreviewed">Chờ xem</button
+            ><button data-scope="excluded">Đã loại</button>
+          </nav>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th aria-label="Chọn"></th>
+                  <th>Clip / Hoạt động</th>
+                  <th>Mã trẻ / Phiên</th>
+                  <th>Thiếu khớp</th>
+                  <th>Nhóm</th>
+                </tr>
+              </thead>
+              <tbody id="candidates"></tbody>
+            </table>
+            <div id="emptyList" class="empty" hidden>
+              Không có clip phù hợp. Thử xóa bộ lọc hoặc xem tất cả ứng viên.
+            </div>
+          </div>
+          <div class="pagination">
+            <span id="pageInfo"></span>
+            <div>
+              <button id="prevPage" class="quiet" aria-label="Trang trước">
+                ←</button
+              ><button id="nextPage" class="quiet" aria-label="Trang sau">
+                →
+              </button>
+            </div>
+          </div>
+        </section>
+        <section class="detail-panel panel" aria-label="Xem và đánh giá clip">
+          <div class="detail-heading">
+            <div>
+              <p class="eyebrow">XEM TRƯỚC KHI CHỌN</p>
+              <h3 id="clipTitle">Chọn một clip</h3>
+              <p id="clipMeta">Dữ liệu skeleton gốc · Tracklet V2</p>
+            </div>
+            <button
+              id="nextClip"
+              class="quiet"
+              title="Clip tiếp theo trong danh sách"
+            >
+              Tiếp →
+            </button>
+          </div>
+          <div class="preview-tabs">
+            <button id="tab2d" class="active">Skeleton 2D</button
+            ><button id="tab3d">Đối chiếu 2D / 3D</button
+            ><span>Raw · chưa điền thiếu</span>
+          </div>
+          <div id="canvasWrap" class="canvas-wrap">
+            <canvas
+              id="skeleton"
+              width="900"
+              height="600"
+              tabindex="0"
+              aria-label="Skeleton của clip đang chọn"
+            ></canvas>
+            <div id="previewStatus" class="preview-status">
+              Chọn clip để xem chuyển động
+            </div>
+            <div class="canvas-legend">
+              <span class="dot orange"></span>Track được chọn
+              <span class="dot gray"></span>Ứng viên khác
+            </div>
+          </div>
+          <iframe
+            id="viewer3d"
+            title="Viewer 2D/3D của clip với Tracklet V2"
+            hidden
+          ></iframe>
+          <div id="controls" class="controls">
+            <div>
+              <button id="playButton" class="secondary" disabled>▶ Phát</button
+              ><span id="frameInfo">Frame —</span
+              ><label
+                >Tốc độ xem<select id="speed">
+                  <option value="10">10 frame/s</option>
+                  <option value="15" selected>15 frame/s</option>
+                  <option value="30">30 frame/s</option>
+                </select></label
+              >
+            </div>
+            <input
+              id="timeline"
+              type="range"
+              min="0"
+              max="0"
+              value="0"
+              aria-label="Frame đang xem"
+              disabled
+            />
+            <div class="event-navigation">
+              <select id="eventSelect" aria-label="Đi tới chỉ báo">
+                <option value="">Đi tới chỉ báo…</option></select
+              ><span>← → từng frame · Space phát/dừng</span>
+            </div>
+          </div>
+          <div id="detailStats" class="detail-stats"></div>
+          <div class="review-form">
+            <div class="selection-row">
+              <label
+                ><input id="chooseClip" type="checkbox" disabled /> Chọn clip
+                này</label
+              ><select id="detailGroup" aria-label="Nhóm của clip">
+                <option value="tuning">Chỉnh tham số</option>
+                <option value="evaluation">Đánh giá</option></select
+              ><button id="excludeButton" class="quiet danger">
+                Loại clip
+              </button>
+            </div>
+            <label
+              >Lý do chọn / ghi chú<textarea
+                id="reason"
+                rows="2"
+                maxlength="4000"
+                placeholder="Vì sao clip phù hợp với pilot?"
+                disabled
+              ></textarea></label
+            ><label class="review-check"
+              ><input id="reviewed" type="checkbox" disabled /> Tôi đã xem
+              chuyển động của clip này</label
+            >
+            <p class="small muted">
+              Đánh dấu đã xem không phải xác nhận danh tính trẻ hoặc pose ground
+              truth.
+            </p>
+          </div>
+          <details class="joint-details">
+            <summary>Xem tọa độ và confidence từng khớp</summary>
+            <div class="joint-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Khớp</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>Confidence</th>
+                  </tr>
+                </thead>
+                <tbody id="jointTable"></tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+      </div>
+      <section class="readiness panel">
+        <div>
+          <h3>Kiểm tra trước khi chốt</h3>
+          <p id="readinessText">
+            Cần đủ số clip, có lý do, đã xem và không trùng mã trẻ giữa hai
+            nhóm.
+          </p>
+        </div>
+        <div id="readinessItems"></div>
+      </section>
+      <footer>
+        MMASD · Tập thăm dò phục vụ nghiên cứu chất lượng skeleton
+        <span id="catalogVersion"></span>
+      </footer>
+    </main>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <input id="importFile" type="file" accept=".json,application/json" hidden />
+    <dialog id="helpDialog">
+      <div class="dialog-heading">
+        <h2>Chọn một bộ pilot hợp lý</h2>
+        <button data-close="helpDialog" class="quiet">Đóng</button>
+      </div>
+      <ol>
+        <li>
+          Đặt số clip và seed, tạo đề xuất. Hai nhóm được tách theo mã trẻ trước
+          khi chọn clip.
+        </li>
+        <li>
+          Dùng bộ lọc và phân bố để kiểm tra hoạt động, phiên và ba tầng thiếu
+          khớp.
+        </li>
+        <li>
+          Xem chuyển động, điều chỉnh lựa chọn/lý do và đánh dấu đã xem từng
+          clip. Không chỉ chọn clip đẹp hoặc lỗi rõ.
+        </li>
+        <li>
+          Chốt khi đủ số clip và không trùng mã trẻ. Tải manifest tổng, hai nhóm
+          và hồ sơ lựa chọn.
+        </li>
+      </ol>
+      <p>
+        Bản nháp tự lưu trên máy chạy công cụ. Xuất JSON để sao lưu; nhập lại
+        chỉ khi đúng phiên bản catalogue. Chỉ báo tọa độ lớn có thể là chuyển
+        động thật. Tốc độ phát không phải FPS nguồn.
+      </p>
+      <p>
+        <strong
+          >Đây là pilot thăm dò, không dùng để ước lượng tỷ lệ lỗi của toàn
+          dataset.</strong
+        >
+      </p>
+    </dialog>
+    <dialog id="proposalDialog">
+      <div class="dialog-heading">
+        <h2>Danh sách đề xuất</h2>
+        <button data-close="proposalDialog" class="quiet">Hủy</button>
+      </div>
+      <div id="proposalSummary"></div>
+      <p>
+        Các clip đề xuất vẫn chưa được xem. Khi áp dụng, danh sách chọn hiện tại
+        sẽ được thay; các clip đã loại vẫn được giữ.
+      </p>
+      <button id="applyProposal" class="primary">Dùng danh sách đề xuất</button>
+    </dialog>
+    <dialog id="excludeDialog">
+      <div class="dialog-heading">
+        <h2>Ghi lý do loại clip</h2>
+        <button data-close="excludeDialog" class="quiet">Hủy</button>
+      </div>
+      <p id="excludeClipName"></p>
+      <textarea
+        id="excludeReason"
+        rows="3"
+        maxlength="4000"
+        placeholder="Ví dụ: quá ngắn cho mục tiêu khảo sát; không đủ dữ liệu để review…"
+      ></textarea
+      ><button id="confirmExclude" class="primary">Lưu lý do & loại</button>
+    </dialog>
+    <dialog id="finalDialog">
+      <div class="dialog-heading">
+        <h2>Chốt bộ pilot</h2>
+        <button data-close="finalDialog" class="quiet">Đóng</button>
+      </div>
+      <div id="finalSummary"></div>
+      <p>
+        Công cụ kiểm tra lại dữ liệu nguồn và lưu một phiên bản xuất mới. Bản
+        nháp vẫn được giữ để tiếp tục làm việc.
+      </p>
+      <button id="confirmFinalize" class="primary">
+        Xác nhận chốt & tạo file
+      </button>
+      <div id="downloadLinks"></div>
+    </dialog>
+  </body>
+</html>

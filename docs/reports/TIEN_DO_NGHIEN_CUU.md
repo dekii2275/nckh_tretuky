@@ -25,6 +25,7 @@ Chi tiết: [kế hoạch nghiên cứu](../plans/KE_HOACH_NGHIEN_CUU_SKELETON_R
 | Nhánh DRYAD/MSG3D | Có data contract, manifest, preprocessing, audit duplicate, các bộ chia fold và kết quả random 10-fold | Kết quả random còn có duplicate giữa train/test; cần đánh giá theo split an toàn với duplicate |
 | Khảo sát DREAM | Có tài liệu mapping và script sinh viewer skeleton thân trên, confidence và gaze | Không có nhãn đầy đủ về đúng/sai từng trial; không suy gaze target từ vector |
 | Thiết kế nghiên cứu mới | Có mục tiêu, giai đoạn P0–P6, kế hoạch pilot, baseline và benchmark đề xuất | Chưa triển khai pipeline mới và chưa có bảng đánh giá hiệu chỉnh trước/sau |
+| Công cụ chọn pilot | Catalogue 1.374 clip / 254.674 frame; giao diện xem/chọn/lưu/xuất, đề xuất 40 clip tách mã trẻ | Mới là bản nháp; 0/40 clip được người dùng review, chưa chốt pilot hoặc kiểm chứng hiệu chỉnh |
 
 Tài liệu liên quan: [đối chiếu dữ liệu](BAO_CAO_SO_SANH_MMASD_DRYAD_DREAM.md), [mapping DREAM](BA_DAU_RA_PIPELINE_DREAM_MAPPING.md), [contract DRYAD](../../artifacts/dryad_msg3d/DATA_CONTRACT_v1.md), [rà soát và cập nhật viewer](RA_SOAT_MO_PHONG_3D_VA_CHUAN_HOA_DU_LIEU.md).
 
@@ -81,6 +82,7 @@ Viewer đã được sửa mapping, góc nhìn, bề mặt minh họa và fallba
 - [x] Có khảo sát ba dataset, phân tích lỗi đầu vào ban đầu và viewer review 2D/3D.
 - [x] Chốt mục tiêu nghiên cứu và lập kế hoạch phát hiện–hiệu chỉnh skeleton.
 - [x] Rà soát parser/tracker/preprocessing; đối chiếu artifact, khóa cấu hình quan sát và lưu hash v0.1. Các bằng chứng lịch sử chưa khớp được gắn cờ trong báo cáo.
+- [x] Đo chỉ số sơ bộ toàn MMASD và tạo công cụ chọn pilot trực quan, có đề xuất theo seed, kiểm tra nhóm và lưu/xuất có phiên bản.
 - [ ] Chọn pilot 20–50 clip, khóa protocol và tách tuning/evaluation theo nhóm; bổ sung hash raw data toàn pilot.
 - [ ] Hoàn thành schema v0.1 và adapter xuất/đọc lại dữ liệu có raw/processed, confidence, masks và provenance.
 - [ ] Xuất bảng chất lượng và sự kiện cảnh báo theo clip/frame/joint.
@@ -90,7 +92,7 @@ Viewer đã được sửa mapping, góc nhìn, bề mặt minh họa và fallba
 - [ ] Hoàn thiện luồng viewer so sánh raw/processed và lưu/import review có phiên bản.
 - [ ] Khi đủ provenance, kiểm chứng bổ sung bằng nhận dạng hành động trên cùng protocol.
 
-Ưu tiên kế tiếp là khóa pilot và protocol, kiểm tra frame nguồn, sau đó tạo bảng chất lượng cùng baseline hiệu chỉnh bằng [cấu hình v0.2 hiện tại](../../BiLSTM/configs/skeleton_audit_v0_2.yaml). Khi có video phù hợp, bổ sung kiểm chứng trích xuất pose và annotation RGB; đây là phần mở rộng chưa thực hiện.
+Ưu tiên kế tiếp là dùng [công cụ chọn pilot](CONG_CU_CHON_PILOT_MMASD.md) để review và chốt danh sách cùng protocol. Đã có thống kê sơ bộ và kiểm tra frame nguồn toàn catalogue; sau khi chốt cần lập bảng chi tiết theo joint/frame và baseline hiệu chỉnh bằng [cấu hình v0.2 hiện tại](../../BiLSTM/configs/skeleton_audit_v0_2.yaml). Khi có video phù hợp, bổ sung kiểm chứng trích xuất pose và annotation RGB; đây là phần mở rộng chưa thực hiện.
 
 ## 5. Cách cập nhật sau mỗi đợt làm việc
 
@@ -124,6 +126,13 @@ Sau mỗi đợt có thay đổi về tiến độ hoặc kết quả:
 - **Kết quả và bằng chứng:** [quy trình phát triển](../DEVELOPMENT.md), [config v0.2](../../BiLSTM/configs/skeleton_audit_v0_2.yaml), [snapshot v0.2](../../BiLSTM/artifacts/pipeline_audit_v0_2/pipeline_lock.json), [kiểm thử audit](../../BiLSTM/tests/test_pipeline_lock.py). Kết quả khảo sát và cảnh báo lịch sử không thay đổi sau refactor.
 - **Kiểm chứng:** bộ kiểm thử MMASD + DRYAD có 97 kiểm thử đạt; Ruff lint/format đạt; chạy audit v0.2 trên 3 clip / 470 frame và verify 545 file đạt. So sánh v0.1/v0.2 xác nhận kết quả smoke và đối chiếu không đổi. Bản checkout sạch từ staging chạy `make check` và 13 kiểm thử audit đạt khi không có dữ liệu/checkpoint/history. Đã push commit [c2758ab](https://github.com/dekii2275/nckh_tretuky/commit/c2758ab6bfddf845fd125a9842ac950abbae6d2b); [GitHub Actions đạt](https://github.com/dekii2275/nckh_tretuky/actions/runs/39143719340). README đã bổ sung nhánh/commit, kết quả kiểm chứng và các lệnh audit.
 - **Việc tiếp theo:** tiếp tục chọn pilot và đo chất lượng trên nhánh nghiên cứu; cập nhật cùng nhật ký sau mỗi mốc.
+
+#### 18/10/2026 — Công cụ chọn pilot trực quan và catalogue toàn MMASD
+
+- **Đã làm:** đo selected raw skeleton bằng Tracklet V2 trên toàn 1.374 clip / 254.674 frame; xây dựng giao diện cục bộ lọc/xem/chọn, lý do loại/chọn, review, đề xuất theo seed, autosave/import/export, kiểm tra trùng mã trẻ và kiểm tra lại nguồn trước khi chốt.
+- **Kết quả và bằng chứng:** [hướng dẫn và kết quả](CONG_CU_CHON_PILOT_MMASD.md), [tổng hợp catalogue](../../BiLSTM/artifacts/pilot_selector_summary.json). Tầng thiếu khớp có 605 ít / 602 vừa / 167 nhiều. Đề xuất seed 42 gồm 40 clip, chia 20/20, phủ 10 hoạt động ở mỗi nhóm và không trùng mã trẻ. Bản nháp thực tế vẫn 0/40 clip được review; chưa chốt pilot.
+- **Kiểm chứng:** bộ kiểm thử MMASD + DRYAD có 125 kiểm thử đạt, gồm 28 kiểm thử pilot bằng dữ liệu tổng hợp. Chrome đã thử lọc, preview 2D/3D theo tracker mới, autosave/reload, import sai catalogue, exclusions, chốt và tải manifest 40 dòng tách mã trẻ; không có lỗi JavaScript và layout desktop/mobile đạt. Mọi review/export thử được giữ riêng tại `/tmp`; bản nháp người dùng không bị gán nhãn review giả.
+- **Việc tiếp theo:** người dùng mở `make pilot-selector`, xem/chỉnh và chốt pilot; sau đó đo chi tiết và thử hiệu chỉnh. Chưa có ground truth pose/tracking hoặc kết quả benchmark correction.
 
 Mẫu thêm mốc mới:
 

@@ -236,5 +236,6 @@ __marimo__/
 /artifacts/dryad_msg3d/experiments/
 /artifacts/visualizations/
 /BiLSTM/artifacts/tracking_review_3d/
+/BiLSTM/artifacts/pilot_selector/
 *.pt
 *.pth

@@ -1,0 +1,392 @@
+{
+  "experiments": [
+    {
+      "experiment": "paper_repro",
+      "accuracy": 0.6784452296819788,
+      "macro_f1": 0.657509132355943,
+      "correct": 192,
+      "clips": 283,
+      "epoch": 32,
+      "tracker": "legacy",
+      "sequence": {
+        "mode": "fixed_60",
+        "length": 60,
+        "sampling": "uniform"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": true,
+        "checkpoint_epoch_matches_result": true,
+        "current_inference_config_matches_checkpoint": true,
+        "evaluation_config_matches_checkpoint": true,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": true,
+        "history_macro_f1_matches_result": true
+      },
+      "status": "consistent_saved_run",
+      "current_checkpoint_epoch": 32,
+      "current_checkpoint_experiment": null,
+      "current_checkpoint_model": "paper_bilstm_attention",
+      "current_history_best_epoch": 32,
+      "checkpoint_sha256": "9cf03687e6c7a7a987c9c1264c31dc1fb711d0c4a3878bb0f76fb6e4870711aa",
+      "checkpoint": "BiLSTM/checkpoints/paper_repro/best.pt",
+      "result": "BiLSTM/artifacts/paper_repro/validation_results.json",
+      "history": "BiLSTM/runs/paper_repro/history.json",
+      "predictions": "BiLSTM/artifacts/paper_repro/predictions.csv",
+      "source_files_changed_since_training": [
+        "data/collate.py",
+        "data/dataset.py",
+        "engine.py",
+        "evaluate.py",
+        "models/bilstm_attention.py",
+        "reproducibility.py",
+        "train.py",
+        "utils.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    },
+    {
+      "experiment": "improved_v1",
+      "accuracy": 0.6042402826855123,
+      "macro_f1": 0.5697265720487971,
+      "correct": 171,
+      "clips": 283,
+      "epoch": 20,
+      "tracker": "romp_guided",
+      "sequence": {
+        "mode": "fixed_60",
+        "length": 60,
+        "sampling": "uniform"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": true,
+        "checkpoint_epoch_matches_result": true,
+        "current_inference_config_matches_checkpoint": true,
+        "evaluation_config_matches_checkpoint": true,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": true,
+        "history_macro_f1_matches_result": true
+      },
+      "status": "consistent_saved_run",
+      "current_checkpoint_epoch": 20,
+      "current_checkpoint_experiment": null,
+      "current_checkpoint_model": "paper_bilstm_attention",
+      "current_history_best_epoch": 20,
+      "checkpoint_sha256": "5e4858ca615b4553541595b80917d64ddefb44c19e6512106032cda7ff3e93c8",
+      "checkpoint": "BiLSTM/checkpoints/improved_v1/best.pt",
+      "result": "BiLSTM/artifacts/improved_v1/validation_results.json",
+      "history": "BiLSTM/runs/improved_v1/history.json",
+      "predictions": "BiLSTM/artifacts/improved_v1/predictions.csv",
+      "source_files_changed_since_training": [
+        "data/dataset.py",
+        "engine.py",
+        "evaluate.py",
+        "models/bilstm_attention.py",
+        "train.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    },
+    {
+      "experiment": "improved_v2_center60",
+      "accuracy": 0.8162544169611308,
+      "macro_f1": 0.7988173413688059,
+      "correct": 231,
+      "clips": 283,
+      "epoch": 47,
+      "tracker": "tracklet_v2",
+      "sequence": {
+        "mode": "single_window",
+        "length": 60,
+        "sampling": "uniform",
+        "short_clip_policy": "interpolate"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": true,
+        "checkpoint_epoch_matches_result": true,
+        "current_inference_config_matches_checkpoint": true,
+        "evaluation_config_matches_checkpoint": true,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": true,
+        "history_macro_f1_matches_result": true
+      },
+      "status": "consistent_saved_run",
+      "current_checkpoint_epoch": 47,
+      "current_checkpoint_experiment": "improved_v2_center60",
+      "current_checkpoint_model": "paper_bilstm_attention",
+      "current_history_best_epoch": 47,
+      "checkpoint_sha256": "cf3f3c702d6b2181b0d88f0fac65be7c7bb5dd22a6c67b7b87445e88757c1e1f",
+      "checkpoint": "BiLSTM/checkpoints/improved_v2_center60/best.pt",
+      "result": "BiLSTM/artifacts/improved_v2_center60/validation_results.json",
+      "history": "BiLSTM/runs/improved_v2_center60/history.json",
+      "predictions": "BiLSTM/artifacts/improved_v2_center60/predictions.csv",
+      "source_files_changed_since_training": [
+        "data/dataset.py",
+        "engine.py",
+        "evaluate.py",
+        "models/bilstm_attention.py",
+        "train.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    },
+    {
+      "experiment": "improved_v3_stride30",
+      "accuracy": 0.8515901060070671,
+      "macro_f1": 0.85844375534627,
+      "correct": 241,
+      "clips": 283,
+      "epoch": 50,
+      "tracker": "tracklet_v2",
+      "sequence": {
+        "mode": "sliding_window",
+        "length": 60,
+        "sampling": "uniform",
+        "stride": 30,
+        "short_clip_policy": "interpolate"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": true,
+        "checkpoint_epoch_matches_result": true,
+        "current_inference_config_matches_checkpoint": true,
+        "evaluation_config_matches_checkpoint": true,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": true,
+        "history_macro_f1_matches_result": true
+      },
+      "status": "consistent_saved_run",
+      "current_checkpoint_epoch": 50,
+      "current_checkpoint_experiment": "improved_v3_stride30",
+      "current_checkpoint_model": "paper_bilstm_attention",
+      "current_history_best_epoch": 50,
+      "checkpoint_sha256": "c964938c55db0b58a726297db77874b7bb8a7550ca3f0da0853bc76c3d6dc50a",
+      "checkpoint": "BiLSTM/checkpoints/improved_v3_stride30/best.pt",
+      "result": "BiLSTM/artifacts/improved_v3_stride30/validation_results.json",
+      "history": "BiLSTM/runs/improved_v3_stride30/history.json",
+      "predictions": "BiLSTM/artifacts/improved_v3_stride30/clip_predictions.csv",
+      "source_files_changed_since_training": [
+        "data/dataset.py",
+        "engine.py",
+        "models/bilstm_attention.py",
+        "train.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    },
+    {
+      "experiment": "improved_v4_kinematics",
+      "accuracy": 0.8551236749116607,
+      "macro_f1": 0.8552470566963922,
+      "correct": 242,
+      "clips": 283,
+      "epoch": 33,
+      "tracker": "tracklet_v2",
+      "sequence": {
+        "mode": "sliding_window",
+        "length": 60,
+        "sampling": "uniform",
+        "stride": 30,
+        "short_clip_policy": "interpolate"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": true,
+        "checkpoint_epoch_matches_result": true,
+        "current_inference_config_matches_checkpoint": true,
+        "evaluation_config_matches_checkpoint": true,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": true,
+        "history_macro_f1_matches_result": true
+      },
+      "status": "consistent_saved_run",
+      "current_checkpoint_epoch": 33,
+      "current_checkpoint_experiment": "improved_v4_kinematics",
+      "current_checkpoint_model": "kinematic_bilstm_attention",
+      "current_history_best_epoch": 33,
+      "checkpoint_sha256": "38495ab945f086298e8f9ee1f4250e1278b28df9ff778a5893b7aa6deb78c7cf",
+      "checkpoint": "BiLSTM/checkpoints/improved_v4_kinematics/best.pt",
+      "result": "BiLSTM/artifacts/improved_v4_kinematics/validation_results.json",
+      "history": "BiLSTM/runs/improved_v4_kinematics/history.json",
+      "predictions": "BiLSTM/artifacts/improved_v4_kinematics/clip_predictions.csv",
+      "source_files_changed_since_training": [
+        "data/dataset.py",
+        "models/bilstm_attention.py",
+        "train.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    },
+    {
+      "experiment": "improved_v7_focal_loss",
+      "accuracy": 0.8621908127208481,
+      "macro_f1": 0.8705460315378002,
+      "correct": 244,
+      "clips": 283,
+      "epoch": 44,
+      "tracker": "tracklet_v2",
+      "sequence": {
+        "mode": "sliding_window",
+        "length": 60,
+        "sampling": "uniform",
+        "stride": 30,
+        "short_clip_policy": "interpolate"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": true,
+        "checkpoint_epoch_matches_result": true,
+        "current_inference_config_matches_checkpoint": true,
+        "evaluation_config_matches_checkpoint": true,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": true,
+        "history_macro_f1_matches_result": true
+      },
+      "status": "consistent_saved_run",
+      "current_checkpoint_epoch": 44,
+      "current_checkpoint_experiment": "improved_v7_focal_loss",
+      "current_checkpoint_model": "kinematic_bilstm_attention",
+      "current_history_best_epoch": 44,
+      "checkpoint_sha256": "ce0e1a108b10d6feb88841b1fcf1080b9c575e589263762845a75317e3a6b438",
+      "checkpoint": "BiLSTM/checkpoints/improved_v7_focal_loss/best.pt",
+      "result": "BiLSTM/artifacts/improved_v7_focal_loss/validation_results.json",
+      "history": "BiLSTM/runs/improved_v7_focal_loss/history.json",
+      "predictions": "BiLSTM/artifacts/improved_v7_focal_loss/clip_predictions.csv",
+      "source_files_changed_since_training": [
+        "data/dataset.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    },
+    {
+      "experiment": "tracker_v1_controlled",
+      "accuracy": 0.6925795053003534,
+      "macro_f1": 0.6774545196106302,
+      "correct": 196,
+      "clips": 283,
+      "epoch": 53,
+      "tracker": "legacy",
+      "sequence": {
+        "mode": "fixed_60",
+        "length": 60,
+        "sampling": "uniform"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": true,
+        "checkpoint_epoch_matches_result": true,
+        "current_inference_config_matches_checkpoint": true,
+        "evaluation_config_matches_checkpoint": true,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": true,
+        "history_macro_f1_matches_result": true
+      },
+      "status": "consistent_saved_run",
+      "current_checkpoint_epoch": 53,
+      "current_checkpoint_experiment": null,
+      "current_checkpoint_model": "paper_bilstm_attention",
+      "current_history_best_epoch": 53,
+      "checkpoint_sha256": "531374993417e636695f8f53592813cbbd8bddb3e35bb89a8fa59fdfb7088b86",
+      "checkpoint": "BiLSTM/checkpoints/tracker_v1_controlled/best.pt",
+      "result": "BiLSTM/artifacts/tracker_training/v1/validation_results.json",
+      "history": "BiLSTM/runs/tracker_v1_controlled/history.json",
+      "predictions": "BiLSTM/artifacts/tracker_training/v1/predictions.csv",
+      "source_files_changed_since_training": [
+        "data/dataset.py",
+        "data/tracking.py",
+        "engine.py",
+        "evaluate.py",
+        "models/bilstm_attention.py",
+        "reproducibility.py",
+        "train.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    },
+    {
+      "experiment": "tracker_v2_controlled",
+      "accuracy": 0.7102473498233216,
+      "macro_f1": 0.6993848248381931,
+      "correct": 201,
+      "clips": 283,
+      "epoch": 11,
+      "tracker": "tracklet_v2",
+      "sequence": {
+        "mode": "fixed_60",
+        "length": 60,
+        "sampling": "uniform"
+      },
+      "checks": {
+        "checkpoint_hash_matches_result": false,
+        "checkpoint_epoch_matches_result": false,
+        "current_inference_config_matches_checkpoint": false,
+        "evaluation_config_matches_checkpoint": false,
+        "checkpoint_manifest_hashes_match_current": true,
+        "evaluation_manifest_hashes_match_current": true,
+        "prediction_accuracy_matches_result": true,
+        "prediction_macro_f1_matches_result": true,
+        "history_accuracy_matches_result": false,
+        "history_macro_f1_matches_result": false
+      },
+      "status": "evidence_mismatch",
+      "current_checkpoint_epoch": 10,
+      "current_checkpoint_experiment": "improved_v5_kinematics",
+      "current_checkpoint_model": "kinematic_bilstm_attention",
+      "current_history_best_epoch": 10,
+      "checkpoint_sha256": "3f99d7a6f312e6605814a9d616d33bc6c5a7a25d3ca90e88554792f8b5d176bc",
+      "checkpoint": "BiLSTM/checkpoints/tracker_v2_controlled/best.pt",
+      "result": "BiLSTM/artifacts/tracker_training/v2/validation_results.json",
+      "history": "BiLSTM/runs/tracker_v2_controlled/history.json",
+      "predictions": "BiLSTM/artifacts/tracker_training/v2/predictions.csv",
+      "source_files_changed_since_training": [
+        "data/dataset.py",
+        "models/bilstm_attention.py",
+        "train.py"
+      ],
+      "raw_training_data_historically_hashed": false
+    }
+  ],
+  "stacking": {
+    "metrics": {
+      "accuracy": 0.8904593639575972,
+      "macro_precision": 0.896000281346567,
+      "macro_recall": 0.8835613643156337,
+      "macro_f1": 0.8889940644053362
+    },
+    "predictions_match_result": true,
+    "method_provenance": "saved predictions only; OOF procedure and meta-model not verified",
+    "independent_test": false
+  },
+  "split": {
+    "train": 1091,
+    "val": 283,
+    "overlap_clip_id": [],
+    "overlap_subject_id": [
+      "20583",
+      "20613",
+      "40023",
+      "40143",
+      "40163",
+      "40533",
+      "40543",
+      "40555",
+      "40714",
+      "40723",
+      "40743",
+      "40753",
+      "41023"
+    ],
+    "overlap_session_group": []
+  },
+  "historical_claims_status": "Current saved runs reconciled; unsupported old report values remain unverified. No model inference rerun."
+}

@@ -1,19 +1,34 @@
-# Kế hoạch nghiên cứu: Skeleton Reliability và Robust Action Recognition
+# Kế hoạch nghiên cứu: Đánh giá, phát hiện và hiệu chỉnh lỗi skeleton trẻ em
 
 **Dự án:** NCKH Trẻ tự kỷ – Skeleton-based Autism Action Recognition  
 **Ngày lập:** 01/10/2026  
+**Cập nhật định hướng:** 14/10/2026, theo mục tiêu người dùng chốt.
 **Trạng thái:** Kế hoạch nghiên cứu; chưa thay mô hình hoặc pipeline huấn luyện.
 
 ## 1. Mục tiêu và phạm vi
 
-Hướng nghiên cứu hiện tại là **Skeleton Reliability Analysis and Robust Skeleton-based Action Recognition**. Mục tiêu là đo các bất ổn của skeleton ước lượng, kiểm tra quan hệ của chúng với lỗi nhận dạng hoạt động trên MMASD, tạo benchmark corruption dựa trên lỗi quan sát được, rồi mới thử dùng thông tin reliability để giảm mức suy giảm hiệu năng.
+**Tên đề tài tạm thời:** Nghiên cứu phương pháp đánh giá và hiệu chỉnh chất lượng dữ liệu khung xương của trẻ từ video phục vụ phân tích hành vi.
+
+**Mục tiêu đã chốt:** Nghiên cứu và xây dựng một pipeline tự động đánh giá, phát hiện và hiệu chỉnh các lỗi trong dữ liệu khung xương của trẻ em từ video, với trọng tâm kiểm chứng trên dữ liệu trẻ ASD, nhằm nâng cao độ tin cậy của dữ liệu chuyển động phục vụ phân tích hành vi.
+
+Bốn mục tiêu cụ thể:
+
+1. Khảo sát và chuẩn hóa dữ liệu skeleton từ các phiên hoạt động/trị liệu của trẻ, đặc biệt là dữ liệu ASD.
+2. Xây dựng phương pháp đánh giá chất lượng và phát hiện missing joint, low-confidence, jitter/temporal outlier, bất thường hình học và mất tracking; phân biệt chỉ báo với lỗi có nhãn xác minh.
+3. Đề xuất pipeline hiệu chỉnh bằng interpolation, temporal filtering, outlier correction và ràng buộc hình học/cơ thể khi biểu diễn dữ liệu cho phép.
+4. Đánh giá trước/sau bằng metric định lượng và trực quan, phân tích theo activity, joint và điều kiện thu thập có bằng chứng.
+
+ASD là miền ứng dụng và dữ liệu kiểm chứng chính; chưa giả định thuật toán phải đặc thù ASD. Chuyển động nhanh, nhiều người, tư thế đa dạng và occlusion là các yếu tố cần khảo sát, không mặc nhiên coi là đặc điểm riêng của ASD hay nguyên nhân lỗi đã được xác minh. Web/viewer là công cụ review và kiểm chứng. Nhận dạng hành vi là đánh giá downstream bổ sung; cải tiến kiến trúc phân loại không còn là mục tiêu chính.
+
+**Phạm vi tuần đầu đã xác nhận:** người dùng chưa có video trẻ để nghiên cứu; dùng skeleton MMASD có sẵn. Chưa kiểm chứng bước trích xuất pose từ video mới. Khi có video phù hợp, bổ sung extractor và đánh giá đồng bộ RGB–skeleton. Bộ quy chuẩn/schema là nền tảng cho phương pháp, không thay thế đóng góp phát hiện/hiệu chỉnh và đánh giá.
 
 Chuỗi công việc ưu tiên:
 
 ```text
-AUDIT REPOSITORY → MEASURE QUALITY → ANALYZE ERRORS
-                 → BUILD CORRUPTION BENCHMARK → TEST ROBUSTNESS
-                 → IMPROVE MODEL (khi đã có bằng chứng)
+VIDEO / SKELETON THÔ → CHUẨN HÓA VÀ GIỮ NGUỒN
+                    → PHÂN TÍCH CHẤT LƯỢNG → PHÁT HIỆN LỖI
+                    → HIỆU CHỈNH CÓ ĐIỀU KIỆN
+                    → ĐÁNH GIÁ ĐỊNH LƯỢNG + TRỰC QUAN
 ```
 
 Không gộp nhãn của MMASD, DREAM và DRYAD thành một bài toán phân loại. Không xem skeleton, confidence hay chỉ số heuristic là ground truth về tư thế hoặc danh tính người.
@@ -22,7 +37,7 @@ Không gộp nhãn của MMASD, DREAM và DRYAD thành một bài toán phân lo
 
 | Dataset | Biểu diễn và nhãn | Vai trò trong hướng nghiên cứu |
 |---|---|---|
-| **MMASD** | OpenPose BODY_25 2D, nhiều người mỗi frame; 10 lớp hoạt động có OpenPose clip khả dụng trong pipeline hiện tại. | Dataset chính: audit tracking/pose, liên hệ quality với lỗi action recognition, corruption và robustness. |
+| **MMASD** | OpenPose BODY_25 2D, nhiều người mỗi frame; 10 lớp hoạt động có OpenPose clip khả dụng trong pipeline hiện tại. | Case study chính: khảo sát chất lượng, phát hiện/hiệu chỉnh có điều kiện và đánh giá phục hồi/bảo toàn chuyển động; action recognition là phép kiểm chứng bổ sung. |
 | **DREAM** | Public segment JSON với 10 upper-body joints 3D, confidence, giá trị `null`, task JA/IM/TT và metadata; không có trial-level correctness đầy đủ. | So sánh phân bố confidence, missingness và độ ổn định theo thời gian; không dùng JA/IM/TT làm nhãn MMASD. |
 | **DRYAD** | Kinect v2, 25 joints 3D theo gait cycle; nhãn ASD/TD. Tài liệu cục bộ ghi nhận 100 bản gốc và 700 augmentation, cùng sentinel `100` chưa rõ ngữ nghĩa. | Kiểm tra consistency và outlier trên cảm biến 3D khác; giữ riêng đơn vị subject và augmentation, không coi nhãn ASD/TD là activity. |
 
@@ -38,10 +53,13 @@ Nguồn cục bộ: [đối chiếu ba dataset](../reports/BAO_CAO_SO_SANH_MMASD
 
 ## 3. Câu hỏi nghiên cứu
 
-1. **RQ1 — Reliability profile:** MMASD, DREAM và DRYAD có những dạng missing, confidence thấp, temporal instability, geometry inconsistency hoặc tracking ambiguity nào, ở mức độ bao nhiêu?
-2. **RQ2 — Liên hệ với lỗi dự đoán:** Trên MMASD, các clip được dự đoán sai có quality profile khác clip đúng hay không, sau khi xét class, độ dài clip và nhóm subject/session?
-3. **RQ3 — Độ nhạy với corruption:** Những lỗi nào, ở mức độ nào, làm giảm clip accuracy, macro-F1 và per-class recall mạnh nhất?
-4. **RQ4 — Dùng reliability để tăng robustness:** Confidence, validity mask hoặc quality indicators có giúp giảm robustness drop mà vẫn giữ hiệu năng clean hợp lý không?
+**Câu hỏi trung tâm:** Có thể tự động phát hiện và hiệu chỉnh các lỗi trong chuỗi skeleton của trẻ để cải thiện tính ổn định và độ tin cậy của dữ liệu chuyển động hay không?
+
+1. **RQ1 — Khảo sát lỗi/chỉ báo:** Những dạng missing, confidence thấp, temporal instability, bất thường hình học và tracking ambiguity nào xuất hiện trên MMASD, với tần suất và độ dài bao nhiêu?
+2. **RQ2 — Phụ thuộc điều kiện:** Phân bố các lỗi/chỉ báo khác nhau thế nào theo activity, joint, subject/session và số người? Chỉ phân tích occlusion/bối cảnh camera khi có RGB hoặc annotation/metadata hỗ trợ; thiếu joint không tự chứng minh occlusion.
+3. **RQ3 — Hiệu quả phương pháp:** So với dữ liệu raw và các baseline, pipeline có cải thiện khả năng phục hồi trên lỗi được tạo có kiểm soát và các chỉ số chất lượng mà vẫn bảo toàn chuyển động không? Mức cải thiện và uncertainty là bao nhiêu?
+
+Phép kiểm chứng bổ sung: input trước/sau hiệu chỉnh ảnh hưởng thế nào tới action recognition theo cùng protocol? Không yêu cầu kết quả phải dương; trường hợp thất bại là kết quả cần báo cáo.
 
 ## 4. Bản đồ pipeline cần xác nhận trong đợt audit đầu
 
@@ -69,13 +87,13 @@ OpenPose JSON (`people[*].pose_keypoints_2d`, 25 × [x,y,c])
 
 | Giai đoạn | Việc làm chính | Đầu ra và điều kiện hoàn tất |
 |---|---|---|
-| **P0 — Audit và khóa protocol** | Kiểm tra manifest/split, OpenPose JSON, ba kiểu tracking, zero/missing, interpolation, smoothing, normalization fallback, resampling/windowing, prediction export và checkpoint/config provenance. Xác định một model/checkpoint, split, đơn vị clip và tập clip làm phân tích chính; giữ các model khác làm sensitivity analysis. | Pipeline map có dẫn tới file/hàm/config; bảng provenance; quy tắc join và số clip khớp/thiếu; không sửa training pipeline. |
-| **P1 — Chuẩn hóa dữ liệu để audit** | Tạo schema chung ở mức sequence/frame/joint nhưng giữ `dataset_id`, topology và đơn vị của từng bộ; tách raw, selected, preprocessed và model-input. Ghi provenance cho missing, interpolation, padding và frame gốc. | Loader đọc được mẫu kiểm tra từ cả ba bộ; thống kê số record/frame/joint và lý do loại/quarantine. Không ép chung số joint hay label space. |
-| **P2 — Skeleton Quality Audit** | Tính missingness, confidence, jitter, geometry và tracking indicators ở cấp frame/joint/clip. Kiểm tra phân bố trước khi đặt ngưỡng; lưu cả metric liên tục và cờ heuristic. | `skeleton_quality.csv` và bảng theo joint/frame có định nghĩa, đơn vị, NA rule, version/config; audit một số mẫu bằng đồ thị hoặc review thủ công. |
-| **P3 — Quality vs recognition error** | Join quality của MMASD với prediction clip đã lưu; phân tích đúng/sai toàn bộ, theo activity, joint và subject/session. Tách kết quả mô tả khỏi giả thuyết nhân quả. | Bảng/plot, effect size và khoảng tin cậy; báo cáo số clip thiếu prediction, class support nhỏ và confounder. |
-| **P4 — Realistic corruption benchmark** | Dựa trên phân bố lỗi thật để chọn joint/vùng cơ thể, độ dài missing runs, tương quan thời gian và mức nhiễu. Áp corruption trên bản sao dữ liệu, giữ manifest và random seed; có clean/mild/medium/severe. | Generator và manifest tái lập được; corruption được kiểm tra đúng loại, vị trí và severity; dữ liệu raw không đổi. |
-| **P5 — Baseline robustness** | Chạy checkpoint BiLSTM đã khóa trên clean và từng corruption/severity. Giữ tracking, preprocessing, windowing và aggregation đồng nhất; ghi rõ corruption đặt trước hay sau preprocessing. | Clip accuracy, macro-F1, per-class recall và `drop = metric_clean − metric_corrupted`; bảng/curve theo corruption và severity. |
-| **P6 — Reliability-aware model** | Chỉ sau P2–P5 mới chọn phép thử có bằng chứng: thêm confidence, validity mask, hoặc pooling/weighting theo quality. So sánh công bằng với baseline và ablation. | Kết quả clean **và** corrupted, cùng split/protocol; báo cáo trường hợp cải thiện, suy giảm và giới hạn. |
+| **P0 — Khảo sát và khóa protocol** | Audit parser/tracking/preprocessing, dữ liệu nguồn và literature về chất lượng/hiệu chỉnh skeleton; chọn pilot đa activity/subject/session. Tách nhóm hiệu chỉnh tham số và nhóm đánh giá theo subject/session, xác minh định danh nhóm. | Pipeline map, bảng phương pháp liên quan, manifest và protocol; checkpoint chỉ cần khóa nếu làm downstream. |
+| **P1 — Chuẩn hóa có truy vết** | Schema sequence/frame/joint; giữ topology/units/confidence, raw/selected/processed, frame gốc và repair masks. Triển khai MMASD trước; DREAM/DRYAD là mở rộng. | Schema/data dictionary v0.1, adapter và export đọc lại được; source/config hash và quarantine report. |
+| **P2 — Đánh giá và phát hiện** | Metric liên tục và detector theo từng loại; hiệu chỉnh threshold trên nhóm tuning, kiểm tra theo activity/joint/nhóm. Cảnh báo hình học 2D là proxy, không tự ép chiều dài xương cố định. | Quality tables, events với frame/joint/reason, detection config; đánh giá detector trên corruption có nhãn vị trí hoặc annotation có bằng chứng. |
+| **P3 — Pipeline hiệu chỉnh** | Baseline nội suy ngắn; thêm một temporal filter; thử outlier correction chỉ khi tín hiệu phối hợp hỗ trợ. Ràng buộc hình học chỉ dùng khi đã xác minh representation và scale, không tự sửa tracking ambiguity. | Các variant raw/interpolation/filter/conditional correction; mask và repair log; không nối qua gap dài, track boundary hay imputed data giả làm quan sát. |
+| **P4 — Benchmark kiểm soát** | Tạo missing runs và temporal spikes trên quan sát hợp lệ, nhiều mức/seed; giữ bản tham chiếu. Dựa vào audit để chọn tham số nhưng tách tuning/evaluation. | Corruption manifest có clip/joint/frame/severity/seed và vị trí nhãn; dữ liệu tham chiếu vẫn là output estimator, không phải ground truth thực. |
+| **P5 — Đánh giá trước/sau** | So detection, recovery, unresolved coverage, jitter proxy và bảo toàn chuyển động; ablation trên cùng mẫu. Phân tích activity/joint/session/số người và review cả thành công/thất bại. | Bảng paired differences/effect size/uncertainty; detection precision/recall/F1 khi có nhãn phù hợp; reconstruction error và motion preservation. Không lấy smoothing làm chứng minh pose chính xác. |
+| **P6 — Kiểm chứng bổ sung** | Downstream trên checkpoint có provenance; mở rộng dataset/hệ tọa độ đã xác minh; khi có video, bổ sung extraction và RGB annotation để xác minh pose/tracking/occlusion. | Kết quả có giới hạn phạm vi rõ; action recognition, extractor video và model reliability-aware là các nhánh mở rộng, không chặn P1–P5. |
 
 ### Những kiểm tra quan trọng trong P0–P2
 
@@ -100,13 +118,20 @@ Một dòng trong `skeleton_quality.csv` ứng với **một sequence/clip của
 
 Lưu thêm bảng dài `skeleton_quality_joint.csv` (`clip_or_segment_id`, `joint_id`, missing/confidence/jitter theo joint) và, khi cần, bảng sự kiện theo frame để kiểm tra lại các spike. Không gộp các chỉ số thành một scalar “good/bad” ở bước đầu. Mỗi metric có định nghĩa, đơn vị, cách xử lý `null`, padding, zero và interpolation trong data dictionary.
 
-## 7. Thực nghiệm đầu tiên: clip đúng và sai có quality khác nhau không?
+## 7. Thực nghiệm cốt lõi: phát hiện và hiệu chỉnh có cải thiện dữ liệu không?
 
-1. **Khóa nguồn:** chọn checkpoint/config và prediction artifact làm phân tích chính trước khi xem kết quả QC; ghi split, danh sách clip và hash. Ưu tiên một model đơn đã có prediction cho 283 validation clip; dùng S1 275 clip như đối chiếu lịch sử với quy tắc loại 8 clip ngắn được công bố rõ. Không trộn prediction của nhiều experiment vào một nhóm.
-2. **Join:** `clip_id` + split/variant; kiểm tra một dòng mỗi clip, `true_id` khớp manifest, `correct = (true_id == predicted_id)`, và báo cáo clip thiếu prediction. Không dùng hậu tố `_y/_i/_n` làm nhãn correctness, engagement hay quality.
-3. **Metric chính:** missing-joint ratio, valid-frame ratio, confidence trung bình/median, max missing run, jitter, bone-length variation, center jumps và scale fallback; thêm các metric theo joint có giả thuyết vận động phù hợp (cổ tay cho drumming/clap, chân cho squat).
-4. **Phân tích:** bảng mô tả đúng/sai; violin/ECDF hoặc boxplot theo metric, scatter với độ dài clip, per-class plot và heatmap theo joint. Báo cáo chênh lệch và khoảng tin cậy bằng bootstrap theo subject/session; kiểm tra nhạy với class, số frame và số người. Nếu dùng kiểm định, ưu tiên permutation hoặc regression có covariate đã khai báo; hiệu chỉnh khi kiểm tra nhiều joint/metric. Không diễn giải `p` hay correlation thành nguyên nhân.
-5. **Diễn giải:** nêu metric nào đo trực tiếp từ dữ liệu, metric nào là proxy, giới hạn do thiếu RGB/identity labels. Xác định các failure pattern đáng ưu tiên cho P4, kể cả khi giả thuyết ban đầu không được hỗ trợ.
+1. **Khóa mẫu:** pilot 20–50 clip MMASD có phân tầng activity/subject/session và độ dài; công bố coverage. Chọn 3–5 clip riêng phục vụ demo. Tách tuning/evaluation theo nhóm trước khi thử tham số; không dùng frame của cùng clip ở hai nhóm. Nếu nhóm quá ít, ghi kết quả là thăm dò.
+2. **Khảo sát dữ liệu thật:** thống kê missing/confidence/gaps, temporal/geometric indicators và số người. Review các cảnh báo lẫn các đoạn không bị cảnh báo để kiểm tra false positives. Skeleton-only review chưa xác minh pose hoặc danh tính.
+3. **Corruption có nhãn vị trí:** che joint theo đoạn và chèn temporal spikes vào bản sao; giữ mask/seed và reference. Không coi các vị trí còn lại là clean ground truth; metric detection chỉ đánh giá khả năng tìm lỗi chèn có kiểm soát trên tập ứng viên đã khai báo. Những lỗi thật nền chưa có nhãn làm giới hạn diễn giải precision.
+4. **So sánh phương pháp:** B0 raw/no repair, B1 short-gap linear interpolation, B2 B1 + một temporal filter, B3 conditional outlier correction + B2. Chạy cùng corruption/seed/sample; bỏ từng thành phần để xác định nguồn thay đổi. Hình học 2D dùng để hỗ trợ cảnh báo; hard constraints trên cơ thể 3D là nhánh sau khi dữ liệu đủ căn cứ.
+5. **Đo detection và recovery:** precision/recall/F1 với nhãn phù hợp, lỗi tọa độ chuẩn hóa theo scale tham chiếu cố định khi hợp lệ, tỷ lệ sửa được/còn thiếu và sai số theo gap length/joint/activity. Transform trong pipeline chỉ được fit từ dữ liệu khả dụng sau corruption; không dùng điểm bị che để suy root/scale/filter.
+6. **Đo bảo toàn chuyển động:** displacement, biên độ/quỹ đạo và thời điểm cực trị trên đoạn tham chiếu; báo cáo độ trễ/biến dạng và số điểm tốt bị sửa. Filter chạy riêng trên các đoạn hợp lệ liên tục, không bắc qua track boundary hoặc missing gap chưa được xử lý. Phương pháp offline được dùng tương lai nhưng không được mô tả là realtime/causal.
+7. **Đánh giá thống kê và trực quan:** paired differences theo clip và khoảng tin cậy bootstrap theo subject/session khi số nhóm cho phép; không coi hàng nghìn frame là mẫu độc lập. Báo cáo effect size, failure cases và uncertainty; chỉnh nhiều joint/metric phải xử lý multiple comparisons nếu công bố kiểm định. Không mặc định kết luận có ý nghĩa thống kê.
+8. **Downstream bổ sung:** khi đủ provenance, so action recognition trên cùng clip/split/tracking/preprocessing/window/aggregation; xử lý mới không bị preprocessing hai lần. Dùng validation đúng tên, báo clip thiếu prediction, và không dùng hậu tố `_y/_i/_n` làm correctness. Phép phân tích quality–prediction cũ vẫn hữu ích như bằng chứng bổ sung.
+
+Tài liệu phương pháp để đối chiếu: [Savitzky–Golay trong SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html) và [1€ Filter của nhóm tác giả](https://gery.casiez.net/1euro/). Chọn một filter làm baseline tuần đầu sau khi kiểm tra sampling và điều kiện missing; không mặc định filter nào tốt nhất trên MMASD.
+
+Đóng góp cần chứng minh là lựa chọn/tổ chức phát hiện–hiệu chỉnh có điều kiện phù hợp dữ liệu khảo sát và bằng chứng so sánh, không chỉ việc ghép các thuật toán đã có. Đặc thù dữ liệu trẻ/ASD phải được phân tích từ dữ liệu; chưa có nhóm so sánh thì không kết luận lỗi phổ biến hơn người lớn hoặc TD.
 
 ## 8. Quy tắc bằng chứng và giới hạn kết luận
 
@@ -118,4 +143,6 @@ Lưu thêm bảng dài `skeleton_quality_joint.csv` (`clip_or_segment_id`, `join
 
 ## 9. Công việc tiếp theo ngay sau kế hoạch này
 
-Thực hiện **P0 — audit repo và khóa protocol**. Bắt đầu bằng một báo cáo ngắn có bảy phần: (A) pipeline map theo file/hàm, (B) quality information đang có, (C) thông tin mất ở từng bước, (D) QC metric tính được không cần RGB, (E) metric chưa thể xác minh, (F) schema output, (G) thí nghiệm đúng/sai đầu tiên. Trước khi viết loader/metric mới, đối chiếu `improved_v1` với config/checkpoint thực tế và chọn prediction artifact chính. Không refactor hoặc huấn luyện model trong giai đoạn này.
+Thực hiện **P0–P1 trên skeleton MMASD**, theo [lịch 7 ngày](KE_HOACH_7_NGAY_SAN_PHAM_CHUAN_HOA_SKELETON.md). Đầu ra đầu tiên: `protocol.md`, manifest pilot/tuning/evaluation, schema/data dictionary, pipeline map và bảng khảo sát phương pháp. Sau đó triển khai quality/events → short-gap interpolation → một filter → conditional outlier correction → benchmark và báo cáo. Viewer hiển thị chính artifact pipeline xuất ra.
+
+Không yêu cầu video hoặc checkpoint để bắt đầu công việc cốt lõi này. Bất nhất checkpoint chỉ cần giải quyết trước phép kiểm chứng nhận dạng; việc chưa có RGB/3D metric đã xác minh phải được ghi trong giới hạn. Chưa huấn luyện mô hình nhận dạng mới trong tuần đầu.

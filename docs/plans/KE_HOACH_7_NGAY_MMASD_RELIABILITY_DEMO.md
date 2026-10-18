@@ -1,5 +1,7 @@
 # Kế hoạch 6–7 ngày: kiểm toán skeleton MMASD và demo nghiên cứu
 
+**Phương án sản phẩm cập nhật ngày 14/10/2026:** xem [kế hoạch 7 ngày chuẩn hóa skeleton](KE_HOACH_7_NGAY_SAN_PHAM_CHUAN_HOA_SKELETON.md) cho hướng web 2D/3D, raw/processed compare, dashboard và review người dùng vừa lựa chọn. Tài liệu dưới đây giữ phạm vi demo 2D trước đó để đối chiếu.
+
 **Trạng thái:** kế hoạch thực hiện; các ô trong bảng chưa đánh dấu là việc chưa hoàn thành.  
 **Thời gian:** 6 ngày làm phần cốt lõi, ngày 7 dành cho kiểm tra và hoàn thiện. Tính D1 từ ngày bắt đầu thực tế.  
 **Phạm vi chính:** MMASD OpenPose BODY_25 2D; phân tích ở cấp clip, frame và joint.  

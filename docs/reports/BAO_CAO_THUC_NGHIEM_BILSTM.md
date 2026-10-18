@@ -1,5 +1,7 @@
 # BÁO CÁO TỔNG KẾT THỰC NGHIỆM TỐI ƯU HÓA MÔ HÌNH BiLSTM TRÊN BỘ DỮ LIỆU MMASD
 
+> **Lưu ý đối chiếu ngày 18/10/2026:** đây là báo cáo lịch sử. Audit hiện tại xác nhận JSON/prediction/history/checkpoint của baseline có Macro-F1 **65,75%**, `improved_v1` (`romp_guided`) có accuracy **60,42%**, và `improved_v2_center60` có accuracy **81,63%**. Các giá trị 66,85%, 77,74% và 83,04% trong nội dung cũ chưa truy được về đúng artifact. Không dùng chuỗi số cũ để quy mức tăng cho Tracker V2. Xem [báo cáo rà soát và khóa pipeline](RA_SOAT_VA_KHOA_PIPELINE_MMASD.md) để biết nguồn đối chiếu và giới hạn, bao gồm checkpoint đối chứng V2 không còn khớp kết quả đã lưu.
+
 **Dự án**: Nghiên cứu Khoa học — Nhận diện Hành vi Trị liệu Vận động cho Trẻ Tự kỷ (ASD Action Recognition)  
 **Tập dữ liệu**: MMASD (Multimodal Autism Spectrum Disorder Dataset) — Phân hệ 2D OpenPose (`BODY_25`)  
 **Ngày hoàn thành**: 01/10/2026  

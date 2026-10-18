@@ -23,6 +23,8 @@ CODE_DIRS = (
 LOCAL_ONLY_DIRS = tuple(Path(name) for name in (
     "data_MMASD", "Data_DRYAD", "data_Dream",
     "checkpoints", "runs", "BiLSTM/checkpoints", "BiLSTM/runs",
+    "BiLSTM/artifacts/tracking_review_3d", "artifacts/visualizations",
+    "artifacts/dryad_msg3d/experiments",
     "MMASD-A-Multimodal-Dataset-for-Autism-Intervention-Analysis",
 ))
 LINK = re.compile(r"\]\(([^)]+)\)")
@@ -37,7 +39,7 @@ def main() -> None:
         except (SyntaxError, UnicodeError) as exc:
             errors.append(f"Python: {path.relative_to(ROOT)}: {exc}")
 
-    docs = [ROOT / "README.md", ROOT / "docs/README.md"]
+    docs = [ROOT / "README.md", *sorted((ROOT / "docs").glob("*.md"))]
     for section in ("plans", "reports"):
         docs.extend(sorted((ROOT / "docs" / section).glob("*.md")))
     docs = list(dict.fromkeys(docs))

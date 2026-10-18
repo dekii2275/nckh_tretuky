@@ -1,0 +1,78 @@
+# Standalone audit configuration; no base_config or classifier training.
+# Audit raw data using parse_clip -> select_person_track, BEFORE preprocess_clip.
+# data.preprocessing is the frozen historical reference for loader comparison.
+experiment: skeleton_audit_v0_2
+seed: 42
+
+data:
+  root: ../data_MMASD
+  skeleton_dir: 2D_skeleton/2D_openpose/output
+  modality: 2D OpenPose BODY_25
+  num_joints: 25
+  coordinates: 2
+  input_size: 50
+  cache_in_memory: false
+  preprocessing:
+    confidence_threshold: 0.1
+    missing_joint_strategy: interpolate
+    interpolation:
+      max_gap: null
+    shoulder_scale:
+      min_width_px: 5.0
+      fallback: torso
+    smoothing: false
+  smoothing_window: 3
+  scale_epsilon: 0.000001
+
+tracking:
+  mode: tracklet_v2
+  candidate_filter:
+    min_valid_joints: 10
+    min_torso_anchors: 4
+    min_diagonal_px: 50.0
+  matching:
+    weights:
+      center: 0.40
+      pose: 0.35
+      scale: 0.20
+      confidence: 0.05
+  gating:
+    max_normalized_centroid_distance: 0.50
+    max_scale_ratio: 1.80
+    max_pose_distance: 0.35
+    min_shared_joints: 6
+  tracks:
+    max_lost_frames: 3
+  target_selection:
+    coverage_weight: 0.45
+    valid_joints_weight: 0.20
+    confidence_weight: 0.15
+    continuity_weight: 0.10
+    scale_stability_weight: 0.05
+    low_fragmentation_weight: 0.05
+    use_size_prior: false
+    size_prior_weight: 0.02
+
+classes:
+  exclude: [frog_pose_fg]
+sequence:
+  mode: full_clip
+augmentation:
+  enabled: false
+
+audit:
+  observation_stage: selected_raw_before_preprocessing
+  parser_strict: true
+  preserve_source_frame_paths: true
+  preserve_raw_candidate_indices: true
+  target_role: unverified
+  fps: null
+  fps_status: unverified
+  topology: BODY_25
+  coordinate_space: image_xy
+  coordinate_units: source_image_coordinates
+  raw_dataset_scope: smoke_clips_only_not_full_dataset
+
+outputs:
+  artifacts_dir: ./artifacts/pipeline_audit_v0_2
+  split_dir: ./artifacts/splits/paper_repro

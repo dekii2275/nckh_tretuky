@@ -1,12 +1,26 @@
-# NCKH Trẻ tự kỷ – Skeleton-based Action Recognition
+# NCKH Trẻ tự kỷ – Chất lượng dữ liệu skeleton và phân tích hành vi
 
-Repo gồm hai nhánh thực nghiệm độc lập: nhận dạng hoạt động trị liệu trên skeleton MMASD bằng BiLSTM và phân tích gait/skeleton DRYAD bằng MSG3D. DREAM được dùng để nghiên cứu dữ liệu trị liệu và độ tin cậy của skeleton. Các bộ dữ liệu có nhãn và mục tiêu khác nhau; không gộp chúng thành một tác vụ phân loại.
+Hướng nghiên cứu hiện tại là **đánh giá, phát hiện và hiệu chỉnh lỗi dữ liệu khung xương của trẻ em**, kiểm chứng chủ yếu trên dữ liệu trẻ tự kỷ (ASD). Trước mắt dùng skeleton MMASD có sẵn; đánh giá khả năng phục hồi và bảo toàn chuyển động là trọng tâm, nhận dạng hành động là phép kiểm chứng bổ sung.
+
+Repo đã có hai nhánh thực nghiệm làm nền tảng: nhận dạng hoạt động trị liệu trên MMASD bằng BiLSTM và phân tích gait/skeleton DRYAD bằng MSG3D. DREAM được dùng để khảo sát dữ liệu trị liệu và độ tin cậy của skeleton. Các bộ dữ liệu có nhãn và mục tiêu khác nhau; không gộp chúng thành một tác vụ phân loại.
+
+## Tiến độ hiện tại
+
+**Cập nhật ngày 18/10/2026:** đã có pipeline nhận dạng MMASD, phân tích chất lượng đầu vào ban đầu và viewer review 2D/3D cho 120 clip. Mô hình đơn MMASD đạt accuracy 86,22%; stacking đạt 89,05% trên 283 clip **validation**. Pipeline phát hiện–hiệu chỉnh theo hướng nghiên cứu mới đang ở giai đoạn chuẩn bị, chưa có kết quả benchmark trước/sau.
+
+**Đã hoàn thành bước 1 — rà soát và khóa pipeline quan sát:** cố định OpenPose BODY_25 2D + Tracklet V2, đo trước tiền xử lý; kiểm tra trên 3 clip thật / 470 frame và 22 kiểm thử. Có [báo cáo pipeline và đối chiếu số liệu](docs/reports/RA_SOAT_VA_KHOA_PIPELINE_MMASD.md), cấu hình độc lập và snapshot hash. Bước tiếp theo là chọn pilot 20–50 clip; split cũ chỉ tách phiên, vẫn có 13 subject ID chung giữa train/validation.
+
+**Nhánh phát triển nghiên cứu:** `research/skeleton-reliability`. Script audit đã được chia thành các hàm đọc dữ liệu, đối chiếu thực nghiệm, smoke test và kiểm tra snapshot; mặc định dùng [cấu hình v0.2](BiLSTM/configs/skeleton_audit_v0_2.yaml). Snapshot v0.1 được giữ làm lịch sử. Xem [quy trình phát triển và kiểm tra](docs/DEVELOPMENT.md) trước khi cập nhật code/kết quả.
+
+Xem [tiến độ nghiên cứu và nhật ký cập nhật](docs/reports/TIEN_DO_NGHIEN_CUU.md) để biết những việc đã làm, bằng chứng, hạn chế và bước tiếp theo. Sau mỗi đợt công việc có thay đổi về tiến độ hoặc kết quả, cập nhật trạng thái và thêm mục nhật ký trong trang này; đồng bộ phần tóm tắt README khi có mốc mới. Chỉ ghi hoàn thành khi đã có đầu ra và kiểm chứng tương ứng.
 
 ## Bắt đầu từ đâu
 
 | Nhu cầu | Vị trí |
 |---|---|
 | Chỉ mục tài liệu | [docs/README.md](docs/README.md) |
+| Đã làm được gì, kết quả và việc tiếp theo | [Tiến độ nghiên cứu](docs/reports/TIEN_DO_NGHIEN_CUU.md) |
+| Nhánh nghiên cứu, chạy audit và kiểm tra | [Quy trình phát triển](docs/DEVELOPMENT.md) |
 | Kế hoạch hướng nghiên cứu hiện tại | [docs/plans/](docs/plans/) |
 | Pipeline MMASD, config, kiểm thử và hướng dẫn chạy | [BiLSTM/README.md](BiLSTM/README.md) |
 | Script chuẩn bị/audit DRYAD | [tools/](tools/) |
